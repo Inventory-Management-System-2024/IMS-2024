@@ -1,4 +1,4 @@
-import mongoose, { Schema, Model } from "mongoose";
+import mongoose from "mongoose";
 const OrderSchema = new mongoose.Schema({
     user: {
         type: mongoose.Schema.ObjectId,
