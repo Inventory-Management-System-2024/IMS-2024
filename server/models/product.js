@@ -1,4 +1,4 @@
-import { Schema, Model } from "mongoose";
+import mongoose from "mongoose";
 
 const ProductSchema = new mongoose.Schema({
     productName: {
@@ -34,6 +34,6 @@ const ProductSchema = new mongoose.Schema({
         type: Number,
         required: [true, "please enter product stoke"],
     },
-});
+},{ timestamps: true });
 
-export const Product = mongoose.Model("product", ProductSchema);
+export const Product = mongoose.model("product", ProductSchema);
