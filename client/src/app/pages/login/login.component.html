@@ -1,0 +1,21 @@
+<div class="login-form">
+    <form [formGroup]="loginForm" (ngSubmit)="getUser(em.value,pw.value)">
+        <h1>LOGIN</h1>
+        <div class="content">
+            <div class="input-field">
+                <input type="email" placeholder="Email" formControlName="email" #em>
+                <span style="color: red;" *ngIf="user && user.invalid && user.touched">Please Enter valid
+                    email</span>
+            </div>
+            <div class="input-field">
+                <input type="password" placeholder="Password" formControlName="password" #pw>
+                <span style="color: red" *ngIf="pass && pass.invalid && pass.touched">Minimum 8 Characters required.
+                    <br>1 Uppercase<br>1 lowercase </span>
+            </div>
+        </div>
+        <div class="action">
+            <button type="submit" [disabled]="loginForm.invalid"> Login
+            </button>
+        </div>
+    </form>
+</div>
