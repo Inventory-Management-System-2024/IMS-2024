@@ -1,0 +1,45 @@
+<div>
+  <div class="row m-4">
+    <div *ngFor="let item of arr;" class="col-sm-2">
+      <div class="card ml-4 d-flex flex-column">
+        <div class="card-body">
+          <h5 class="card-title"><b>{{item.property}}</b></h5>
+          <span class="card-text">{{item.price}}</span>
+        </div>
+      </div>
+    </div>
+</div>
+<div class="data-table m-4">
+<h4>Customer Data Table</h4>
+  <table class="table table-bordered" style="width: 500px;">
+    <thead>
+      <tr>
+        <th scope="col">Date</th>
+        <th scope="col">Customer</th>
+        <th scope="col">Status</th>
+        <th scope="col">Grand Price</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td>Mark</td>
+        <td>Otto</td>
+        <td>mdo</td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>Mark</td>
+        <td>Otto</td>
+        <td>mdo</td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>Mark</td>
+        <td>Otto</td>
+        <td>mdo</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+</div>
