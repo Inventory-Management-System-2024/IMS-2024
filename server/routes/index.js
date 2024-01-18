@@ -1,5 +1,5 @@
-import express from "express"
+import { user_router } from "./user";
 
 
-const router = express.Router()
 
+export {user_router}
