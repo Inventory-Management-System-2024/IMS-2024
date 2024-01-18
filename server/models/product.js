@@ -34,6 +34,6 @@ const ProductSchema = new mongoose.Schema({
         type: Number,
         required: [true, "please enter product stoke"],
     },
-});
+},{ timestamps: true });
 
 export const Product = mongoose.Model("product", ProductSchema);
