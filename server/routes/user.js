@@ -1,11 +1,11 @@
 import express from "express"
-import { createUser } from "../controller/user"
+import { createUser } from "../controller/user.js"
 
 
 let user_router = express.Router()
 
 
-user_router.post("register",createUser)
+user_router.post("/register",createUser)
 
 
 
