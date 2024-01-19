@@ -1,5 +1,8 @@
-import Order from "./order";
-import Product from "./product";
-import User from "./user";
+
+import {Order} from "./order.js";
+
+import {Product} from "./product.js";
+import {User} from "./user.js";
+
 
 export { Order, Product, User };
