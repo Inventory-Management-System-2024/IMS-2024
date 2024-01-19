@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
 
+
 const addressSchema = new mongoose.Schema({
     address_line_1: {
         type: String,
@@ -23,6 +24,7 @@ const addressSchema = new mongoose.Schema({
         required: [true,"pincode is required"],
     }
 });
+
 
 
 
