@@ -1,29 +1,39 @@
-<div class="text-center m-5 border">
-  <h2 class="m-3 text-primary">Add Product</h2>
-  <form (ngSubmit)="onSubmit()" #productForm="ngForm">
-    <label for="productName">Product Name:</label>
-    <input type="text" id="productName" name="productName" [(ngModel)]="product.productName" required>
-<br/><br/>
-    <label for="description">Description:</label>
-    <textarea id="description" name="description" [(ngModel)]="product.description" required></textarea>
-    <br/><br/>
+<div class="text-center m-4 border" >
+  <h4>Add Product</h4>
+  <form (ngSubmit)="onSubmit()" #productForm="ngForm" class="product-form field">
+    <mat-form-field class="fields" >
+      <mat-label>Product Name</mat-label>
+      <input matInput type="text" id="productName" name="productName" [(ngModel)]="product.productName" required>
+    </mat-form-field>
+    <mat-form-field class="fields">
+      <mat-label>Description:</mat-label>
+      <input matInput id="description" name="description" [(ngModel)]="product.description" required>
+    </mat-form-field>
 
-    <label for="price">Price:</label>
-    <input type="number" id="price" name="price" [(ngModel)]="product.price" required>
-    <br/><br/>
+    <mat-form-field class="fields">
+      <mat-label>Price:</mat-label>
+      <input matInput type="number" id="price" name="price" [(ngModel)]="product.price" required>
+    </mat-form-field>
+<div class="upload">
+<label>Product Image: </label>
+    <div class="mb-3 fields file btn  btn-primary "style="width:50%" id="abc">
+Browse File
+      <input type="file" name="file"/>
+    </div>
+  </div>
 
-    <label for="image">Image:</label>
-    <input type="file" id="image" name="image" [(ngModel)]="product.image" accept="image/*" required>
-    <br/><br/>
+    <mat-form-field class="fields">
+      <mat-label>Category:</mat-label>
+      <input matInput type="text" id="category" name="category" [(ngModel)]="product.category" required>
+    </mat-form-field>
 
-    <label for="category">Category:</label>
-    <input type="text" id="category" name="category" [(ngModel)]="product.category" required>
-    <br/><br/>
+    <mat-form-field class="fields">
+      <mat-label>Stock:</mat-label>
+      <input matInput type="number" id="stock" name="stock" [(ngModel)]="product.stock" required>
+    </mat-form-field>
 
-    <label for="stock">Stock:</label>
-    <input type="number" id="stock" name="stock" [(ngModel)]="product.stock" required>
-    <br/><br/>
 
-    <button type="submit" [disabled]="productForm.invalid" class="btn btn-primary">Submit</button>
+    <br/><br/>
+    <button mat-raised-button color="primary">Submit</button>
   </form>
 </div>
