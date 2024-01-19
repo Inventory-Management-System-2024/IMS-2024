@@ -3,36 +3,36 @@ const OrderSchema = new mongoose.Schema({
     user: {
         type: mongoose.Schema.ObjectId,
         ref: "User",
-        required: true,
+        required: [true, "User is required"],
     },
     orderItems: [
         {
             
             quantity: {
                 type: Number,
-                required: true,
+                required: [true, "Quantity is required"],
             },
             
             product: {
                 type: mongoose.Schema.ObjectId,
                 ref: "Product",
-                required: true,
+                required: [true, "product id is required"],
             },
         },
     ],
     orderStatus: {
         type: String,
-        required: true,
+        required: [true, "OrderStatus is required"],
         default: "Processing",
     },
     totalPrice: {
         type: Number,
         default: 0,
-        required: true,
+        required: [true, "total price is required"],
     },
     paidAt: {
         type: Date,
-        required: true,
+        required: [true, "paid At is required"],
     },
 },{ timestamps: true });
 export const Order = mongoose.model("Order", OrderSchema);

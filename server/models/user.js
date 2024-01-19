@@ -1,31 +1,28 @@
 import mongoose from "mongoose";
-<<<<<<< HEAD
-=======
 
 const addressSchema = new mongoose.Schema({
     address_line_1: {
         type: String,
-        required: true,
+        required: [true, "address line one is required"],
     },
     city: {
         type: String,
-        required: true,
+        required: [true, "city is required"],
     },
     state: {
         type: String,
-        required: true,
+        required: [true, "state is required"],
     },
     country: {
         type: String,
-        required: true,
+        required: [true, "country is required"],
     },
     pinCode: {
         type: Number,
-        required: true,
+        required: [true,"pincode is required"],
     }
 });
 
->>>>>>> 84f55448d2376347bb142ffd2076b4dfcd70df4d
 
 const UserSchema = new mongoose.Schema({
     name: {
@@ -53,7 +50,7 @@ const UserSchema = new mongoose.Schema({
     },
     phoneNo: {
         type: Number,
-        required: true,
+        required: [true, "phone No is required"],
     },
 },{ timestamps: true });
 
