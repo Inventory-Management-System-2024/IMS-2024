@@ -1,31 +1,4 @@
 import mongoose from "mongoose";
-<<<<<<< HEAD
-=======
-
-const addressSchema = new mongoose.Schema({
-    address_line_1: {
-        type: String,
-        required: true,
-    },
-    city: {
-        type: String,
-        required: true,
-    },
-    state: {
-        type: String,
-        required: true,
-    },
-    country: {
-        type: String,
-        required: true,
-    },
-    pinCode: {
-        type: Number,
-        required: true,
-    }
-});
-
->>>>>>> 84f55448d2376347bb142ffd2076b4dfcd70df4d
 
 const addressSchema = new mongoose.Schema({
     address_line_1: {
