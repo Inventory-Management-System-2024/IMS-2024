@@ -26,8 +26,8 @@ const addressSchema = new mongoose.Schema({
   },
 });
 
-
-const UserSchema = new mongoose.Schema({
+const UserSchema = new mongoose.Schema(
+  {
     name: {
       type: String,
       required: [true, "please enter your name"],
@@ -49,12 +49,14 @@ const UserSchema = new mongoose.Schema({
       default: "user",
     },
     address: {
-        type : addressSchema,
+      type: addressSchema,
     },
     phoneNo: {
-        type: Number,
-        required: [true, "phone No is required"],
+      type: Number,
+      required: [true, "phone No is required"],
     },
+  },
+);
 },{ timestamps: true });
 
 
