@@ -1,38 +1,22 @@
-import express from 'express';
-import jwt from 'jsonwebtoken';
+import jwt from "jsonwebtoken";
+import env from "dotenv";
+env.config();
 
+const IsAuth = async (req, res, next) => {
+  const authHeader = req.headers["authorization"];
+  const token = authHeader && authHeader.split(" ")[1];
 
-const app = express();
-
-
-const secretKey = "your-secret-key";
-
-const dummyToken = jwt.sign({ id: 1, username: "user" }, secretKey);
-   
-const authenticate = (req, res, next) => {
-  const token = req.header("Authorization");
   if (!token) {
-    return res.status(401).send("No token provided");
+    return res.status(401).json({ message: "Missing authentication token" });
   }
-  jwt.verify(token, secretKey, (err, decoded) => {
+
+  jwt.verify(token, env.SECRET_KEY, (err, decoded) => {
     if (err) {
-      return res.status(401).send("Invalid token");
+      return res.status(403).json({ message: "Invalid authentication token" });
     }
+    req.user = decoded;
     next();
   });
 };
 
-// app.get("/", (req, res) => {
-//   res.send("Hello, World! (No authentication required)");
-// });
-
-app.get("/secure", authenticate, (req, res) => {
-  res.send("You have access to this secure route!");
-});
-
-app.get("/getDummyToken", (req, res) => {
-  res.json({ token: dummyToken });
-});
-
-export default authenticate;
-
+export { IsAuth };
