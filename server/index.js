@@ -12,6 +12,7 @@ app.use(express.json())
 
 app.use(user_router)
 
+
 app.listen(3000,()=>{
     console.log("Listening on 3000")
 })
