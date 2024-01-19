@@ -11,6 +11,8 @@ const OrderSchema = new mongoose.Schema({
             quantity: {
                 type: Number,
                 required: [true, "Quantity is required"],
+                required: true,
+
             },
             
             product: {
