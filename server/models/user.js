@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 <<<<<<< HEAD
 =======
 
+
 const addressSchema = new mongoose.Schema({
     address_line_1: {
         type: String,
@@ -26,6 +27,7 @@ const addressSchema = new mongoose.Schema({
 });
 
 >>>>>>> 84f55448d2376347bb142ffd2076b4dfcd70df4d
+
 
 const UserSchema = new mongoose.Schema({
     name: {
