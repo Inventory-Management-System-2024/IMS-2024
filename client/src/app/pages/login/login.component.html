@@ -1,21 +1,38 @@
-<div class="login-form">
-    <form [formGroup]="loginForm" (ngSubmit)="getUser(em.value,pw.value)">
-        <h1>LOGIN</h1>
-        <div class="content">
-            <div class="input-field">
-                <input type="email" placeholder="Email" formControlName="email" #em>
-                <span style="color: red;" *ngIf="user && user.invalid && user.touched">Please Enter valid
-                    email</span>
-            </div>
-            <div class="input-field">
-                <input type="password" placeholder="Password" formControlName="password" #pw>
-                <span style="color: red" *ngIf="pass && pass.invalid && pass.touched">Minimum 8 Characters required.
-                    <br>1 Uppercase<br>1 lowercase </span>
-            </div>
+<div class="login-body">
+    <form class="form" [formGroup]="loginForm" (ngSubmit)="getUser(em.value,pw.value)">
+        <img src="../../../assets/images/logo.JPG" alt="logo" height="100" width="130" style="margin: auto;">
+        <div>
+            <span style="color: red;text-align: center;"
+                *ngIf="(user && user.invalid && user.touched) || (pass && pass.invalid && pass.touched)">Invalid
+                Username
+                or password</span>
         </div>
-        <div class="action">
-            <button type="submit" [disabled]="loginForm.invalid"> Login
-            </button>
+        <div class="flex-column">
+            <label>Email </label>
         </div>
+        <div class="inputForm">
+            <input type="text" class="input" placeholder="Enter your Email" formControlName="email" #em>
+        </div>
+
+
+        <div class="flex-column">
+            <label>Password </label>
+        </div>
+        <div class="inputForm">
+            <input type="{{showPassword ? 'text' : 'password'}}" id="pswd" class="input"
+                placeholder="Enter your Password" formControlName="password" #pw>
+            <i (click)="togglePassword()" style="font-size:24px" class="fa toggle">&#xf06e;</i>
+        </div>
+
+        <div class="flex-row">
+            <div>
+                <input type="checkbox">
+                <label>&ensp;Remember me </label>
+            </div>
+            <span class="span">Forgot password?</span>
+        </div>
+        <button type="submit" [disabled]="loginForm.invalid" class="button-submit"
+            (click)="getUser(em.value,pw.value)">Sign In</button>
+        <p class="p">Don't have an account? <span (click)="signUp()" class="span">Sign Up</span></p>
     </form>
 </div>

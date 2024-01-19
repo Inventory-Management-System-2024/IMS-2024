@@ -11,30 +11,33 @@ import { CommonModule } from '@angular/common';
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
-  public email: string = "";
-  public password: string = "";
+
+  public showPassword: boolean = false;
   constructor(private route: Router) { }
   getUser(_email: string, _password: string) {
-    this.email = _email;
-    this.password = _password;
-    // if (_email == "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$" && _password == "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$") {
-    // console.warn(_password);
-
     console.log("Logged in Successfully");
-    this.route.navigate(['home']);
-    // } else {
-    //   alert("Invalid Credentials");
-    // }
+    if (_email != "" && _password != "") {
+      alert("Login SuccessFull");
+      this.route.navigate(['dashboard']);
+    } else {
+      alert("Invalid Username or Password!")
+    }
+
+  }
+  signUp() {
+    this.route.navigate(['register']);
   }
   loginForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required, Validators.pattern("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,10}$")])
   });
 
+  togglePassword(): void {
+    this.showPassword = !this.showPassword;
+  }
+
 
   get pass() {
-    // console.warn();
-
     return this.loginForm.get('password');
   }
   get user() {
