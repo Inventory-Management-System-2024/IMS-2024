@@ -1,7 +1,10 @@
-import express from "express";
+import express from "express"
 
-const router = express.Router();
+
+const router = express.Router()
 
 import { user_router } from "./user.js";
 
-export { user_router };
+
+
+export {user_router}

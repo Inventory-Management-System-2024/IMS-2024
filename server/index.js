@@ -7,10 +7,10 @@ import auth from "./utils/middleware/auth.js";
 env.config();
 const app = express();
 
-app.use(express.json());
+app.use(express.json())
 // app.use(auth)
 
-app.use(user_router);
+app.use(user_router)
 
 app.listen(3000, () => {
   console.log("Listening on 3000");

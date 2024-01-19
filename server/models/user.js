@@ -46,14 +46,13 @@ const UserSchema = new mongoose.Schema(
       default: "user",
     },
     address: {
-      type: addressSchema,
+        type : addressSchema,
     },
     phoneNo: {
-      type: Number,
-      required: [true, "phone No is required"],
+        type: Number,
+        required: [true, "phone No is required"],
     },
-  },
-  { timestamps: true }
-);
+},{ timestamps: true });
+
 
 export const User = mongoose.model("user", UserSchema);
