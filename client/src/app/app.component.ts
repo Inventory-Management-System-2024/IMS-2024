@@ -7,6 +7,9 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { ProductsComponent } from './pages/products/products.component';
 import { AddProductComponent } from './pages/add-product/add-product.component';
 import { ProductListComponent } from './pages/product-list/product-list.component';
+import { RegisterComponent } from './pages/register/register.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+
 
 @Component({
   selector: 'app-root',
