@@ -1,8 +1,5 @@
 import mongoose from "mongoose";
 
-
-
-
 const addressSchema = new mongoose.Schema({
   address_line_1: {
     type: String,
@@ -56,8 +53,7 @@ const UserSchema = new mongoose.Schema(
       required: [true, "phone No is required"],
     },
   },
+  { timestamps: true }
 );
-},{ timestamps: true });
-
 
 export const User = mongoose.model("user", UserSchema);
