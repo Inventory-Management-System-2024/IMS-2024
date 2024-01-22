@@ -53,7 +53,10 @@ const UserSchema = new mongoose.Schema(
       required: [true, "phone No is required"],
     },
   },
-{ timestamps: true });
+
+);
+},{ timestamps: true });
+
 
 
 export const User = mongoose.model("user", UserSchema);
