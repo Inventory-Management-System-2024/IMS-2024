@@ -1,1 +1,46 @@
-<p>register works!</p>
+<div class="login-body">
+    <form class="form" [formGroup]="registerForm"
+        (ngSubmit)="registerUser(fname.value,em.value,cont.value,pw.value,confpass.value)">
+        <img src="../../../assets/images/logo.JPG" alt="logo" height="80" width="120" style="margin: auto;">
+        <div class="flex-column">
+            <label>Name </label>
+        </div>
+        <div class="inputForm">
+            <input type="text" class="input" placeholder="Enter your Name" formControlName="name" #fname>
+        </div>
+        <div class="flex-column">
+            <label>Email </label>
+        </div>
+        <div class="inputForm">
+            <input type="text" class="input" placeholder="Enter your Email" formControlName="email" #em>
+        </div>
+
+        <div class="flex-column">
+            <label>Contact </label>
+        </div>
+        <div class="inputForm">
+            <input type="tel" class="input" placeholder="Enter your Contact" formControlName="contact" #cont>
+        </div>
+        <div class="flex-column">
+            <label>Password </label>
+        </div>
+        <div class="inputForm">
+            <input type="{{showPassword ? 'text' : 'password'}}" class="input" placeholder="Enter your Password"
+                formControlName="password" #pw>
+            <i (click)="togglePassword()" style="font-size:24px" class="fa toggle">&#xf06e;</i>
+        </div>
+        <div class="flex-column">
+            <label>Confirm Password </label>
+        </div>
+        <div class="error-message" *ngIf="registerForm?.errors?.['misMatch'] && registerForm?.touched">
+            Password Must Match</div>
+        <div class="inputForm">
+            <input type="{{showPassword ? 'text' : 'password'}}" class="input" placeholder="Confirm Password"
+                formControlName="cpw" #confpass>
+            <i (click)="togglePassword()" style="font-size:24px" class="fa toggle">&#xf06e;</i>
+        </div>
+
+        <button type="submit" class="button-submit">Register</button>
+
+    </form>
+</div>
