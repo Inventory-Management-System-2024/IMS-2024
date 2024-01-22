@@ -1,0 +1,36 @@
+.product-form{
+  min-width: 100px;
+  max-width: 500px;
+  margin:30px;
+/* display: inline; */
+}
+.fields {
+  /* display:inline-block; */
+  width: 85%;
+}
+h4{
+color: #283593;
+margin: 20px;
+}
+.field{
+margin-left: 34%;
+}
+button{
+width:200px;
+}
+#abc {
+  position: relative;
+  overflow: hidden;
+}
+#abc input {
+  position: absolute;
+  font-size: 30px;
+  opacity: 0;
+  right: 0;
+  top: 0;
+}
+.upload label{
+  margin-right: 46px;
+  font-size: 19px;
+  color:rgb(139, 139, 139);
+}
