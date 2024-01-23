@@ -97,6 +97,7 @@ export const login = ErrorHandler(async (req,res)=>{
         if (user && user.password==req.body.password) {
             let token = jwt.sign(req.body.email, process.env.SECRET_KEY)
             res.header('Authorization', 'Bearer '+token);
+            res.end()
         } else {
             let doc = new User(req.body);
             await doc.save();
