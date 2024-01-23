@@ -1,18 +1,17 @@
 import { User } from "../models/index.js";
 import dbConnect from "../db/index.js";
 import { ErrorHandler } from "../utils/index.js";
-
-
+import jwt from "jsonwebtoken"
 
 export const createUser = ErrorHandler(async (req, res) => {
     try {
         await dbConnect();
-        let user = await User.findOne({ email: req.body.user.email });
+        let user = await User.findOne({ email: req.body.email });
         if (user) {
             res.setHeader('Content-Type', 'application/json');
             res.end(JSON.stringify({message : "User already exists"}));
         } else {
-            let doc = new User(req.body.user);
+            let doc = new User(req.body);
             await doc.save();
             res.setHeader('Content-Type','application/json')
             res.end(JSON.stringify({message:"Succesfully added user"}));
@@ -90,3 +89,21 @@ export const getAllUser = ErrorHandler(async (req,res)=>{
     }   
 })
 
+
+export const login = ErrorHandler(async (req,res)=>{
+    try {
+        await dbConnect();
+        let user = await User.findOne({ email: req.body.email });
+        if (user && user.password==req.body.password) {
+            let token = jwt.sign(req.body.email, process.env.SECRET_KEY)
+            res.header('Authorization', 'Bearer '+token);
+        } else {
+            let doc = new User(req.body);
+            await doc.save();
+            res.setHeader('Content-Type','application/json')
+            res.end(JSON.stringify({message:"Invalid credentials."}));
+        }
+    } catch (e) {
+        throw new Error(e.toString())
+    }
+})

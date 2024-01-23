@@ -1,8 +1,13 @@
 import express from "express"
 import {createOrder, getOrder, updateOrder, deleteOrder, getOrders} from "../controller/order.js"
+import authenticate from "../utils/middleware/auth.js"
 
 
 const order_router = express.Router()
+
+
+order_router.use(authenticate)
+
 
 order_router.get("/orders",getOrders)
 order_router.post("/order", createOrder)
