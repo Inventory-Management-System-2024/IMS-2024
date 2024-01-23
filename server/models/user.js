@@ -69,12 +69,12 @@ const UserSchema = new mongoose.Schema(
       type: addressSchema,
     },
     phoneNo: {
-      type: Number,
+      type: String,
       required: [true, "phone No is required"],
     },
-  },
+  
 
-);
+
 },{ timestamps: true });
 
 

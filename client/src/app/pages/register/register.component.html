@@ -1,6 +1,6 @@
 <div class="login-body">
-    <form class="form" [formGroup]="registerForm"
-        (ngSubmit)="registerUser(fname.value,em.value,cont.value,pw.value,confpass.value)">
+    <form class="form" [formGroup]="registerForm" #reg="ngForm"
+        (ngSubmit)="postUser(reg.value)">
         <img src="../../../assets/images/logo.JPG" alt="logo" height="80" width="120" style="margin: auto;">
         <div class="flex-column">
             <label>Name </label>
@@ -19,7 +19,7 @@
             <label>Contact </label>
         </div>
         <div class="inputForm">
-            <input type="tel" class="input" placeholder="Enter your Contact" formControlName="contact" #cont>
+            <input type="tel" class="input" placeholder="Enter your Contact" formControlName="phoneNo" #cont>
         </div>
         <div class="flex-column">
             <label>Password </label>
