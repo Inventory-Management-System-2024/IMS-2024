@@ -73,7 +73,10 @@ const UserSchema = new mongoose.Schema(
       required: [true, "phone No is required"],
     },
   },
-{ timestamps: true });
+
+);
+},{ timestamps: true });
+
 
 
 
