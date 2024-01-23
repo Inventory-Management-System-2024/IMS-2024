@@ -3,7 +3,9 @@ function ErrorHandler(controllerFunction){
         try {
           await Promise.resolve(controllerFunction(req, res));
         } catch (error) {
-          next(error);
+          res.setHeader('Content-type', 'application/json')
+          res.end(JSON.stringify({errMessage: error.toString()}))
+          // next(error);
         }
       };
 }
