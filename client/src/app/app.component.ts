@@ -10,6 +10,7 @@ import { ProductListComponent } from './pages/product-list/product-list.componen
 import { RegisterComponent } from './pages/register/register.component';
 
 
+
 @Component({
   selector: 'app-root',
   standalone: true,
