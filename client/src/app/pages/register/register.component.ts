@@ -1,5 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
 
 import {
   FormControl,
@@ -8,12 +13,18 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { Router } from '@angular/router';
-import { RegisterService } from '../../shared/services/register.service';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [
+    ReactiveFormsModule,
+    CommonModule,
+    MatButtonModule,
+    MatInput,
+    MatInputModule,
+    MatFormFieldModule,
+  ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css',
 })
@@ -24,24 +35,24 @@ export class RegisterComponent {
   public contact!: string;
   public password!: string;
   public confirmPassword!: string;
-  constructor(private _registerService: RegisterService) {}
+  constructor(private route: Router) {}
 
   registerUser(
     _name: string,
     _email: string,
-    _cont: string,
+    _phone: string,
     _passwd: string,
     _confPass: string
   ) {
     this.name = _name;
     this.email = _email;
-    this.contact = _cont;
+    this.contact = _phone;
     this.password = _passwd;
     this.confirmPassword = _confPass;
     if (
       _name != '' &&
       _email != '' &&
-      _cont != '' &&
+      _phone != '' &&
       _passwd != '' &&
       _confPass != ''
     ) {
@@ -70,10 +81,5 @@ export class RegisterComponent {
   });
   togglePassword() {
     this.showPassword = !this.showPassword;
-  }
-
-  postUser(user: any) {
-    this._registerService.register(user).subscribe((res) => console.log(res));
-    console.log(user);
   }
 }

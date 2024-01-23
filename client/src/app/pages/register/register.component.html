@@ -1,46 +1,55 @@
+<!-- Import necessary Material-UI modules in your component's stylesheet -->
+
+
+<!-- Include the following components in your HTML template -->
 <div class="login-body">
-    <form class="form" [formGroup]="registerForm" #reg="ngForm"
-        (ngSubmit)="postUser(reg.value)">
-        <img src="../../../assets/images/logo.JPG" alt="logo" height="80" width="120" style="margin: auto;">
-        <div class="flex-column">
-            <label>Name </label>
-        </div>
-        <div class="inputForm">
-            <input type="text" class="input" placeholder="Enter your Name" formControlName="name" #fname>
-        </div>
-        <div class="flex-column">
-            <label>Email </label>
-        </div>
-        <div class="inputForm">
-            <input type="text" class="input" placeholder="Enter your Email" formControlName="email" #em>
-        </div>
+  <form class="form" [formGroup]="registerForm" (ngSubmit)="registerUser(fname.value, em.value, cont.value, pw.value, confpass.value)">
+    <img src="../../../assets/images/logo.JPG" alt="logo" height="80" width="120" style="margin: auto;">
 
-        <div class="flex-column">
-            <label>Contact </label>
-        </div>
-        <div class="inputForm">
-            <input type="tel" class="input" placeholder="Enter your Contact" formControlName="phoneNo" #cont>
-        </div>
-        <div class="flex-column">
-            <label>Password </label>
-        </div>
-        <div class="inputForm">
-            <input type="{{showPassword ? 'text' : 'password'}}" class="input" placeholder="Enter your Password"
-                formControlName="password" #pw>
-            <i (click)="togglePassword()" style="font-size:24px" class="fa toggle">&#xf06e;</i>
-        </div>
-        <div class="flex-column">
-            <label>Confirm Password </label>
-        </div>
-        <div class="error-message" *ngIf="registerForm?.errors?.['misMatch'] && registerForm?.touched">
-            Password Must Match</div>
-        <div class="inputForm">
-            <input type="{{showPassword ? 'text' : 'password'}}" class="input" placeholder="Confirm Password"
-                formControlName="cpw" #confpass>
-            <i (click)="togglePassword()" style="font-size:24px" class="fa toggle">&#xf06e;</i>
-        </div>
+    <div class="flex-column">
+      <mat-form-field class="inputForm">
+        <input matInput type="text" placeholder="Full Name" formControlName="name" #fname>
+      </mat-form-field>
+    </div>
 
-        <button type="submit" class="button-submit">Register</button>
+    <div class="flex-column">
+      <mat-form-field class="inputForm">
+        <input matInput type="text" placeholder="Email Address" formControlName="email" #em>
+      </mat-form-field>
+    </div>
 
-    </form>
+    <div class="flex-column">
+      <mat-form-field class="inputForm">
+        <mat-label>Phone No</mat-label>
+        <mat-icon matPrefix>phone</mat-icon>
+        <input matInput type="tel" placeholder="Phone No" formControlName="phoneNo" #cont>
+      </mat-form-field>
+    </div>
+
+    <div class="flex-column">
+      <mat-form-field class="inputForm">
+        <mat-label>Password</mat-label>
+        <mat-icon matPrefix>lock</mat-icon>
+        <input matInput [type]="showPassword ? 'text' : 'password'" placeholder="Password" formControlName="password" #pw>
+        <mat-icon matSuffix (click)="togglePassword()">visibility</mat-icon>
+      </mat-form-field>
+    </div>
+
+    <div class="flex-column">
+      <div class="error-message" *ngIf="registerForm?.errors?.['misMatch'] && registerForm?.touched">
+        Password Must Match
+      </div>
+    </div>
+
+    <div class="flex-column">
+      <mat-form-field class="inputForm">
+        <mat-label>Confirm Password</mat-label>
+        <mat-icon matPrefix>lock</mat-icon>
+        <input matInput [type]="showPassword ? 'text' : 'password'" placeholder="Confirm Password" formControlName="cpw" #confpass>
+        <mat-icon matSuffix (click)="togglePassword()">visibility</mat-icon>
+      </mat-form-field>
+    </div>
+
+    <button mat-raised-button type="submit" class="button-submit">Register</button>
+  </form>
 </div>
