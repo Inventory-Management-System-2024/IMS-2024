@@ -21,6 +21,7 @@ const addressSchema = new mongoose.Schema({
   pinCode: {
     type: Number,
     required: [true, "pincode is required"],
+
   }
 });
 
