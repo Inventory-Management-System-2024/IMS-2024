@@ -21,27 +21,8 @@ const addressSchema = new mongoose.Schema({
   pinCode: {
     type: Number,
     required: [true, "pincode is required"],
-  },
-    address_line_1: {
-        type: String,
-        required: [true, "address line one is required"],
-    },
-    city: {
-        type: String,
-        required: [true, "city is required"],
-    },
-    state: {
-        type: String,
-        required: [true, "state is required"],
-    },
-    country: {
-        type: String,
-        required: [true, "country is required"],
-    },
-    pinCode: {
-        type: Number,
-        required: [true,"pincode is required"],
-    }
+
+  }
 });
 
 
@@ -50,8 +31,8 @@ const UserSchema = new mongoose.Schema({
     name: {
       type: String,
       required: [true, "please enter your name"],
-      maxLength: [30, "name length cannot exceed 30 character"],
-      minLength: [4, "name length should be greater than 4"],
+      maxLength: [50, "name length cannot exceed 50 character"],
+      minLength: [3, "name length should be greater than 3"],
     },
     email: {
       type: String,
@@ -75,8 +56,6 @@ const UserSchema = new mongoose.Schema({
       required: [true, "phone No is required"],
     },
 },{ timestamps: true });
-
-
 
 
 
