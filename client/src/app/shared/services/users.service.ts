@@ -11,7 +11,7 @@ export class UsersService {
   constructor(private http : HttpClient) { }
 
   getAllUsers(): Observable<any[]> {
-    return this.http.get<any[]>(this._url);
+    return this.http.get<any[]>(`${this._url}s`,{headers:{"Authorization":"Bearer eyJhbGciOiJIUzI1NiJ9.amF5QGdtYWlsLmNvbQ.TFD4-NTMYndZidUHXAcde3WCHHSNIluVFmEA6Pdh-vk"}});
   }
 
   getUser(id: number): Observable<any>{
@@ -23,6 +23,6 @@ export class UsersService {
   }
 
   deleteUser(id : number): Observable<any>{
-    return this.http.delete<any>(`${this._url}/${id}`);
+    return this.http.delete<any>(`${this._url}/${id}`,{headers:{"Authorization":"Bearer eyJhbGciOiJIUzI1NiJ9.amF5QGdtYWlsLmNvbQ.TFD4-NTMYndZidUHXAcde3WCHHSNIluVFmEA6Pdh-vk"}});
   }
 }
