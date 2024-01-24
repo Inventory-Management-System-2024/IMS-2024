@@ -53,6 +53,7 @@ const UserSchema = new mongoose.Schema({
     },
     phoneNo: {
       type: String,
+      type: String,
       required: [true, "phone No is required"],
     },
 },{ timestamps: true });
