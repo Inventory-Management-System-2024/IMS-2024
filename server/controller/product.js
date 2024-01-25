@@ -1,6 +1,7 @@
 import dbConnect from "../db/index.js";
 import { Product } from "../models/index.js";
 import { ErrorHandler } from "../utils/handler.js";
+import { cloudinary } from "./../utils/cloudinary.js";
 
 export const getAllProducts = ErrorHandler(async (req, res) => {
   try {
@@ -115,3 +116,31 @@ export const deleteProduct = ErrorHandler(async (req, res) => {
     console.log("error");
   }
 });
+
+export const fileUpload = ErrorHandler(async (req, res) => {
+  const fileBuffer = req.file.buffer;
+  uploadToCloudinary(fileBuffer)
+    .then((imageUrl) => {
+      res
+        .status(200)
+        .send({ message: "Image uploaded successfully.", publicurl: imageUrl });
+    })
+    .catch((error) => {
+      throw new Error(error.toString());
+    });
+});
+
+const uploadToCloudinary = (fileBuffer) => {
+  return new Promise((resolve, reject) => {
+    cloudinary.uploader
+      .upload_stream({ resource_type: "auto" }, (error, result) => {
+        if (error) {
+          console.error(error);
+          reject("Error uploading image to Cloudinary");
+        }
+
+        resolve(result.secure_url);
+      })
+      .end(fileBuffer);
+  });
+};
