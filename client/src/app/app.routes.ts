@@ -4,6 +4,7 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { AddProductComponent } from './pages/add-product/add-product.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
+import { AdminComponent } from './pages/admin/admin.component';
 import { ProductListComponent } from './pages/product-list/product-list.component';
 
 export const routes: Routes = [
@@ -19,15 +20,18 @@ export const routes: Routes = [
     path: 'dashboard',
     component: DashboardComponent,
   },
-
   {
     path: 'add_product',
     component: AddProductComponent,
   },
   {
+    path:"admin",component: AdminComponent
+  },
+  {
     path: 'product_list',
     component: ProductListComponent,
   },
+
 ];
 
 @NgModule({
