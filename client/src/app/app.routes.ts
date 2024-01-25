@@ -1,24 +1,24 @@
 import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { ProductsComponent } from './pages/products/products.component';
 import { AddProductComponent } from './pages/add-product/add-product.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { AdminComponent } from './pages/admin/admin.component';
+import { ProductListComponent } from './pages/product-list/product-list.component';
 
 export const routes: Routes = [
   {
-    path: '', component: LoginComponent
+    path: '',
+    component: LoginComponent,
   },
   {
-    path: 'register', component: RegisterComponent
+    path: 'register',
+    component: RegisterComponent,
   },
   {
-    path: 'dashboard', component: DashboardComponent
-  },
-  {
-    path: 'products', component: ProductsComponent
+    path: 'dashboard',
+    component: DashboardComponent,
   },
   {
     path: 'add_product',
@@ -26,7 +26,11 @@ export const routes: Routes = [
   },
   {
     path:"admin",component: AdminComponent
-  }
+  },
+  {
+    path: 'product_list',
+    component: ProductListComponent,
+  },
 
 ];
 
@@ -34,4 +38,4 @@ export const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
