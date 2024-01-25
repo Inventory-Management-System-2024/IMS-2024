@@ -1,7 +1,8 @@
-<div class="text-center m-4 border" >
+<app-navbar></app-navbar>
+<div class="text-center m-4 border">
   <h4>Add Product</h4>
   <form (ngSubmit)="onSubmit()" #productForm="ngForm" class="product-form field">
-    <mat-form-field class="fields" >
+    <mat-form-field class="fields">
       <mat-label>Product Name</mat-label>
       <input matInput type="text" id="productName" name="productName" [(ngModel)]="product.productName" required>
     </mat-form-field>
@@ -14,13 +15,13 @@
       <mat-label>Price:</mat-label>
       <input matInput type="number" id="price" name="price" [(ngModel)]="product.price" required>
     </mat-form-field>
-<div class="upload">
-<label>Product Image: </label>
-    <div class="mb-3 fields file btn  btn-primary "style="width:50%" id="abc">
-Browse File
-      <input type="file" name="file"/>
+    <div class="upload">
+      <label>Product Image: </label>
+      <div class="mb-3 fields file btn  btn-primary " style="width:50%" id="abc">
+        Browse File
+        <input type="file" name="file" />
+      </div>
     </div>
-  </div>
 
     <mat-form-field class="fields">
       <mat-label>Category:</mat-label>
@@ -33,7 +34,8 @@ Browse File
     </mat-form-field>
 
 
-    <br/><br/>
+    <br /><br />
     <button mat-raised-button color="primary">Submit</button>
   </form>
 </div>
+<app-footer></app-footer>

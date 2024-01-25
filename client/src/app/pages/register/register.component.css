@@ -12,7 +12,7 @@
 }
 
 .error-message {
-    color: red;
+    border: 1px solid black;
 }
 
 .form {
@@ -104,6 +104,7 @@
 
 .button-submit:hover {
     background-color: #252727;
+    color: white;
 }
 
 .p {
