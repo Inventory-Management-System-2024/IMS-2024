@@ -1,4 +1,6 @@
-<div>
+<app-navbar></app-navbar>
+
+<!-- <div>
   <h2>Product Table</h2>
   <table>
     <thead>
@@ -11,7 +13,7 @@
         <th>Stock</th>
       </tr>
     </thead>
-    <tbody>
+    <tbody> -->
       <!-- <tr *ngFor="let product of products">
         <td>{{ product.productName }}</td>
         <td>{{ product.description }}</td>
@@ -20,6 +22,65 @@
         <td>{{ product.category }}</td>
         <td>{{ product.stock }}</td>
       </tr> -->
-    </tbody>
+    <!-- </tbody>
   </table>
-</div>
+</div> -->
+<!-- <app-navbar></app-navbar> -->
+<!-- app.component.html -->
+<div class="product_list">
+  <h1>Product List</h1>
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+  
+    <!-- Id Column -->
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef> ID </th>
+      <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+    </ng-container>
+  
+    <!-- Name Column -->
+    <ng-container matColumnDef="img">
+      <th mat-header-cell *matHeaderCellDef> Image </th>
+      <td mat-cell *matCellDef="let element"> {{element.img}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="ctg">
+      <th mat-header-cell *matHeaderCellDef> Category </th>
+      <td mat-cell *matCellDef="let element"> {{element.ctg}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="desc">
+      <th mat-header-cell *matHeaderCellDef> Description </th>
+      <td mat-cell *matCellDef="let element"> {{element.desc}} </td>
+    </ng-container>
+    <ng-container matColumnDef="price">
+      <th mat-header-cell *matHeaderCellDef> Price </th>
+      <td mat-cell *matCellDef="let element"> {{element.price}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="stock">
+      <th mat-header-cell *matHeaderCellDef> Stock </th>
+      <td mat-cell *matCellDef="let element"> {{element.stock}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef> action </th>
+      <td mat-cell *matCellDef="let element"> <button mat-icon-button (click)="updateRecord(element.id)">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-icon-button (click)="deleteRecord(element.id)">
+        <mat-icon>delete</mat-icon>
+      </button> </td>
+    </ng-container>
+  
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  
+  </table>
+  </div>
+
+<app-footer></app-footer>

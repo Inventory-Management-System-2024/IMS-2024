@@ -4,7 +4,7 @@ import { RouterOutlet } from '@angular/router';
 import { LoginComponent } from './pages/login/login.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
-import { ProductsComponent } from './pages/products/products.component';
+
 import { AddProductComponent } from './pages/add-product/add-product.component';
 import { ProductListComponent } from './pages/product-list/product-list.component';
 import { RegisterComponent } from './pages/register/register.component';
@@ -18,7 +18,6 @@ import { RegisterComponent } from './pages/register/register.component';
     LoginComponent,
     DashboardComponent,
     NavbarComponent,
-    ProductsComponent,
     AddProductComponent,
     ProductListComponent,
     RegisterComponent,

@@ -1,10 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInput } from '@angular/material/input';
 
 import {
   FormControl,
@@ -17,14 +13,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [
-    ReactiveFormsModule,
-    CommonModule,
-    MatButtonModule,
-    MatInput,
-    MatInputModule,
-    MatFormFieldModule,
-  ],
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css',
 })
@@ -35,7 +24,7 @@ export class RegisterComponent {
   public contact!: string;
   public password!: string;
   public confirmPassword!: string;
-  constructor(private route: Router) {}
+  constructor(private route: Router) { }
 
   registerUser(
     _name: string,
@@ -56,10 +45,15 @@ export class RegisterComponent {
       _passwd != '' &&
       _confPass != ''
     ) {
-      alert('Logged in SuccessFully');
+      alert('User Registered SuccessFully!');
+      this.route.navigate(['']);
     } else {
       alert('Please fill all the details');
     }
+  }
+
+  login() {
+    this.route.navigate(['']);
   }
 
   registerForm = new FormGroup({
