@@ -3,11 +3,18 @@ import mongoose from "mongoose";
 // dotenv.config()
 const dbConnect = async ()=>{
    try{
-      console.log(`mongodb+srv://ims2k24:${process.env.MONGO_KEY}@cluster0.n22g2cy.mongodb.net/?retryWrites=true&w=majority`);
       await mongoose.connect(`mongodb+srv://ims2k24:${process.env.MONGO_KEY}@cluster0.n22g2cy.mongodb.net/?retryWrites=true&w=majority`)
    }catch(e){
       console.log(e);
    }
    
 }
- export default dbConnect;
+export const closeDb = async ()=>{
+   try{
+      await mongoose.connection.close()
+   } catch(e){
+      console.log(e);
+   }
+}
+
+export default dbConnect;
