@@ -20,7 +20,9 @@ const addressSchema = new mongoose.Schema({
   pinCode: {
     type: Number,
     required: [true, "pincode is required"],
-  },
+
+
+  }
 });
 
 const UserSchema = new mongoose.Schema(
@@ -52,8 +54,8 @@ const UserSchema = new mongoose.Schema(
       type: String,
       required: [true, "phone No is required"],
     },
-  },
-  { timestamps: true }
-);
+
+},{ timestamps: true });
+
 
 export const User = mongoose.model("user", UserSchema);
