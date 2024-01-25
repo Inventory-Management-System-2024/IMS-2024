@@ -6,11 +6,8 @@ import {
   getProduct,
   updateProduct,
 } from "../controller/product.js";
-import authenticate from "../utils/middleware/auth.js";
 
 let product_router = express.Router();
-
-product_router.use(authenticate);
 
 product_router.get("/products", getAllProducts);
 product_router.get("/products/:productName", getProduct);

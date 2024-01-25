@@ -13,7 +13,7 @@ export const getAllProducts = ErrorHandler(async (req, res) => {
     res.status(200).json(products);
   } catch (error) {
     console.error(error);
-    throw new Error(error.toString());
+    throw new Error(error);
   }
 });
 
@@ -36,7 +36,7 @@ export const getProduct = ErrorHandler(async (req, res) => {
 
     res.status(200).json(products);
   } catch (error) {
-    throw new Error(error.toString());
+    throw new Error();
   }
 });
 
@@ -72,7 +72,7 @@ export const createProduct = ErrorHandler(async (req, res) => {
 
     res.status(201).json({ message: "Product created succesfully" });
   } catch (error) {
-    throw new Error(error.toString());
+    throw new Error();
   }
 });
 
@@ -95,9 +95,7 @@ export const updateProduct = ErrorHandler(async (req, res) => {
     }
 
     res.status(200).json({ message: "Product Updated Sucessfully" });
-  } catch (error) {
-    throw new Error(error.toString());
-  }
+  } catch (error) {}
 });
 
 export const deleteProduct = ErrorHandler(async (req, res) => {
@@ -114,6 +112,6 @@ export const deleteProduct = ErrorHandler(async (req, res) => {
 
     res.status(200).send({ message: "Product Deleted Succesfully" });
   } catch (error) {
-    throw new Error(error.toString());
+    console.log("error");
   }
 });
