@@ -1,0 +1,7 @@
+#cards-container{
+    display: flex;
+    width: calc(100% - 20px);
+    justify-content: space-between;
+    align-items: center;
+    margin: 5px;   
+}
