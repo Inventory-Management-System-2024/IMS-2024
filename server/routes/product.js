@@ -27,6 +27,8 @@ const upload = multer({
   },
 });
 
+product_router.use(authenticate);
+
 product_router.get("/products", getAllProducts);
 product_router.get("/products/:productName", getProduct);
 product_router.post("/products", createProduct);
