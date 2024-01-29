@@ -2,7 +2,11 @@ import mongoose from "mongoose";
 const OrderSchema = new mongoose.Schema({
     user: {
         type: mongoose.Schema.ObjectId,
+<<<<<<< HEAD
         ref: "User",
+=======
+        ref: "user",
+>>>>>>> 0232b9b769a399c790a3601cb451efb3b890868c
         required: [true, "User is required"],
     },
     orderItems: [
@@ -17,7 +21,7 @@ const OrderSchema = new mongoose.Schema({
             
             product: {
                 type: mongoose.Schema.ObjectId,
-                ref: "Product",
+                ref: "product",
                 required: [true, "product id is required"],
             },
         },

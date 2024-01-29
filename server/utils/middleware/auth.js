@@ -3,21 +3,30 @@ import jwt from 'jsonwebtoken';
 import env from "dotenv"
 env.config()
 
-
    
 const authenticate = (req, res, next) => {
-  const token = req.header("Authorization").split(" ")[1];
-  if (!token) {
-    return res.status(401).send("No token provided");
-  }
-  jwt.verify(token, process.env.SECRET_KEY, (err, decoded) => {
-    if (err) {
-      return res.status(401).send("Invalid token");
+  try{
+    const token = req.header("Authorization")?.split(" ")[1];
+    if (!token) {
+      return res.status(401).json({ message: "Missing authentication token" });
     }
-    next();
-  });
+    jwt.verify(token, process.env.SECRET_KEY, (err, decoded) => {
+      if (err) {
+        return res.status(403).json({ message: "Invalid authentication token" });
+      }
+      req.user = decoded;
+      next();
+    });
+  }
+  catch(err){
+    throw new Error(err.toString());
+  }
 };
 
+<<<<<<< HEAD
 
 export default authenticate;
+=======
+>>>>>>> 0232b9b769a399c790a3601cb451efb3b890868c
 
+export default authenticate;
