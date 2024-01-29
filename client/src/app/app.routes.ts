@@ -6,6 +6,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { AdminComponent } from './pages/admin/admin.component';
 import { ProductListComponent } from './pages/product-list/product-list.component';
+import { AuthGuardService } from './shared/services/auth-guard.service';
 
 export const routes: Routes = [
   {
@@ -13,8 +14,10 @@ export const routes: Routes = [
     component: LoginComponent,
   },
   {
+    
     path: 'register',
     component: RegisterComponent,
+    
   },
   {
     path: 'dashboard',
@@ -22,10 +25,10 @@ export const routes: Routes = [
   },
   {
     path: 'add_product',
-    component: AddProductComponent,
+    component: AddProductComponent,canActivate:[AuthGuardService]
   },
   {
-    path:"admin",component: AdminComponent
+    path:"admin_userList",component: AdminComponent,canActivate:[AuthGuardService]
   },
   {
     path: 'product_list',
