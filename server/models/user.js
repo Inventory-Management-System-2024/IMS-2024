@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 
-
 const addressSchema = new mongoose.Schema({
   address_line_1: {
     type: String,
@@ -25,9 +24,8 @@ const addressSchema = new mongoose.Schema({
   }
 });
 
-
-
-const UserSchema = new mongoose.Schema({
+const UserSchema = new mongoose.Schema(
+  {
     name: {
       type: String,
       required: [true, "please enter your name"],
@@ -55,7 +53,7 @@ const UserSchema = new mongoose.Schema({
       type: String,
       required: [true, "phone No is required"],
     },
-},{ timestamps: true });
 
+},{ timestamps: true });
 
 export const User = mongoose.model("user", UserSchema);

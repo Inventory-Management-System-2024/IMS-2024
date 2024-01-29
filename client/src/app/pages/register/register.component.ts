@@ -9,6 +9,12 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { Router } from '@angular/router';
+import { RegisterService } from '../../shared/services/register.service';
+
+import { RegisterService } from '../../shared/services/register.service';
+
+
+
 
 @Component({
   selector: 'app-register',
@@ -24,7 +30,7 @@ export class RegisterComponent {
   public contact!: string;
   public password!: string;
   public confirmPassword!: string;
-  constructor(private route: Router) { }
+  constructor(private route: Router,private _registerService:RegisterService) { }
 
   registerUser(
     _name: string,
@@ -76,4 +82,13 @@ export class RegisterComponent {
   togglePassword() {
     this.showPassword = !this.showPassword;
   }
+
+  postUser(user: any) {
+    
+    this._registerService.register(user).subscribe(res=>console.log(res));
+    console.log(user);
+  }
+
+  
+
 }
