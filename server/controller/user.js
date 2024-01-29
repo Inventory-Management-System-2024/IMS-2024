@@ -97,7 +97,7 @@ export const login = ErrorHandler(async (req,res)=>{
         if (user && user.password==req.body.password) {
             let token = jwt.sign(req.body.email, process.env.SECRET_KEY)
             res.header('Authorization', 'Bearer '+token);
-            res.end()
+            res.json({token})
         } else {
             res.setHeader('Content-Type','application/json')
             res.end(JSON.stringify({message:"Invalid credentials."}));

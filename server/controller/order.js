@@ -56,7 +56,7 @@ export const updateOrder = ErrorHandler(async (req,res)=>{
 export const getOrders = ErrorHandler(async (req,res)=>{
     try {
         await dbConnect()
-        let orders = await Order.find({}).populate("user").exec()
+        let orders = await Order.find({}).populate("user").populate("orderItems.product").exec()
         
         res.status(200).json(orders)
         await closeDb()

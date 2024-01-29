@@ -23,10 +23,6 @@ const authenticate = (req, res, next) => {
   }
 };
 
-<<<<<<< HEAD
 
 export default authenticate;
-=======
->>>>>>> 0232b9b769a399c790a3601cb451efb3b890868c
 
-export default authenticate;
