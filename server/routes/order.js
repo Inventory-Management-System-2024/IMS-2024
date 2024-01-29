@@ -9,7 +9,7 @@ const order_router = express.Router()
 order_router.use(authenticate)
 
 
-order_router.get("/orders",getOrders)
+order_router.get("/order",getOrders)
 order_router.post("/order", createOrder)
 order_router.get("/order/:id", getOrder)
 order_router.put("/order/:id", updateOrder)
