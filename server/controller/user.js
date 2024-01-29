@@ -99,8 +99,6 @@ export const login = ErrorHandler(async (req,res)=>{
             res.header('Authorization', 'Bearer '+token);
             res.json({token})
         } else {
-            let doc = new User(req.body);
-            await doc.save();
             res.setHeader('Content-Type','application/json')
             res.end(JSON.stringify({message:"Invalid credentials."}));
         }
