@@ -9,7 +9,7 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { Router } from '@angular/router';
-import {RegisterService } from '../../shared/services/register.service';
+import { RegisterService } from '../../shared/services/register.service';
 
 
 
