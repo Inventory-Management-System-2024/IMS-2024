@@ -27,4 +27,5 @@ import { RegisterComponent } from './pages/register/register.component';
 })
 export class AppComponent {
   title = 'IMS';
+
 }
