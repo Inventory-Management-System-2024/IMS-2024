@@ -19,41 +19,8 @@ import { RegisterService } from '../../shared/services/register.service';
 })
 export class RegisterComponent {
   public showPassword: boolean = false;
-  public name!: string;
-  public email!: string;
-  public contact!: string;
-  public password!: string;
-  public confirmPassword!: string;
-  constructor(
-    private route: Router,
-    private _registerService: RegisterService
-  ) { }
-
-  registerUser(
-    _name: string,
-    _email: string,
-    _phone: string,
-    _passwd: string,
-    _confPass: string
-  ) {
-    this.name = _name;
-    this.email = _email;
-    this.contact = _phone;
-    this.password = _passwd;
-    this.confirmPassword = _confPass;
-    if (
-      _name != '' &&
-      _email != '' &&
-      _phone != '' &&
-      _passwd != '' &&
-      _confPass != ''
-    ) {
-      alert('User Registered SuccessFully!');
-      this.route.navigate(['']);
-    } else {
-      alert('Please fill all the details');
-    }
-  }
+  errMsg!: string
+  constructor(private route: Router, private _registerService: RegisterService) { }
 
   login() {
     this.route.navigate(['']);
@@ -92,7 +59,11 @@ export class RegisterComponent {
   }
 
   postUser(user: any) {
-    this._registerService.register(user).subscribe((res) => console.log(res));
+
+    this._registerService.register(user).subscribe({
+      next: (res) => console.log(res),
+      error: (err) => this.errMsg = err
+    });
     console.log(user);
   }
 }
