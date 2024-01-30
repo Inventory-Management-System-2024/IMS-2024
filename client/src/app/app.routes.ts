@@ -6,31 +6,35 @@ import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { AdminComponent } from './pages/admin/admin.component';
 import { ProductListComponent } from './pages/product-list/product-list.component';
+import { OrderComponent } from './pages/order/order.component';
+
+import { AuthGuardService } from './shared/services/auth-guard.service';
 
 export const routes: Routes = [
   {
-    path: '',
-    component: LoginComponent,
+    path: '', component: LoginComponent
   },
   {
-    path: 'register',
-    component: RegisterComponent,
+    path: 'register', component: RegisterComponent
   },
   {
-    path: 'dashboard',
-    component: DashboardComponent,
+    path: 'dashboard', component: DashboardComponent
   },
   {
     path: 'add_product',
-    component: AddProductComponent,
+    component: AddProductComponent,canActivate:[AuthGuardService]
   },
   {
-    path:"admin",component: AdminComponent
+    path:"admin_userList",component: AdminComponent,canActivate:[AuthGuardService]
   },
   {
     path: 'product_list',
     component: ProductListComponent,
   },
+  {
+    path:"orders",
+    component: OrderComponent
+  }
 
 ];
 
@@ -38,4 +42,4 @@ export const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
