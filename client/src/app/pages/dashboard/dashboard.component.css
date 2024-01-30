@@ -16,16 +16,7 @@ width: 100%;
 height: calc(100% - 40px);
 display: flex;
 }
-#header-container{
-  height:40px;
-  width: 100%;
-}
-
 #main-container{
-  width: 70%;
+  width: 100%;
   background-color: rgb(237, 236, 236);
-}
-#side-container{
-  width: 30%;
-  background-color: black;
 }

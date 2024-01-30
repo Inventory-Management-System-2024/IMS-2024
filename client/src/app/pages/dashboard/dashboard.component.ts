@@ -3,12 +3,12 @@ import { Component } from '@angular/core';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { FooterComponent } from '../../components/footer/footer.component';
 import { MainComponent } from './main/main.component';
-import { SideComponent } from './side/side.component';
+
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule,MainComponent,SideComponent, NavbarComponent, FooterComponent],
+  imports: [CommonModule,MainComponent, NavbarComponent, FooterComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
