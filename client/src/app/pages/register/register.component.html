@@ -1,6 +1,6 @@
 <div class="login-body">
-  <form class="form" [formGroup]="registerForm" (ngSubmit)="
-      registerUser(fname.value, em.value, cont.value, pw.value, confpass.value)
+  <form class="form" #reg="ngForm" [formGroup]="registerForm" (ngSubmit)="
+      postUser(reg.value)
     ">
     <img src="../../../assets/images/logo.JPG" alt="logo" height="80" width="120" style="margin: auto" />
     <div class="inputForm">
