@@ -18,7 +18,7 @@ export const routes: Routes = [
     path: 'register', component: RegisterComponent
   },
   {
-    path: 'dashboard', component: DashboardComponent
+    path: 'dashboard', component: DashboardComponent,canActivate:[AuthGuardService]
   },
   {
     path: 'add_product',
@@ -29,11 +29,11 @@ export const routes: Routes = [
   },
   {
     path: 'product_list',
-    component: ProductListComponent,
+    component: ProductListComponent,canActivate:[AuthGuardService]
   },
   {
     path:"orders",
-    component: OrderComponent
+    component: OrderComponent,canActivate:[AuthGuardService]
   }
 
 ];
