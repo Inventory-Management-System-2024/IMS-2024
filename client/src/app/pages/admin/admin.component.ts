@@ -11,11 +11,14 @@ import { AsyncPipe, CommonModule } from '@angular/common';
   styleUrl: './admin.component.css'
 })
 export class AdminComponent {
-  users:any[]=[]
+  users:any[]=[];
+  errMsg!:string;
   constructor(private _UserService: UsersService){}
 
   ngOnInit():void {
-    this._UserService.getAllUsers().subscribe((data:any)=>{this.users=data;console.log(data)});
+    this._UserService.getAllUsers().subscribe({
+      next:(data:any)=>{this.users=data;console.log(data)},
+      error:(err)=>{this.errMsg=err}});
   }
 
   deleteUser(id:number){
