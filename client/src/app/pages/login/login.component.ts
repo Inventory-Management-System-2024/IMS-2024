@@ -10,6 +10,8 @@ import {
 import { CommonModule } from '@angular/common';
 import { RegisterService } from '../../shared/services/register.service';
 import { ToastrService } from 'ngx-toastr';
+import { json } from 'express';
+import { isEmpty } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -43,20 +45,21 @@ export class LoginComponent {
   }
   getUser(data: any) {
     this._RegisterService.login(data).subscribe((response)=>{
-      console.log(response.body.token);
+      console.log(response.body.token );
+      sessionStorage.setItem('token', response.body.token)
       const token=sessionStorage.getItem('token');
-      sessionStorage.setItem('token', JSON.stringify(response.body.token))
-      if(token=="undefined"){
-        this.toast.error("Don't have an account! You need to Sign Up first!!")
+      if(token==="undefined"){
+        this.toast.error("Please check your Email adddress and Password")
         console.log("not valid");
       }
       else{
         this.toast.success("Login SuccessFul!", "Success");
         this.route.navigate(['dashboard']);
-        
+
       }      
     }
     )
+    
     // console.log(data);
   }
   
