@@ -23,6 +23,7 @@ import { RegisterService } from '../../shared/services/register.service';
 })
 export class RegisterComponent {
   public showPassword: boolean = false;
+  errMsg!:string
   constructor(private route: Router,private _registerService:RegisterService) { }
 
   login() {
@@ -52,7 +53,10 @@ export class RegisterComponent {
 
   postUser(user: any) {
     
-    this._registerService.register(user).subscribe(res=>console.log(res));
+    this._registerService.register(user).subscribe({
+      next:(res)=>console.log(res),
+      error:(err)=>this.errMsg=err
+    });
     console.log(user);
   }
 

@@ -22,6 +22,7 @@ import { isEmpty } from 'rxjs';
 })
 export class LoginComponent {
   public showPassword: boolean = false;
+  errMsg!:string;
   constructor(private route: Router,private _RegisterService:RegisterService) { }
   toast = inject(ToastrService);
   loginForm = new FormGroup({
@@ -44,10 +45,13 @@ export class LoginComponent {
     return this.loginForm.get('email');
   }
   getUser(data: any) {
-    this._RegisterService.login(data).subscribe((response)=>{
+    this._RegisterService.login(data).subscribe(
+      {next:(response)=>{
       console.log(response.body.token );
       sessionStorage.setItem('token', response.body.token)
       const token=sessionStorage.getItem('token');
+      if(token==="undefined"){
+        this.toast.error("Please check your Email adddress and Password")
       if(token==="undefined"){
         this.toast.error("Please check your Email adddress and Password")
         console.log("not valid");
@@ -57,7 +61,8 @@ export class LoginComponent {
         this.route.navigate(['dashboard']);
 
       }      
-    }
+    },
+    error:(err)=>this.errMsg = err}
     )
     
     // console.log(data);
