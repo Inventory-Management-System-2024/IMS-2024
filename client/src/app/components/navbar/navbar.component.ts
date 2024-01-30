@@ -19,7 +19,7 @@ export class NavbarComponent {
       const userRole = sessionStorage.getItem('token');
       console.log(userRole);
       
-      if(userRole==='"eyJhbGciOiJIUzI1NiJ9.amF5QGdtYWlsLmNvbQ.TFD4-NTMYndZidUHXAcde3WCHHSNIluVFmEA6Pdh-vk"'){
+      if(userRole==="eyJhbGciOiJIUzI1NiJ9.amF5QGdtYWlsLmNvbQ.TFD4-NTMYndZidUHXAcde3WCHHSNIluVFmEA6Pdh-vk"){
         this.isAdmin=true;
       }
       else{
