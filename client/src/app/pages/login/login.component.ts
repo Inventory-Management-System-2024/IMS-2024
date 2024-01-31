@@ -10,8 +10,6 @@ import {
 import { CommonModule } from '@angular/common';
 import { RegisterService } from '../../shared/services/register.service';
 import { ToastrService } from 'ngx-toastr';
-import { json } from 'express';
-import { isEmpty } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -21,6 +19,7 @@ import { isEmpty } from 'rxjs';
   styleUrl: './login.component.css',
 })
 export class LoginComponent {
+  name!: string;
   public showPassword: boolean = false;
   errMsg!: string;
   constructor(private route: Router, private _RegisterService: RegisterService) { }
@@ -47,7 +46,7 @@ export class LoginComponent {
     this._RegisterService.login(data).subscribe(
       {
         next: (response) => {
-          console.log(response.body.token);
+          localStorage.setItem('name', response.body.user.name);
           sessionStorage.setItem('token', response.body.token)
           const token = sessionStorage.getItem('token');
           if (token === "undefined") {
