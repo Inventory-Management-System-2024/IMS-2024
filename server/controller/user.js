@@ -43,7 +43,7 @@ export const  updateUser = ErrorHandler(async (req,res)=>{
         let id = req.params.id
         await dbConnect()
         
-        let user = await User.findByIdAndUpdate(id,req.body.user)
+        let user = await User.findByIdAndUpdate(id,req.body)
         if(user){
             res.setHeader('Content-Type', 'application/json');
             res.end(JSON.stringify({message : "User updated successfully."}));
