@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { AbstractControl, FormsModule } from '@angular/forms';
 
 import {
   FormControl,
@@ -19,6 +19,7 @@ import { RegisterService } from '../../shared/services/register.service';
 })
 export class RegisterComponent {
   public showPassword: boolean = false;
+  public showConfirmPassword!: boolean;
   errMsg!: string
   constructor(private route: Router, private _registerService: RegisterService) { }
 
@@ -27,7 +28,7 @@ export class RegisterComponent {
   }
 
   registerForm = new FormGroup({
-    name: new FormControl('', [Validators.required]),
+    name: new FormControl('', [Validators.required,]),
     email: new FormControl('', [Validators.required, Validators.email]),
     phoneNo: new FormControl('', [
       Validators.required,
@@ -42,9 +43,18 @@ export class RegisterComponent {
       Validators.required,
       Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,15}$'),
     ]),
+  }, {
+    validators: this.passwordMatchVAlidator,
   });
   togglePassword() {
     this.showPassword = !this.showPassword;
+  }
+  toggleConfirmPassword(): void {
+    this.showConfirmPassword = !this.showConfirmPassword;
+  }
+
+  passwordMatchVAlidator(control: AbstractControl) {
+    return control.get('password')?.value === control.get('cpw')?.value ? null : { misMatch: true };
   }
 
   postUser(user: any) {
@@ -53,6 +63,7 @@ export class RegisterComponent {
       next: (res) => console.log(res),
       error: (err) => this.errMsg = err
     });
+
     console.log(user);
   }
 }

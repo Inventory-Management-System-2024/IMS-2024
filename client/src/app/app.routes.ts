@@ -9,6 +9,7 @@ import { ProductListComponent } from './pages/product-list/product-list.componen
 import { OrderComponent } from './pages/order/order.component';
 
 import { AuthGuardService } from './shared/services/auth-guard.service';
+import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
 
 export const routes: Routes = [
   {
@@ -18,22 +19,26 @@ export const routes: Routes = [
     path: 'register', component: RegisterComponent
   },
   {
-    path: 'dashboard', component: DashboardComponent,canActivate:[AuthGuardService]
+    path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuardService]
   },
   {
     path: 'add_product',
-    component: AddProductComponent,canActivate:[AuthGuardService]
+    component: AddProductComponent, canActivate: [AuthGuardService]
   },
   {
-    path:"admin_userList",component: AdminComponent,canActivate:[AuthGuardService]
+    path: "admin_userList", component: AdminComponent, canActivate: [AuthGuardService]
   },
   {
     path: 'product_list',
-    component: ProductListComponent,canActivate:[AuthGuardService]
+    component: ProductListComponent, canActivate: [AuthGuardService]
   },
   {
-    path:"orders",
-    component: OrderComponent,canActivate:[AuthGuardService]
+    path: "orders",
+    component: OrderComponent, canActivate: [AuthGuardService]
+  },
+  {
+    path: "resetPassword",
+    component: ResetPasswordComponent
   }
 
 ];
@@ -42,4 +47,4 @@ export const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

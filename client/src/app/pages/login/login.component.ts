@@ -35,6 +35,9 @@ export class LoginComponent {
   togglePassword(): void {
     this.showPassword = !this.showPassword;
   }
+  resetPassword() {
+    this.route.navigate(['resetPassword']);
+  }
 
   get pass() {
     return this.loginForm.get('password');
@@ -62,7 +65,5 @@ export class LoginComponent {
         error: (err) => this.errMsg = err
       }
     )
-
-    // console.log(data);
   }
 }
