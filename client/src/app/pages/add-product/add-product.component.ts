@@ -18,11 +18,10 @@ import { PLATFORM_ID,Inject } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
-import { ProductService } from '../../shared/services';
+import { ProductService,SharedDataService } from '../../shared/services';
 import { CommonModule } from '@angular/common';
 import { Cloudinary } from '@cloudinary/url-gen';
 import { response } from 'express';
-import { SharedDataService } from '../../shared/services/shared-data.service';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { FooterComponent } from '../../components/footer/footer.component';
 import { log } from 'console';
@@ -123,8 +122,7 @@ export class AddProductComponent implements OnInit {
     this.route.navigate(['/product_list']);
   }
 
-  token =
-    'eyJhbGciOiJIUzI1NiJ9.YW5hZGloaXJwYXJhMDAzNkBnbWFpbC5jb20.E3NXa9d7-69qF0DjmiBBYzvPsUdB-2woAMlA__zRPjE';
+  token = sessionStorage.getItem('token');
 
   headers = {
     Authorization: `Bearer ${this.token}`,
