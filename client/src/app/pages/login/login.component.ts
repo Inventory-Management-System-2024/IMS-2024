@@ -10,8 +10,6 @@ import {
 import { CommonModule } from '@angular/common';
 import { RegisterService } from '../../shared/services/register.service';
 import { ToastrService } from 'ngx-toastr';
-import { json } from 'express';
-import { isEmpty } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -21,14 +19,14 @@ import { isEmpty } from 'rxjs';
   styleUrl: './login.component.css',
 })
 export class LoginComponent {
+  name!: string;
   public showPassword: boolean = false;
-  errMsg!:string;
-  constructor(private route: Router,private _RegisterService:RegisterService) { }
+  errMsg!: string;
+  constructor(private route: Router, private _RegisterService: RegisterService) { }
   toast = inject(ToastrService);
   loginForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [Validators.required])
-    
+    password: new FormControl('', [Validators.required]),
   });
   signUp() {
     this.route.navigate(['register']);
@@ -36,6 +34,9 @@ export class LoginComponent {
 
   togglePassword(): void {
     this.showPassword = !this.showPassword;
+  }
+  resetPassword() {
+    this.route.navigate(['resetPassword']);
   }
 
   get pass() {
@@ -46,27 +47,22 @@ export class LoginComponent {
   }
   getUser(data: any) {
     this._RegisterService.login(data).subscribe(
-      {next:(response)=>{
-      console.log(response.body.token );
-      sessionStorage.setItem('token', response.body.token)
-      const token=sessionStorage.getItem('token');
-      if(token==="undefined"){
-        this.toast.error("Please check your Email adddress and Password")
-      if(token==="undefined"){
-        this.toast.error("Please check your Email adddress and Password")
-        console.log("not valid");
+      {
+        next: (response) => {
+          localStorage.setItem('name', response.body.user.name);
+          sessionStorage.setItem('token', response.body.token)
+          const token = sessionStorage.getItem('token');
+          if (token === "undefined") {
+            this.toast.error("Please check your Email adddress and Password")
+            console.log("not valid");
+          }
+          else {
+            this.toast.success("Login SuccessFul!", "Success");
+            this.route.navigate(['dashboard']);
+          }
+        },
+        error: (err) => this.errMsg = err
       }
-      else{
-        this.toast.success("Login SuccessFul!", "Success");
-        this.route.navigate(['dashboard']);
-
-      }      
-    },
-    error:(err)=>this.errMsg = err}
     )
-    
-    // console.log(data);
   }
-  
- 
 }

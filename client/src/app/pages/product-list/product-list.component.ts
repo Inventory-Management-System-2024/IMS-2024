@@ -19,7 +19,7 @@ import { Router } from '@angular/router';
   styleUrl: './product-list.component.css',
 })
 export class ProductListComponent {
-  constructor(private router: Router,private productService: ProductService,private sharedDataService: SharedDataService) { 
+  constructor(private router: Router, private productService: ProductService, private sharedDataService: SharedDataService) {
   }
   displayedColumns: string[] = ['productName', 'image', 'category', 'description', 'price', 'stock', 'action'];
   dataSource: any[] = [];
@@ -38,7 +38,7 @@ export class ProductListComponent {
       console.warn(error);
     });
   }
- 
+
   updateRecord(id: number) {
     // Get the product
     this.currentProduct = this.dataSource.find((product) => {
@@ -47,19 +47,15 @@ export class ProductListComponent {
     // sending data to the add-product Component for Update data through service 
     console.log("inside productlist")
 
-    this. sharedDataService.sendData(this.currentProduct);
-    
-    this.router.navigate(['/add_product'],{ queryParams: {edit : true}});
+    this.sharedDataService.sendData(this.currentProduct);
 
-   
+    this.router.navigate(['/add_product'], { queryParams: { edit: true } });
   }
-
-
   deleteRecord(id: number) {
     this.productService.deleteProduct(id).subscribe(() => {
       console.log('delete');
     });
     this.dataSource = this.dataSource.filter((product) => product._id !== id);
   }
-  
+
 }

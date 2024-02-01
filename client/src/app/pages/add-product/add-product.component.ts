@@ -14,7 +14,7 @@ import {
 } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
-import { PLATFORM_ID,Inject } from '@angular/core';
+import { PLATFORM_ID, Inject } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
@@ -52,7 +52,7 @@ export class AddProductComponent implements OnInit {
   @ViewChild('productForm') form?: NgForm;
   ngOnInit(): void {
 
-    if(isPlatformBrowser(this.platformId)){
+    if (isPlatformBrowser(this.platformId)) {
 
     }
 
@@ -89,12 +89,12 @@ export class AddProductComponent implements OnInit {
     private route: Router,
     private activated_route: ActivatedRoute,
     @Inject(PLATFORM_ID) private platformId: Object
-  ) {}
+  ) { }
 
   onSubmit(productForm: NgForm) {
     if (productForm.valid) {
       // console.log(this.receivedData._id);
-      
+
       if (window.location.href.includes('?')) {
         console.log('for checking', this.receivedData._id);
 

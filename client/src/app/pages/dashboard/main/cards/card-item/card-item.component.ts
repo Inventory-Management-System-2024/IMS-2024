@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-export interface PropertyListing {
+export interface ProductListing {
   image: string;
   property: string;
   value: string;
@@ -12,6 +12,6 @@ export interface PropertyListing {
   styleUrl: './card-item.component.css'
 })
 export class CardItemComponent {
-  @Input() carddata!: PropertyListing;
+  @Input() carddata!: ProductListing;
 
 }
