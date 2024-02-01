@@ -59,7 +59,6 @@ export class LoginComponent {
           else {
             this.toast.success("Login SuccessFul!", "Success");
             this.route.navigate(['dashboard']);
-
           }
         },
         error: (err) => this.errMsg = err
