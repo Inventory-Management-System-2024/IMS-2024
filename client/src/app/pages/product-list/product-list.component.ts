@@ -24,7 +24,8 @@ export class ProductListComponent {
   displayedColumns: string[] = ['productName', 'image', 'category', 'description', 'price', 'stock', 'action'];
   dataSource: any[] = [];
   currentProduct: any;
-  errorMessage : any;
+  errorMessage: any;
+  searchTerm?: string;
 
   ngOnInit(): void {
     this.loadProducts();
@@ -58,4 +59,24 @@ export class ProductListComponent {
     this.dataSource = this.dataSource.filter((product) => product._id !== id);
   }
 
+  productSearch(event: Event) {
+    const inputValue = (event.target as HTMLInputElement).value;
+    let searchTimeout: NodeJS.Timeout | undefined;
+
+    clearTimeout(searchTimeout);
+
+    // Set a new timeout to trigger the API call after 1000ms (1 second)
+    searchTimeout = setTimeout(() => {
+      this.productService.getProduct(inputValue).subscribe({
+        next: (data) => {
+          this.dataSource = data;
+        },
+        error: (err) => {
+          this.dataSource = [];
+
+          console.log('error from  list', err);
+        },
+      });
+    }, 1000);
+  }
 }
