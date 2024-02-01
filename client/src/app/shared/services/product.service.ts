@@ -3,6 +3,9 @@ import { Injectable } from '@angular/core';
 import { Observable, catchError } from 'rxjs';
 import { GlobalErrorHandlerService } from './global-error-handler.service';
 import { AuthGuardService } from './auth-guard.service';
+import { Observable, catchError } from 'rxjs';
+import { GlobalErrorHandlerService } from './global-error-handler.service';
+import { AuthGuardService } from './auth-guard.service';
 import Product from '../interfaces/product';
 
 @Injectable({
@@ -11,6 +14,9 @@ import Product from '../interfaces/product';
 export class ProductService {
 
   private _url : string =  "http://localhost:3000/products";
+  private headers: HttpHeaders;
+  constructor(private http : HttpClient,private err : GlobalErrorHandlerService,private authService : AuthGuardService) { 
+    this.headers = this.authService.getHeaders();
   private headers: HttpHeaders;
   constructor(private http : HttpClient,private err : GlobalErrorHandlerService,private authService : AuthGuardService) { 
     this.headers = this.authService.getHeaders();
@@ -38,6 +44,9 @@ export class ProductService {
     );
   }
   deleteProduct(id : number): Observable<Product>{
+    return this.http.delete<Product>(`${this._url}/${id}`,{ headers: this.headers }).pipe(
+      catchError(this.err.handleError)
+    );
     return this.http.delete<Product>(`${this._url}/${id}`,{ headers: this.headers }).pipe(
       catchError(this.err.handleError)
     );
