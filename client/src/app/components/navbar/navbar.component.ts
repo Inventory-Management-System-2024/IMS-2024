@@ -5,32 +5,32 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [RouterLink,RouterLinkActive,CommonModule],
+  imports: [RouterLink, RouterLinkActive, CommonModule],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
 })
 
 export class NavbarComponent {
   isAdmin!: boolean;
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
-
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) { }
+  name: string | null = localStorage.getItem('name');
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
       const userRole = sessionStorage.getItem('token');
       console.log(userRole);
-      
-      if(userRole==="eyJhbGciOiJIUzI1NiJ9.amF5QGdtYWlsLmNvbQ.TFD4-NTMYndZidUHXAcde3WCHHSNIluVFmEA6Pdh-vk"){
-        this.isAdmin=true;
+
+      if (userRole === "eyJhbGciOiJIUzI1NiJ9.amF5QGdtYWlsLmNvbQ.TFD4-NTMYndZidUHXAcde3WCHHSNIluVFmEA6Pdh-vk") {
+        this.isAdmin = true;
       }
-      else{
-        this.isAdmin=false;
+      else {
+        this.isAdmin = false;
       }
-      
+
     }
-       
+
   }
-  logout(){
+  logout() {
     sessionStorage.clear();
   }
-  
+
 }
