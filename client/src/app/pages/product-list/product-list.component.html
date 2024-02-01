@@ -3,6 +3,10 @@
 
 <div class="product_list">
   <h1>Product List</h1>
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
+  <div *ngIf="!errorMessage"> 
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
     <!-- Id Column -->
     <!-- <ng-container matColumnDef="id">
