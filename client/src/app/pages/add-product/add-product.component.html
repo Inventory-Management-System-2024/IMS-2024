@@ -1,7 +1,7 @@
 <app-navbar></app-navbar>
 
 <div class="text-center m-4 border">
-  <h4>Add Product</h4>
+  <h4>{{ isUpdateMode ? 'Update Product' :'Add Product '}}</h4>
   <form (ngSubmit)="onSubmit(productForm)" #productForm="ngForm" class="product-form field" id="productForm">
     <mat-form-field class="fields">
       <mat-label>Product Name</mat-label>
@@ -39,7 +39,7 @@
     </mat-form-field>
 
     <br /><br />
-    <button mat-raised-button color="primary">Submit
+    <button mat-raised-button color="primary">{{ isUpdateButton ? 'Update' :'Submit '}}
     </button>
   </form>
 </div>
