@@ -17,9 +17,6 @@ export class ProductService {
   private headers: HttpHeaders;
   constructor(private http : HttpClient,private err : GlobalErrorHandlerService,private authService : AuthGuardService) { 
     this.headers = this.authService.getHeaders();
-  private headers: HttpHeaders;
-  constructor(private http : HttpClient,private err : GlobalErrorHandlerService,private authService : AuthGuardService) { 
-    this.headers = this.authService.getHeaders();
   }
   getAllProducts(): Observable<Product[]> {
 
@@ -44,9 +41,6 @@ export class ProductService {
     );
   }
   deleteProduct(id : number): Observable<Product>{
-    return this.http.delete<Product>(`${this._url}/${id}`,{ headers: this.headers }).pipe(
-      catchError(this.err.handleError)
-    );
     return this.http.delete<Product>(`${this._url}/${id}`,{ headers: this.headers }).pipe(
       catchError(this.err.handleError)
     );
