@@ -18,14 +18,15 @@
     </mat-form-field>
     <div class="upload">
       <label>Product Image: </label>
-      <img *ngIf="receivedData?._id" [src]="receivedData.image[0].url" alt="Product Image" width="60px" height="60px" style="margin-bottom:10px">
-      <div class="mb-3 fields file btn  btn-primary " style="width:30%; margin-left:5px" id="abc" >
+      <img *ngIf="receivedData?._id" [src]="receivedData.image[0].url" alt="Product Image" width="60px" height="60px"
+        style="margin-bottom:10px">
+      <div class="mb-3 fields file btn  btn-primary " style="width:30%; margin-left:5px" id="abc">
         Browse File
         <input type="file" name="file" (change)="onFileSelected($event)" />
       </div>
       <div *ngIf="selectedFile && flag">Selected File: {{ selectedFile.name }}</div>
     </div>
- 
+
 
     <mat-form-field class="fields">
       <mat-label>Category:</mat-label>
