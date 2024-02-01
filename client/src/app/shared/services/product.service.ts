@@ -1,7 +1,10 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-//import any from '../interfaces/any';
+import { Observable, catchError } from 'rxjs';
+import { GlobalErrorHandlerService } from './global-error-handler.service';
+import { AuthGuardService } from './auth-guard.service';
+import Product from '../interfaces/product';
+// import Product from '../interfaces/product';
 // import {process} from 
 
 @Injectable({
@@ -9,34 +12,38 @@ import { Observable } from 'rxjs';
 })
 export class ProductService {
   private _url: string = "http://localhost:3000/products";
-
-  constructor(private http: HttpClient) { }
-
-  private getHeaders(): HttpHeaders {
-    const token = 'eyJhbGciOiJIUzI1NiJ9.YW5hZGloaXJwYXJhMDAzNkBnbWFpbC5jb20.E3NXa9d7-69qF0DjmiBBYzvPsUdB-2woAMlA__zRPjE';
-    return new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`
-    });
+  private headers: HttpHeaders;
+  constructor(private http: HttpClient, private err: GlobalErrorHandlerService, private authService: AuthGuardService) {
+    this.headers = this.authService.getHeaders();
   }
 
-  getAllProducts(): Observable<any[]> {
-    return this.http.get<any[]>(this._url, { headers: this.getHeaders() });
+  getAllProducts(): Observable<Product[]> {
+    return this.http.get<Product[]>(this._url, { headers: this.headers }).pipe(
+      catchError(this.err.handleError)
+    );
   }
-  getProduct(id: number): Observable<any> {
-    return this.http.get<any>(`${this._url}/${id}`, { headers: this.getHeaders() });
-  }
-
-  addProduct(any: any): Observable<any> {
-    return this.http.post<any>(`${this._url}`, any, { headers: this.getHeaders() });
-  }
-
-  updateProduct(id: number, any: any): Observable<any> {
-    return this.http.put<any>(`${this._url}/${id}`, any, { headers: this.getHeaders() });
+  getProduct(id: number): Observable<Product> {
+    return this.http.get<Product>(`${this._url}/${id}`, { headers: this.headers }).pipe(
+      catchError(this.err.handleError)
+    );
   }
 
-  deleteProduct(id: number): Observable<any> {
-    return this.http.delete<any>(`${this._url}/${id}`, { headers: this.getHeaders() });
+  addProduct(product: Product): Observable<Product> {
+    return this.http.post<Product>(`${this._url}`, product, { headers: this.headers }).pipe(
+      catchError(this.err.handleError)
+    );
+  }
+
+  updateProduct(id: number, product: Product): Observable<Product> {
+    return this.http.put<Product>(`${this._url}/${id}`, product, { headers: this.headers }).pipe(
+      catchError(this.err.handleError)
+    );
+  }
+
+  deleteProduct(id: number): Observable<Product> {
+    return this.http.delete<Product>(`${this._url}/${id}`, { headers: this.headers }).pipe(
+      catchError(this.err.handleError)
+    );
   }
 }
 
