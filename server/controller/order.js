@@ -6,7 +6,7 @@ import { Order } from "../models/index.js"
 
 export const createOrder = ErrorHandler(async (req,res)=>{
     try {
-        let order = new Order(req.body.order)
+        let order = new Order(req.body)
         
         await dbConnect()
         await order.save()
@@ -21,7 +21,7 @@ export const createOrder = ErrorHandler(async (req,res)=>{
 
 export const getOrder = ErrorHandler(async (req,res)=>{
     try {
-        let order_id = req.params.order_id
+        let order_id = req.params.id
         await dbConnect()
         let order = await Order.findById(order_id)
         res.status(200).json(order)
@@ -35,10 +35,10 @@ export const getOrder = ErrorHandler(async (req,res)=>{
 
 export const updateOrder = ErrorHandler(async (req,res)=>{
     try {
-        let order_id = req.params.order_id
-        let update = req.body.order
+        let id = req.params.id
+        let update = req.body
         await dbConnect()
-        let updated = await Order.findByIdAndUpdate(order_id, update)
+        let updated = await Order.findById(id, update)
         if(updated){
             res.status(200).json({meassage : `Succesfully updated order with id ${id}`})
         } else {
