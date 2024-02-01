@@ -9,102 +9,106 @@ export const createUser = ErrorHandler(async (req, res) => {
         let user = await User.findOne({ email: req.body.email });
         if (user) {
             res.setHeader('Content-Type', 'application/json');
-            res.end(JSON.stringify({message : "User already exists"}));
+            res.end(JSON.stringify({ message: "User already exists" }));
         } else {
             let doc = new User(req.body);
             await doc.save();
-            res.setHeader('Content-Type','application/json')
-            res.end(JSON.stringify({message:"Succesfully added user"}));
+            res.setHeader('Content-Type', 'application/json')
+            res.end(JSON.stringify({ message: "Succesfully added user" }));
         }
     } catch (e) {
         throw new Error(e.toString())
     }
 })
 
-export const getUser = ErrorHandler(async (req,res)=>{
-    try{
+export const getUser = ErrorHandler(async (req, res) => {
+    try {
         let id = req.params.id
         await dbConnect()
         let user = await User.findById(id)
-        if(user){
+        if (user) {
             res.setHeader('Content-Type', 'application/json');
             res.end(JSON.stringify(user));
-        }else{
+        } else {
             res.setHeader('Content-Type', 'application/json');
-            res.end(JSON.stringify({message : "User does not exist"}));
+            res.end(JSON.stringify({ message: "User does not exist" }));
         }
-    } catch(e){
+    } catch (e) {
         throw new Error(e.toString())
     }
 })
 
-export const  updateUser = ErrorHandler(async (req,res)=>{
-    try{
+export const updateUser = ErrorHandler(async (req, res) => {
+    try {
         let id = req.params.id
         await dbConnect()
-        
-        let user = await User.findByIdAndUpdate(id,req.body)
-        if(user){
+
+        let user = await User.findByIdAndUpdate(id, req.body)
+        if (user) {
             res.setHeader('Content-Type', 'application/json');
-            res.end(JSON.stringify({message : "User updated successfully."}));
-        }else{
+            res.end(JSON.stringify({ message: "User updated successfully." }));
+        } else {
             res.setHeader('Content-Type', 'application/json');
-            res.end(JSON.stringify({message : "User does not exist"}));
+            res.end(JSON.stringify({ message: "User does not exist" }));
         }
-    } catch(e){
+    } catch (e) {
         throw new Error(e.toString())
     }
 })
 
-export const deleteUser = ErrorHandler(async (req,res)=>{
-    try{
+export const deleteUser = ErrorHandler(async (req, res) => {
+    try {
         let id = req.params.id
         await dbConnect()
-        
+
         let user = await User.findByIdAndDelete(id)
-        if(user){
+        if (user) {
             res.setHeader('Content-Type', 'application/json');
-            res.end(JSON.stringify({message : "User deleted successfully."}));
-        }else{
+            res.end(JSON.stringify({ message: "User deleted successfully." }));
+        } else {
             res.setHeader('Content-Type', 'application/json');
-            res.end(JSON.stringify({message : "User does not exist"}));
+            res.end(JSON.stringify({ message: "User does not exist" }));
         }
-    } catch(e){
+    } catch (e) {
         throw new Error("Error updating user.")
     }
 })
 
-export const getAllUser = ErrorHandler(async (req,res)=>{
-    try{
+export const getAllUser = ErrorHandler(async (req, res) => {
+    try {
         let users = await User.find({})
-        if(users){
+        if (users) {
             res.setHeader('Content-Type', 'application/json');
             res.end(JSON.stringify(users))
-        }else{
+        } else {
             res.setHeader('Content-Type', 'application/json');
-            res.end(JSON.stringify({message : "Users does not exist"}))
+            res.end(JSON.stringify({ message: "Users does not exist" }))
         }
-    }catch(e){
+    } catch (e) {
         throw new Error(e.toString())
-    }   
+    }
 })
 
 
-export const login = ErrorHandler(async (req,res)=>{
+export const login = ErrorHandler(async (req, res) => {
     try {
         await dbConnect();
         let user = await User.findOne({ email: req.body.email });
-        if (user && user.password==req.body.password) {
-            let token = jwt.sign(req.body.email, process.env.SECRET_KEY)
-            res.header('Authorization', 'Bearer '+token);
-            const x={
-                token:token,
-                user:user
+        if (user && user.password == req.body.password) {
+            
+            let token = jwt.sign({
+                user_id: user._id,
+                email: user.email
+            }, process.env.SECRET_KEY)
+            res.header('Authorization', 'Bearer ' + token);
+            const x = {
+                token: token,
+                user: user
             }
             res.json(x)
         } else {
-            res.setHeader('Content-Type','application/json')
-            res.end(JSON.stringify({message:"Invalid credentials."}));
+            res.setHeader('Content-Type', 'application/json')
+            res.end(JSON.stringify({ message: "Invalid credentials." }));
         }
     } catch (e) {
         throw new Error(e.toString())
