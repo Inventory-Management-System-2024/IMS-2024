@@ -3,9 +3,6 @@ import { Injectable } from '@angular/core';
 import { Observable, catchError } from 'rxjs';
 import { GlobalErrorHandlerService } from './global-error-handler.service';
 import { AuthGuardService } from './auth-guard.service';
-import { Observable, catchError } from 'rxjs';
-import { GlobalErrorHandlerService } from './global-error-handler.service';
-import { AuthGuardService } from './auth-guard.service';
 import Product from '../interfaces/product';
 
 @Injectable({
