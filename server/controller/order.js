@@ -38,7 +38,7 @@ export const updateOrder = ErrorHandler(async (req, res) => {
         let id = req.params.id
         let update = req.body
         await dbConnect()
-        let updated = await Order.findByIdAndUpdate(id, update)
+        let updated = await Order.findByIdAndUpdate(id, update).populate(["user ", "orderItems.product"])
         if (updated) {
             res.status(200).json({ meassage: `Succesfully updated order with id ${id}` })
         } else {

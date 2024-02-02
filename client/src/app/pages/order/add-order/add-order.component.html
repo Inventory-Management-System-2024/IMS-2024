@@ -9,19 +9,23 @@
             </mat-select>
         </mat-form-field>
         <br> 
-        <mat-form-field>
+        <ng-container *ngFor="let ele of orderItems">
+          <mat-form-field>
             <mat-label>Product</mat-label>
-            <mat-select [(ngModel)]="selectedProduct">
+            <mat-select [(ngModel)]="ele.product">
                 <mat-option *ngFor="let e of productlist" [value]="e" >{{e.productName}}</mat-option>
             </mat-select>
-        </mat-form-field>
+          </mat-form-field>
         
-      <mat-form-field>
-        <mat-label>Number of Items</mat-label>
-        <input matInput type="number" [(ngModel)]="numberOfItems" placeholder="Enter the number of items">
-      </mat-form-field>
-       <!-- Date-Time Picker
-        <input type="date" [(ngModel)]="selectedDate"/> -->
+        <mat-form-field>
+          <mat-label>Number of Items</mat-label>
+          <input matInput type="number" [(ngModel)]="ele.quantity" placeholder="Enter the number of items">
+        </mat-form-field>
+        <br>
+        </ng-container>
+      <button mat-icon-button (click)="addProduct()">
+        <mat-icon>add</mat-icon>
+      </button>
   <br/>
     </mat-dialog-content>
     <mat-dialog-actions>
