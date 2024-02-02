@@ -1,10 +1,28 @@
-<div class="text-danger">{{errMsg}}</div>
-<div class="login-body">
-  <form class="form" #reg="ngForm" [formGroup]="registerForm" (ngSubmit)="
+<div class="login-body" *ngIf="!errMsg">
+  <div *ngIf="errMsg" class="error-message">
+    {{ errMsg }}
+  </div>
+  <form class="form" *ngIf="!errMsg" #reg="ngForm" [formGroup]="registerForm" (ngSubmit)="
       postUser(reg.value)
     ">
     <img src="../../../assets/images/logo.JPG" alt="logo" height="80" width="120" style="margin: auto" />
-
+    <div class="alert alert-danger" role="alert"  *ngIf="(name && name.invalid && name.touched)">
+      Please enter your name using alphabetic characters only. Numbers are not allowed in the name field. 
+   </div>
+   <div class="alert alert-danger" role="alert"  *ngIf="!(name && name.invalid && name.touched) && (email && email.invalid && email.touched)">
+    Please Enter valid Email ID
+ </div>
+ <div class="alert alert-danger" role="alert"  *ngIf="!(name && name.invalid && name.touched) && !(email && email.invalid && email.touched) && (phoneNo && phoneNo.invalid && phoneNo.touched)">
+  Please Enter valid Phone No.Alphabets not allowed in phoneNo Field
+</div>
+<div class="alert alert-danger" role="alert"  *ngIf="!(name && name.invalid && name.touched) && !(email && email.invalid && email.touched) && !(phoneNo && phoneNo.invalid && phoneNo.touched)
+  && (password && password.invalid && password.touched)">
+  Enter Password with alteast 1 uppercase,lowercase,special character and number having length range 8-15
+</div>
+<div class="alert alert-danger" *ngIf="!(name && name.invalid && name.touched) && !(email && email.invalid && email.touched) && !(phoneNo && phoneNo.invalid && phoneNo.touched)
+&& !(password && password.invalid && password.touched) &&(registerForm?.errors?.['misMatch'] && registerForm?.touched)">
+  Password and Confirm Password Must Match
+</div>
     <div class="inputForm">
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person"
         viewBox="0 0 16 16">
