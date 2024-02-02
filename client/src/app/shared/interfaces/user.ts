@@ -13,6 +13,7 @@ interface Address {
     role: string;
     address: Address;
     phoneNo: string;
+    error:string;
   }
   
 
