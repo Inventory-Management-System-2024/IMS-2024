@@ -16,10 +16,10 @@ export class NavbarComponent {
   name: string | null = localStorage.getItem('name');
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
-      const userRole = sessionStorage.getItem('token');
+      const userRole = sessionStorage.getItem('email');
       console.log(userRole);
 
-      if (userRole === "eyJhbGciOiJIUzI1NiJ9.amF5QGdtYWlsLmNvbQ.TFD4-NTMYndZidUHXAcde3WCHHSNIluVFmEA6Pdh-vk") {
+      if (userRole==="jay@gmail.com") {
         this.isAdmin = true;
       }
       else {
