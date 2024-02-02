@@ -2,8 +2,9 @@
 
 <div class="text-center m-4 border">
   <h4>{{ isUpdateMode ? 'Update Product' :'Add Product '}}</h4>
-  <form (ngSubmit)="onSubmit(productForm)" #productForm="ngForm" class="product-form field" id="productForm" novalidate>
 
+  <form (ngSubmit)="onSubmit(productForm)" #productForm="ngForm" class="product-form field" id="productForm" novalidate>
+  
     <mat-form-field class="fields">
       <mat-label>Product Name</mat-label>
       <input matInput type="text" id="productName" name="productName" [(ngModel)]="product.productName" required maxlength="30"  pattern=".*[a-zA-Z].*" #productName="ngModel">
