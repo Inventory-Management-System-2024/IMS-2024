@@ -9,7 +9,7 @@ export const createUser = ErrorHandler(async (req, res) => {
         let user = await User.findOne({ email: req.body.email });
         if (user) {
             res.setHeader('Content-Type', 'application/json');
-            res.end(JSON.stringify({ message: "User already exists" }));
+            res.end(JSON.stringify({error : "User already exists"}));
         } else {
             let doc = new User(req.body);
             await doc.save();
