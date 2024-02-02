@@ -47,6 +47,8 @@ import { log } from 'console';
 export class AddProductComponent implements OnInit {
   // Recieving data from product-list Component through service
   receivedData: any;
+  isUpdateMode:boolean=false;
+  isUpdateButton:boolean=false;
 
   // Accessing the form refrence
   @ViewChild('productForm') form?: NgForm;
@@ -65,6 +67,27 @@ export class AddProductComponent implements OnInit {
       );
     });
     if (window.location.href.includes('?')) {
+      if (this.receivedData) {
+        // Set isUpdateMode to true if data is received
+        this.isUpdateMode = true;
+        this.isUpdateButton = true;
+
+        // Set the form values based on receivedData
+        this.form?.setValue({
+          productName: this.receivedData.productName,
+          description: this.receivedData.description,
+          price: this.receivedData.price,
+          category: this.receivedData.category,
+          stock: this.receivedData.stock,
+        });
+      }else{
+        this.isUpdateMode = false;
+        this.isUpdateButton = false;
+
+        this.resetForm();
+        this.form?.resetForm();
+        this.product = {};
+      }
       setTimeout(() => {
         this.form?.setValue({
           productName: this.receivedData.productName,

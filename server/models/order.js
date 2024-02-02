@@ -7,14 +7,14 @@ const OrderSchema = new mongoose.Schema({
     },
     orderItems: [
         {
-            
+
             quantity: {
                 type: Number,
                 required: [true, "Quantity is required"],
                 required: true,
 
             },
-            
+
             product: {
                 type: mongoose.Schema.ObjectId,
                 ref: "product",
@@ -35,6 +35,7 @@ const OrderSchema = new mongoose.Schema({
     paidAt: {
         type: Date,
         required: [true, "paid At is required"],
+        default: Date.now
     },
-},{ timestamps: true });
+}, { timestamps: true });
 export const Order = mongoose.model("Order", OrderSchema);
