@@ -129,3 +129,14 @@
     border: 1px solid #2d79f3;
     ;
 }
+
+.error-message {
+    background-color: #ffebee;
+    color: #d32f2f;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #d32f2f;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: bold;
+}

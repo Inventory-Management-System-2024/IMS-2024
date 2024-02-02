@@ -89,6 +89,7 @@ export class AddProductComponent implements OnInit {
         this.product = {};
       }
       setTimeout(() => {
+        this.flag=true;
         this.form?.setValue({
           productName: this.receivedData.productName,
           description: this.receivedData.description,
