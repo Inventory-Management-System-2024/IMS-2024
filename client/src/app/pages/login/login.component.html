@@ -1,6 +1,9 @@
-<div class="text-danger">{{errMsg}}</div>
+
 <div class="login-body">
-    <form class="form" #log="ngForm" [formGroup]="loginForm" (ngSubmit)="getUser(log.value)">
+    <div *ngIf="errMsg" class="error-message">
+        {{ errMsg }}
+      </div>
+    <form class="form" *ngIf="!errMsg" #log="ngForm" [formGroup]="loginForm" (ngSubmit)="getUser(log.value)">
         <img src="../../../assets/images/logo.JPG" alt="logo" height="100" width="130" style="margin: auto;">
         <div class="alert alert-danger" role="alert"
             *ngIf="(user && user.invalid && user.touched) || (pass && pass.invalid && pass.touched)">
