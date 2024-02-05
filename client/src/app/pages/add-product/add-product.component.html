@@ -2,31 +2,54 @@
 
 <div class="text-center m-4 border">
   <h4>{{ isUpdateMode ? 'Update Product' :'Add Product '}}</h4>
-  <form (ngSubmit)="onSubmit(productForm)" #productForm="ngForm" class="product-form field" id="productForm">
+
+  <form (ngSubmit)="onSubmit(productForm)" #productForm="ngForm" class="product-form field" id="productForm" novalidate>
+  
     <mat-form-field class="fields">
       <mat-label>Product Name</mat-label>
-      <input matInput type="text" id="productName" name="productName" [(ngModel)]="product.productName" required>
+      <input matInput type="text" id="productName" name="productName" [(ngModel)]="product.productName" required maxlength="30"  pattern=".*[a-zA-Z].*" #productName="ngModel">
+        <mat-error *ngIf="productName.invalid && (productName.dirty || productName.touched)">
+    <span *ngIf="productName.errors?.['required']">Product name is required.</span>
+    <span *ngIf="productName.errors?.['pattern']">Product name must contain at least one letter.</span>
+    <span *ngIf="productName.errors?.['maxlength']">Product name must be less than 30 characters.</span>
+  </mat-error>
     </mat-form-field>
+
+
     <mat-form-field class="fields">
       <mat-label>Description:</mat-label>
-      <input matInput id="description" name="description" [(ngModel)]="product.description" required>
+      <input matInput id="description" name="description" [(ngModel)]="product.description" required maxlength="120" pattern=".*[a-zA-Z].*" #description="ngModel">
+      <!-- <mat-error *ngIf="productForm.controls['description']?.invalid && (productForm.controls['description'].dirty || productForm.controls['description'].touched)">
+        Description is required and must be less than 120 characters.
+      </mat-error> -->
+
+      <mat-error *ngIf="description.invalid && (description.dirty || description.touched)">
+        <span *ngIf="description.errors?.['required']">description is required.</span>
+        <span *ngIf="description.errors?.['pattern']">description must contain at least one letter.</span>
+        <span *ngIf="description.errors?.['maxlength']">description name must be less than 30 characters.</span>
+      </mat-error>
+
     </mat-form-field>
 
     <mat-form-field class="fields">
       <mat-label>Price:</mat-label>
-      <input matInput type="number" id="price" name="price" [(ngModel)]="product.price" required>
+      <input matInput type="number" id="price" name="price" [(ngModel)]="product.price" required min="1">
+      <mat-error *ngIf="productForm.controls['price']?.invalid && (productForm.controls['price'].dirty || productForm.controls['price'].touched)">
+        Price is required and must be greater than zero.
+      </mat-error>
     </mat-form-field>
+
+
     <div class="upload">
       <label>Product Image: </label>
-      <img *ngIf="receivedData?._id" [src]="receivedData.image[0].url" alt="Product Image" width="60px" height="60px"
-        style="margin-bottom:10px">
-      <div class="mb-3 fields file btn  btn-primary " style="width:30%; margin-left:5px" id="abc">
+      <img *ngIf="receivedData?._id" [src]="receivedData.image[0].url" alt="Product Image" width="60px" height="60px" style="margin-bottom:10px">
+      <div class="mb-3 fields file btn  btn-primary " style="width:30%; margin-left:5px" id="abc" >
         Browse File
-        <input type="file" name="file" (change)="onFileSelected($event)" />
+        <input type="file" name="file" (change)="onFileSelected($event)" required/>
       </div>
       <div *ngIf="selectedFile && flag">Selected File: {{ selectedFile.name }}</div>
     </div>
-
+ 
 
     <mat-form-field class="fields">
       <mat-label>Category:</mat-label>
@@ -35,12 +58,14 @@
 
     <mat-form-field class="fields">
       <mat-label>Stock:</mat-label>
-      <input matInput type="number" id="stock" name="stock" [(ngModel)]="product.stock" required>
+      <input matInput type="number" id="stock" name="stock" [(ngModel)]="product.stock" required pattern="^[1-9]\d*$">
+      <mat-error *ngIf="productForm.controls['stock']?.invalid && (productForm.controls['stock'].dirty || productForm.controls['stock'].touched)">
+        Stock is required and must be a whole number.
+      </mat-error>
     </mat-form-field>
 
     <br /><br />
-    <button mat-raised-button color="primary">{{ isUpdateButton ? 'Update' :'Submit '}}
-    </button>
+    <button mat-raised-button color="primary" [disabled]="productForm.invalid || (!flag)">{{ isUpdateButton ? 'Update' :'Submit '}}</button>
   </form>
 </div>
 <app-footer></app-footer>
