@@ -8,5 +8,5 @@ import { provideToastr } from 'ngx-toastr';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideRouter(routes),provideHttpClient(),provideHttpClient(withFetch()), provideClientHydration(), provideAnimations(),provideToastr()]
+  providers: [provideRouter(routes),provideHttpClient(),provideHttpClient(withFetch()), provideClientHydration(), provideAnimations(),provideToastr(), {provide: 'Window', useValue: 'window'}]
 };
