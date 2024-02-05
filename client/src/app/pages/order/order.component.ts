@@ -10,9 +10,9 @@ import { OrderService } from '../../shared/services/order.service';
 import { UpdateDialogComponent } from './update-dialog/update-dialog.component';
 import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
 import { AddOrderComponent } from './add-order/add-order.component';
-import { log } from 'console';
 
 export interface OrderElement {
+  id: number;
   user: {
     name: String,
     email: String
@@ -46,8 +46,15 @@ export class OrderComponent {
   constructor(private orderservice: OrderService, private dialog: MatDialog) {
 
     orderservice.getAllOrders().subscribe((res) => {
+      res.forEach((e) => {
+        let orderItems = e.orderItems
+        orderItems.forEach((oi: any) => {
+          let productName = oi.product.productName
+          productName != undefined
+        })
+      }
+      )
       this.dataSource = new MatTableDataSource(res)
-
     })
   }
 
@@ -57,16 +64,8 @@ export class OrderComponent {
       if (result) {
         this.orderservice.addOrder(result).subscribe(
           (res) => {
-
             this.dataSource.data.push(res);
             this.dataSource = new MatTableDataSource(this.dataSource.data)
-
-
-            // this.orderservice.getAllOrders().subscribe((res) => {
-            //   this.dataSource = res
-            //   this.checkLen = res.length > 0
-            // },
-            //   (err) => { console.log("error", err) })
           },
           (err) => { console.log("error", err) },
         )
@@ -74,6 +73,7 @@ export class OrderComponent {
     })
 
   }
+
   openUpdateDialog(orderId: any) {
     const dialogRef = this.dialog.open(UpdateDialogComponent);
     dialogRef.afterClosed().subscribe(result => {
@@ -102,11 +102,10 @@ export class OrderComponent {
           console.log(orderId, this.orderDetails[0]);
 
           this.orderservice.updateOrder(orderId, this.orderDetails[0]).subscribe(
-            (res) => {
-              this.dataSource.data.findIndex(orderId);
-              this.dataSource.data[orderId] = res;
+            () => {
+              const index = this.dataSource.data.findIndex((item: any) => item._id === orderId);
+              this.dataSource.data[index].orderStatus = result;
               this.dataSource = new MatTableDataSource(this.dataSource.data);
-              console.log(res);
 
             }
           );
@@ -123,10 +122,13 @@ export class OrderComponent {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.orderservice.deleteOrder(orderId).subscribe(
-          (res) => {
-            this.dataSource.data.pop(res);
-            this.dataSource = new MatTableDataSource(this.dataSource.data)
-          }
+          () => {
+            const index = this.dataSource.data.findIndex((item: any) => item._id === orderId);
+            if (index !== -1) {
+              this.dataSource.data.splice(index, 1);
+              this.dataSource = new MatTableDataSource(this.dataSource.data);
+            }
+          },
         )
       } else {
         console.log('Delete cancelled');
