@@ -6,7 +6,16 @@
     height: 100vh;
     background-color: #f2f3f5;
 }
-
+.error-message {
+    background-color: #ffebee;
+    color: #d32f2f;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #d32f2f;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: bold;
+}
 .toggle {
     cursor: pointer;
 }

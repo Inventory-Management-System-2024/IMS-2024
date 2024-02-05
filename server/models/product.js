@@ -13,6 +13,7 @@ const ProductSchema = new mongoose.Schema({
     price: {
         type: Number,
         required: [true, "please enter product price"],
+        min: [0, "Price must be a positive number"],
     },
     image: [
         {
@@ -22,13 +23,14 @@ const ProductSchema = new mongoose.Schema({
             },
         },
     ],
-    category: {
-        type: String,
-        required: [true, "enter product category"],
-    },
     stock: {
         type: Number,
         required: [true, "please enter product stoke"],
+        min: [0, "stock must be a non-negative number"],
+        validate: {
+            validator: Number.isInteger,
+            message: "Stock must be an integer.",
+        },
     },
 },{ timestamps: true });
 
