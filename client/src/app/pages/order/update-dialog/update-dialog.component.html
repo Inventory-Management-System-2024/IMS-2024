@@ -1,15 +1,17 @@
 <h2 mat-dialog-title>Update Record</h2>
-    <mat-dialog-content>
-      <mat-form-field>
-        <mat-label>Select an option</mat-label>
-        <mat-select [(ngModel)]="selectedOption">
-          <mat-option value="Processing">Processing</mat-option>
-          <mat-option value="Completed">Completed</mat-option>
-          <mat-option value="Canceled">Canceled</mat-option>
-        </mat-select>
-      </mat-form-field> 
-    </mat-dialog-content>
-    <mat-dialog-actions>
-      <button mat-button (click)="onNoClick()">No</button>
-      <button mat-button (click)="onYesClick()">Yes, Update</button>
-    </mat-dialog-actions>
+<mat-dialog-content>
+  <mat-form-field>
+    <mat-label>Select an option</mat-label>
+    <mat-select [(ngModel)]="selectedOption">
+      <mat-option value="Processing">Processing</mat-option>
+      <mat-option value="Completed">Completed</mat-option>
+      <mat-option value="Canceled">Canceled</mat-option>
+    </mat-select>
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button class="btn dialog-btn" mat-button (click)="onNoClick()">No</button>
+  <button class="btn dialog-btn ms-2" (click)="onYesClick()">
+    Yes, Update
+  </button>
+</mat-dialog-actions>
