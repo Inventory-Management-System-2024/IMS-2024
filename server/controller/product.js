@@ -45,18 +45,9 @@ export const createProduct = ErrorHandler(async (req, res) => {
   try {
     await dbConnect();
 
-    const { productName, description, price, image, category, stock } =
-      req.body;
-
+    const { productName, description, price, image, stock } = req.body;
     // Validate the required fields
-    if (
-      !productName ||
-      !description ||
-      !price ||
-      !image ||
-      !category ||
-      !stock
-    ) {
+    if (!productName || !description || !price || !image || !stock) {
       return res.status(400).json({ message: "Missing required fields" });
     }
 
@@ -65,7 +56,6 @@ export const createProduct = ErrorHandler(async (req, res) => {
       description,
       price,
       image,
-      category,
       stock,
     });
 
