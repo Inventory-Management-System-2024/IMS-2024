@@ -21,7 +21,7 @@ import { Router } from '@angular/router';
 export class ProductListComponent {
   constructor(private router: Router, private productService: ProductService, private sharedDataService: SharedDataService) {
   }
-  displayedColumns: string[] = ['productName', 'image', 'category', 'description', 'price', 'stock', 'action'];
+  displayedColumns: string[] = ['productName', 'image', 'description', 'price', 'stock', 'action'];
   dataSource: any[] = [];
   currentProduct: any;
   errorMessage: any;
@@ -50,7 +50,7 @@ export class ProductListComponent {
 
     this.sharedDataService.sendData(this.currentProduct);
 
-    this.router.navigate(['/add_product'], { queryParams: { edit: true } });
+    this.router.navigate(['/add_product/edit']);
   }
   deleteRecord(id: number) {
     this.productService.deleteProduct(id).subscribe(() => {

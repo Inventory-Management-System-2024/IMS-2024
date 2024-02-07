@@ -67,7 +67,7 @@ export class AddProductComponent implements OnInit {
         this.receivedData
       );
     });
-    if (window.location.href.includes('?')) {
+    if (window.location.href.includes('edit')) {
       if (await this.receivedData) {
         // Set isUpdateMode to true if data is received
         this.isUpdateMode = true;
@@ -79,7 +79,7 @@ export class AddProductComponent implements OnInit {
             productName: await this.receivedData.productName,
             description: await this.receivedData.description,
             price: await this.receivedData.price,
-            category: await this.receivedData.category,
+            // category: await this.receivedData.category,
             stock: await this.receivedData.stock,
           });        
       }
@@ -117,7 +117,7 @@ export class AddProductComponent implements OnInit {
     if (productForm.valid) {
       // console.log(this.receivedData._id);
 
-      if (window.location.href.includes('?')) {
+      if (window.location.href.includes('edit')) {
         console.log('for checking', this.receivedData._id);
 
         this._productService
