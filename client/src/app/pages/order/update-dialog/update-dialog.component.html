@@ -11,7 +11,11 @@
 </mat-dialog-content>
 <mat-dialog-actions>
   <button class="btn dialog-btn" mat-button (click)="onNoClick()">No</button>
-  <button class="btn dialog-btn ms-2" (click)="onYesClick()">
+  <button
+    class="btn dialog-btn ms-2"
+    (click)="onYesClick()"
+    [disabled]="isInvalidQuantity()"
+  >
     Yes, Update
   </button>
 </mat-dialog-actions>

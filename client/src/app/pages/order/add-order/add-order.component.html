@@ -2,7 +2,7 @@
 <mat-dialog-content>
   <mat-form-field>
     <mat-label>Order Status</mat-label>
-    <mat-select [(ngModel)]="selectedOrderStatus">
+    <mat-select [(ngModel)]="selectedOrderStatus" required>
       <mat-option value="Processing">Processing</mat-option>
       <mat-option value="Completed">Completed</mat-option>
       <mat-option value="Canceled">Canceled</mat-option>
@@ -12,12 +12,13 @@
   <ng-container *ngFor="let ele of orderItems">
     <mat-form-field>
       <mat-label>Product</mat-label>
-      <mat-select [(ngModel)]="ele.product">
+      <mat-select matInput [(ngModel)]="ele.product" required>
         <mat-option *ngFor="let e of productlist" [value]="e">{{
           e.productName
         }}</mat-option>
       </mat-select>
     </mat-form-field>
+
     <mat-form-field>
       <mat-label>Number of Items</mat-label>
       <input
@@ -25,20 +26,30 @@
         type="number"
         [(ngModel)]="ele.quantity"
         placeholder="Enter the number of items"
+        [min]="1"
+        required
       />
+      <mat-error *ngIf="ele.quantity !== null && ele.quantity <= 0"
+        >Quantity must be greater than 0</mat-error
+      >
     </mat-form-field>
     <br />
   </ng-container>
-  <button class="btn btn-add" mat-icon-button (click)="addProduct()">
+  <button class="btn dialog-btn" mat-icon-button (click)="addProduct()">
     <mat-icon>add</mat-icon>
   </button>
   <br />
+  <mat-dialog-actions>
+    <button class="btn dialog-btn" mat-button (click)="onNoClick()">
+      cancel
+    </button>
+    <button
+      mat-button
+      class="btn dialog-btn ms-2"
+      (click)="onYesClick()"
+      [disabled]="isInvalidQuantity() || isAnyProductNotSelected()"
+    >
+      Add
+    </button>
+  </mat-dialog-actions>
 </mat-dialog-content>
-<mat-dialog-actions>
-  <button class="btn dialog-btn" mat-button (click)="onNoClick()">
-    cancel
-  </button>
-  <button class="btn dialog-btn ms-2" mat-button (click)="onYesClick()">
-    Add
-  </button>
-</mat-dialog-actions>

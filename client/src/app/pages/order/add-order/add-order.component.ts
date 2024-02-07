@@ -9,7 +9,7 @@ import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 
 interface OrderItem {
-  quantity: number | null,
+  quantity: number,
   product: any
 }
 
@@ -23,11 +23,11 @@ interface OrderItem {
 export class AddOrderComponent {
   productlist: any
   selectedOrderStatus!: string
-  selectedProduct!: any
+  // selectedProduct!: any
   selectedDate: any = Date.now();
   option!: any
-  product_data!: any
-  orderItems: OrderItem[] = [{ quantity: null, product: {} }]
+  // product_data!: any
+  orderItems: OrderItem[] = [{ quantity: 1, product: {} }]
 
   constructor(private ps: ProductService, public dialogRef: MatDialogRef<AddOrderComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) {
@@ -60,8 +60,23 @@ export class AddOrderComponent {
     };
     this.dialogRef.close(this.option);
   }
+  isInvalidQuantity(): boolean {
+    const decimalRegex = /^[1-9]\d*$/;
+    return this.orderItems.some(ele => {
+      return (
+        ele.quantity === null ||
+        ele.quantity <= 0 ||
+        !decimalRegex.test(ele.quantity.toString()) ||
+        this.selectedOrderStatus === null ||
+        this.selectedOrderStatus === undefined
+      );
+    });
+  }
+  isAnyProductNotSelected(): boolean {
+    return this.orderItems.some(ele => !ele.product || !ele.product.productName);
+  }
 
   addProduct(): void {
-    this.orderItems.push({ quantity: null, product: {} })
+    this.orderItems.push({ quantity: 1, product: {} })
   }
 }
