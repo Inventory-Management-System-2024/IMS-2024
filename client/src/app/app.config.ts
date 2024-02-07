@@ -9,6 +9,7 @@ import { provideHttpClient, withFetch } from '@angular/common/http';
 import { IMAGE_CONFIG } from '@angular/common';
 
 export const appConfig: ApplicationConfig = {
+
   providers: [provideRouter(routes),provideHttpClient(),provideHttpClient(withFetch()), provideClientHydration(), provideAnimations(),provideToastr(), 
   {  provide: IMAGE_CONFIG,
     useValue: {
@@ -16,4 +17,3 @@ export const appConfig: ApplicationConfig = {
       disableImageLazyLoadWarning: true
     }
 }]
-};
