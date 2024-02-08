@@ -23,6 +23,10 @@ export const routes: Routes = [
     path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuardService]
   },
   {
+    path: 'add_product/edit',
+    component: AddProductComponent, canActivate: [AuthGuardService]
+  },
+  {
     path: 'add_product',
     component: AddProductComponent, canActivate: [AuthGuardService]
   },

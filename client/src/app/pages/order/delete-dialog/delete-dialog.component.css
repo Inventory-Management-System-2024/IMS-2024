@@ -1,1 +1,5 @@
 /* Add this to your styles.css or styles.scss */
+.dialog-btn {
+  border: 1px solid black;
+  background-color: rgb(199, 199, 199);
+}
