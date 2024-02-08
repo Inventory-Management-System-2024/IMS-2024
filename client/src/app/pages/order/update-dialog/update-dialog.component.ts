@@ -28,4 +28,10 @@ export class UpdateDialogComponent {
   onYesClick(): void {
     this.dialogRef.close(this.selectedOption);
   }
+  isInvalidQuantity(): boolean {
+    return (
+      this.selectedOption === null ||
+      this.selectedOption === undefined
+    );
+  };
 }
