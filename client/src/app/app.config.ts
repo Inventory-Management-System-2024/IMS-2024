@@ -17,3 +17,4 @@ export const appConfig: ApplicationConfig = {
       disableImageLazyLoadWarning: true
     }
 }]
+}
