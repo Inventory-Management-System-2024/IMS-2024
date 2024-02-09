@@ -16,10 +16,8 @@ export class AuthGuardService {
       authToken = sessionStorage.getItem('token');
     }
     if (!authToken) {
-      
         this.route.navigate(['/'])
-        return false;
-      
+        return false;      
     }
     // else if(authToken!=="eyJhbGciOiJIUzI1NiJ9.amF5QGdtYWlsLmNvbQ.TFD4-NTMYndZidUHXAcde3WCHHSNIluVFmEA6Pdh-vk"){
     //   this.route.navigate(['/'])
