@@ -10,7 +10,8 @@ import { MatIconModule } from '@angular/material/icon';
 
 interface OrderItem {
   quantity: number,
-  product: any
+  product: any,
+  id:number
 }
 
 @Component({
@@ -27,27 +28,32 @@ export class AddOrderComponent {
   selectedDate: any = Date.now();
   option!: any
   // product_data!: any
-  orderItems: OrderItem[] = [{ quantity: 1, product: {} }]
+  orderItems: OrderItem[] = [{ quantity: 1, product: {},id:1 }]
 
   constructor(private ps: ProductService, public dialogRef: MatDialogRef<AddOrderComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) {
     this.ps.getAllProducts().subscribe(
-      (data: any) => {
-        this.productlist = data;
+      {next:(data: any) => {
+        this.productlist = data; 
       },
-      (error: any) => {
+      error:(error: any) => {
         console.error('Error fetching products:', error);
-      }
+      }}
     );
+    
   }
+  
 
+  
   onNoClick(): void {
     this.dialogRef.close();
   }
-
+  stock!:number;
   onYesClick(): void {
     let totalPrice = 0;
+    
     for (const item of this.orderItems) {
+      
       if (item.quantity !== null && item.product && item.product.price) {
         totalPrice += item.quantity * item.product.price;
       }
@@ -65,7 +71,8 @@ export class AddOrderComponent {
     return this.orderItems.some(ele => {
       return (
         ele.quantity === null ||
-        ele.quantity <= 0 ||
+        (ele.quantity <= 0 ||
+        ele.quantity>=this.stock)||
         !decimalRegex.test(ele.quantity.toString()) ||
         this.selectedOrderStatus === null ||
         this.selectedOrderStatus === undefined
@@ -75,8 +82,16 @@ export class AddOrderComponent {
   isAnyProductNotSelected(): boolean {
     return this.orderItems.some(ele => !ele.product || !ele.product.productName);
   }
-
   addProduct(): void {
-    this.orderItems.push({ quantity: 1, product: {} })
+    const newId = this.orderItems.length + 1;
+    this.orderItems.push({ id: newId, quantity: 1, product: {} })
+  }
+  removeProduct(itemId: number): void {
+    const index = this.orderItems.findIndex(item => item.id === itemId);
+    if(this.orderItems.length>1){
+      if (index !== -1) {
+        this.orderItems.splice(index, 1);
+      }
+    }
   }
 }
