@@ -6,4 +6,4 @@ import { GlobalErrorHandlerService } from "./global-error-handler.service";
 import { SharedDataService } from "./shared-data.service";
 import { AuthGuardService } from "./auth-guard.service";
 
-export { ProductService,OrderService, UsersService, RegisterService, GlobalErrorHandlerService,SharedDataService,AuthGuardService};
+export {ProductService,OrderService, UsersService, RegisterService, GlobalErrorHandlerService,SharedDataService,AuthGuardService};

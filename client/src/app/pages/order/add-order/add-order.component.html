@@ -29,10 +29,13 @@
         [min]="1"
         required
       />
-      <mat-error *ngIf="ele.quantity !== null && ele.quantity <= 0"
-        >Quantity must be greater than 0</mat-error
-      >
+
+      <mat-error *ngIf="ele.quantity !== null && ele.quantity <= 0">Quantity must be greater than 0</mat-error>
+      <mat-error *ngIf="ele.quantity !== null && ele.quantity > stock">Quantity exceeds available stock</mat-error>
     </mat-form-field>
+    <button class="btn dialog-btn" mat-icon-button (click)="removeProduct(ele.id)">
+      <mat-icon>remove</mat-icon>
+    </button>
     <br />
   </ng-container>
   <button class="btn dialog-btn" mat-icon-button (click)="addProduct()">
@@ -40,12 +43,12 @@
   </button>
   <br />
   <mat-dialog-actions>
-    <button class="btn dialog-btn" mat-button (click)="onNoClick()">
-      cancel
+    <button class="btn btn-secondary" mat-button (click)="onNoClick()">
+      Cancel
     </button>
     <button
       mat-button
-      class="btn dialog-btn ms-2"
+      class="btn btn-success ms-2"
       (click)="onYesClick()"
       [disabled]="isInvalidQuantity() || isAnyProductNotSelected()"
     >
