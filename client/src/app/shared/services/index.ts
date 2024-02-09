@@ -1,4 +1,3 @@
-import { CategoryService } from "./category.service";
 import { ProductService } from "./product.service";
 import { OrderService } from "./order.service";
 import { UsersService } from "./users.service";
@@ -7,4 +6,4 @@ import { GlobalErrorHandlerService } from "./global-error-handler.service";
 import { SharedDataService } from "./shared-data.service";
 import { AuthGuardService } from "./auth-guard.service";
 
-export { CategoryService, ProductService,OrderService, UsersService, RegisterService, GlobalErrorHandlerService,SharedDataService,AuthGuardService};
+export { ProductService,OrderService, UsersService, RegisterService, GlobalErrorHandlerService,SharedDataService,AuthGuardService};
