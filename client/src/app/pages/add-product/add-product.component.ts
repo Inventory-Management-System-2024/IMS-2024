@@ -52,8 +52,9 @@ export class AddProductComponent implements OnInit {
 
   // Accessing the form refrence
   @ViewChild('productForm') form?: NgForm;
-  ngOnInit(): void {
+  async ngOnInit():  Promise<void> {
 
+    
     if (isPlatformBrowser(this.platformId)) {
 
     }
@@ -66,40 +67,37 @@ export class AddProductComponent implements OnInit {
         this.receivedData
       );
     });
-    if (window.location.href.includes('?')) {
-      if (this.receivedData) {
+    if (window.location.href.includes('edit')) {
+      if (await this.receivedData) {
         // Set isUpdateMode to true if data is received
         this.isUpdateMode = true;
         this.isUpdateButton = true;
 
-        // Set the form values based on receivedData
-        this.form?.setValue({
-          productName: this.receivedData.productName,
-          description: this.receivedData.description,
-          price: this.receivedData.price,
-          category: this.receivedData.category,
-          stock: this.receivedData.stock,
-        });
-      }else{
-        this.isUpdateMode = false;
-        this.isUpdateButton = false;
-
-        this.resetForm();
-        this.form?.resetForm();
-        this.product = {};
-      }
-      setTimeout(() => {
         this.flag=true;
+
         this.form?.setValue({
-          productName: this.receivedData.productName,
-          description: this.receivedData.description,
-          price: this.receivedData.price,
-          category: this.receivedData.category,
-          stock: this.receivedData.stock,
-        });
-      });
+            productName: await this.receivedData.productName,
+            description: await this.receivedData.description,
+            price: await this.receivedData.price,
+            // category: await this.receivedData.category,
+            stock: await this.receivedData.stock,
+          });        
+      }
+      
+    } else  //if user want to add_new product
+    {
+      this.isUpdateMode = false;
+      this.isUpdateButton = false;
+      
+
+      this.flag=false;
+      this.resetForm();
+      this.form?.resetForm();
+      this.product = {};
     }
   }
+
+
   @Output() productSubmitted = new EventEmitter<any>();
   product: any = {};
   selectedFile!: File;
@@ -119,7 +117,7 @@ export class AddProductComponent implements OnInit {
     if (productForm.valid) {
       // console.log(this.receivedData._id);
 
-      if (window.location.href.includes('?')) {
+      if (window.location.href.includes('edit')) {
         console.log('for checking', this.receivedData._id);
 
         this._productService

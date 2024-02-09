@@ -10,6 +10,7 @@ import { OrderService } from '../../shared/services/order.service';
 import { UpdateDialogComponent } from './update-dialog/update-dialog.component';
 import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
 import { AddOrderComponent } from './add-order/add-order.component';
+import { AuthGuardService } from '../../shared/services';
 
 export interface OrderElement {
   id: number;
@@ -42,9 +43,10 @@ export class OrderComponent {
   orderDetails: any;
   displayedColumns: string[] = ['user', 'orderItems', 'orderStatus', 'totalPrice', 'paidAt', 'actions'];
   dataSource: any;
+  checkLen?: boolean;
 
-  constructor(private orderservice: OrderService, private dialog: MatDialog) {
-
+  constructor(private orderservice: OrderService, private dialog: MatDialog, private authservice: AuthGuardService) {
+    authservice.canActivate()
     orderservice.getAllOrders().subscribe((res) => {
       res.forEach((e) => {
         let orderItems = e.orderItems
@@ -54,6 +56,7 @@ export class OrderComponent {
         })
       }
       )
+      this.checkLen = res.length > 0
       this.dataSource = new MatTableDataSource(res)
     })
   }
@@ -89,8 +92,6 @@ export class OrderComponent {
       //     (err) => { console.log("error", err) },
       //   );
       // }
-      console.log(result);
-
       if (result !== undefined) {
         this.orderservice.getAllOrders().subscribe((res) => {
           this.orderDetails = res.filter((item) => {
@@ -99,8 +100,6 @@ export class OrderComponent {
               return item
             }
           })
-          console.log(orderId, this.orderDetails[0]);
-
           this.orderservice.updateOrder(orderId, this.orderDetails[0]).subscribe(
             () => {
               const index = this.dataSource.data.findIndex((item: any) => item._id === orderId);

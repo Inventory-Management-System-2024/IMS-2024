@@ -2,17 +2,17 @@ li {
   list-style-type: none;
 }
 
-.order_list{
+.order_list {
   margin: 40px;
 }
 
-.btn{
+.btn {
   border: none;
   margin-top: 20px;
   margin-left: 40px;
 }
 
-.btn-add-order{
+.btn-add-order {
   background-color: blue;
   color: white;
 }
