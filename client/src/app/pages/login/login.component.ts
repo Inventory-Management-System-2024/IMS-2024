@@ -52,7 +52,7 @@ export class LoginComponent {
           sessionStorage.setItem('token', response.body.token)
           const token = sessionStorage.getItem('token');
           if (token === "undefined") {
-            this.toast.error("Please check your Email adddress and Password")
+            this.toast.error("Please check your Email address and Password")
             console.log("not valid");
           }
           else {
