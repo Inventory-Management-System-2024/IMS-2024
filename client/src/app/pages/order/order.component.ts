@@ -10,6 +10,7 @@ import { OrderService } from '../../shared/services/order.service';
 import { UpdateDialogComponent } from './update-dialog/update-dialog.component';
 import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
 import { AddOrderComponent } from './add-order/add-order.component';
+import { FooterComponent } from '../../components/footer/footer.component';
 import { AuthGuardService } from '../../shared/services';
 
 export interface OrderElement {
@@ -28,12 +29,13 @@ export interface OrderElement {
   orderStatus: string;
   totalPrice: number;
   paidAt: String;
+
 }
 
 @Component({
   selector: 'app-order',
   standalone: true,
-  imports: [MatTableModule, NavbarComponent, MatSortModule, CommonModule, MatDialogModule, MatIconModule],
+  imports: [MatTableModule, NavbarComponent, MatSortModule, CommonModule, MatDialogModule, MatIconModule, FooterComponent],
   templateUrl: './order.component.html',
   styleUrl: './order.component.css'
 })

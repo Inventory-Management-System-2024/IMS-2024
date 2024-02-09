@@ -1,12 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { AbstractControl, FormsModule } from '@angular/forms';
 
 import {
+  FormsModule, AbstractControl,
   FormControl,
   Validators,
   FormGroup,
-  ReactiveFormsModule,
+  ReactiveFormsModule
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RegisterService } from '../../shared/services/register.service';
@@ -31,7 +31,7 @@ export class RegisterComponent {
   }
 
   registerForm = new FormGroup({
-    name: new FormControl('', [Validators.required,Validators.pattern('^[a-zA-Z]+.{2,50}$')]),
+    name: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z]+.{2,50}$')]),
     email: new FormControl('', [Validators.required, Validators.email]),
     phoneNo: new FormControl('', [
       Validators.required,
@@ -44,22 +44,22 @@ export class RegisterComponent {
       Validators.pattern(/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,15}$/),
     ]),
     cpw: new FormControl('', [
-      Validators.required,Validators.pattern(/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,15}$/),
+      Validators.required, Validators.pattern(/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,15}$/),
     ]),
-  },{
-    validators:this.passwordMatchVAlidator
+  }, {
+    validators: this.passwordMatchVAlidator
   });
 
-  get name(){
+  get name() {
     return this.registerForm.get('name');
   }
-  get email(){
+  get email() {
     return this.registerForm.get('email');
   }
-  get phoneNo(){
+  get phoneNo() {
     return this.registerForm.get('phoneNo');
   }
-  get password(){
+  get password() {
     return this.registerForm.get('password');
   }
   passwordMatchVAlidator(control: AbstractControl) {
@@ -72,19 +72,20 @@ export class RegisterComponent {
     this.showConfirmPassword = !this.showConfirmPassword;
   }
   postUser(user: User) {
-    
+
     this._registerService.register(user).subscribe({
-      next:(res)=>{
+      next: (res) => {
         console.log(res.error);
-        if(res.error)
+        if (res.error)
           this.toast.warning(res.error);
-        else{
+        else {
           this.toast.success("Registered successfully");
         }
+      this.login();
       },
-      error:(err)=>{this.errMsg=err}
+      error: (err) => { this.errMsg = err }
     });
-    
+
     console.log(user);
   }
 }
