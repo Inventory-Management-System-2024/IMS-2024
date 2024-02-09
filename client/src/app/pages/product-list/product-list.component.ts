@@ -6,7 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormField, MatInput, MatInputModule } from '@angular/material/input';
 import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
-import { ProductService,SharedDataService } from '../../shared/services';
+import { ProductService, SharedDataService } from '../../shared/services';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 
@@ -34,10 +34,11 @@ export class ProductListComponent {
     this.productService.getAllProducts().subscribe((data) => {
       this.dataSource = data;
       this.dataSource.reverse();
-    },(error)=>{
-      this.errorMessage = error;
-      console.warn(error);
-    });
+    },
+      (error) => {
+        this.errorMessage = error;
+        console.warn(error);
+      });
   }
 
   updateRecord(id: number) {

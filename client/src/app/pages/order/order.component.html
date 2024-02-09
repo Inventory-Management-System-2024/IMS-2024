@@ -43,18 +43,10 @@
       <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef>Actions</th>
         <td mat-cell *matCellDef="let element">
-          <button
-            class="btn"
-            mat-icon-button
-            (click)="openUpdateDialog(element._id)"
-          >
+          <button class="btn" mat-icon-button (click)="openUpdateDialog(element._id)">
             <mat-icon>edit</mat-icon>
           </button>
-          <button
-            class="btn"
-            mat-icon-button
-            (click)="openDeleteDialog(element._id)"
-          >
+          <button class="btn" mat-icon-button (click)="openDeleteDialog(element._id)">
             <mat-icon>delete</mat-icon>
           </button>
         </td>
