@@ -7,7 +7,6 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { AddProductComponent } from './pages/add-product/add-product.component';
 import { ProductListComponent } from './pages/product-list/product-list.component';
 import { RegisterComponent } from './pages/register/register.component';
-import { EvaluateComponent } from './components/evaluate/evaluate.component';
 
 @Component({
   selector: 'app-root',
@@ -20,8 +19,7 @@ import { EvaluateComponent } from './components/evaluate/evaluate.component';
     NavbarComponent,
     AddProductComponent,
     ProductListComponent,
-    RegisterComponent,
-    EvaluateComponent
+    RegisterComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
