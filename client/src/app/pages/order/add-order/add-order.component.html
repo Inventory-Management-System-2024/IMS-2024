@@ -12,13 +12,17 @@
   <ng-container *ngFor="let ele of orderItems">
     <mat-form-field>
       <mat-label>Product</mat-label>
-      <mat-select matInput [(ngModel)]="ele.product" required>
+      <mat-select
+        matInput
+        [(ngModel)]="ele.product"
+        (selectionChange)="updateMaxStock(ele)"
+        required
+      >
         <mat-option *ngFor="let e of productlist" [value]="e">{{
           e.productName
         }}</mat-option>
       </mat-select>
     </mat-form-field>
-
     <mat-form-field>
       <mat-label>Number of Items</mat-label>
       <input
@@ -30,13 +34,24 @@
         required
       />
 
-      <mat-error *ngIf="ele.quantity !== null && ele.quantity <= 0">Quantity must be greater than 0</mat-error>
-      <mat-error *ngIf="ele.quantity !== null && ele.quantity > stock">Quantity exceeds available stock</mat-error>
+      <mat-error *ngIf="ele.quantity !== null && ele.quantity <= 0">
+        Quantity must be greater than 0
+      </mat-error>
+
+      <mat-label> |Stock:{{ ele.maxStock }} </mat-label>
     </mat-form-field>
-    <button class="btn dialog-btn" mat-icon-button (click)="removeProduct(ele.id)">
+
+    <button
+      class="btn dialog-btn"
+      mat-icon-button
+      (click)="removeProduct(ele.id)"
+    >
       <mat-icon>remove</mat-icon>
-    </button>
+    </button>
     <br />
+    <mat-error *ngIf="ele.quantity > ele.maxStock">
+      Quantity cannot exceed available stock
+    </mat-error>
   </ng-container>
   <button class="btn dialog-btn" mat-icon-button (click)="addProduct()">
     <mat-icon>add</mat-icon>
