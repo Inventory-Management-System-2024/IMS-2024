@@ -9,11 +9,13 @@ import { provideHttpClient, withFetch } from '@angular/common/http';
 import { IMAGE_CONFIG } from '@angular/common';
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideRouter(routes),provideHttpClient(),provideHttpClient(withFetch()), provideClientHydration(), provideAnimations(),provideToastr(), 
-  {  provide: IMAGE_CONFIG,
+
+  providers: [provideRouter(routes), provideHttpClient(), provideHttpClient(withFetch()), provideClientHydration(), provideAnimations(), provideToastr(),
+  {
+    provide: IMAGE_CONFIG,
     useValue: {
-      disableImageSizeWarning: true, 
+      disableImageSizeWarning: true,
       disableImageLazyLoadWarning: true
     }
-}]
-};
+  }]
+}
