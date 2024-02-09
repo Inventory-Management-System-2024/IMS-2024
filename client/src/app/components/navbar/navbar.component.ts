@@ -13,9 +13,10 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 export class NavbarComponent {
   isAdmin!: boolean;
   constructor(@Inject(PLATFORM_ID) private platformId: Object) { }
-  name: string | null = localStorage.getItem('name');
+  name!: string | null;
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
+      this.name= localStorage.getItem('name');
       const userRole = sessionStorage.getItem('email');
       console.log(userRole);
 
@@ -31,6 +32,7 @@ export class NavbarComponent {
   }
   logout() {
     sessionStorage.clear();
+    localStorage.clear();
   }
 
 }

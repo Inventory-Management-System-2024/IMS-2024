@@ -31,13 +31,15 @@ export class ProductListComponent {
     this.loadProducts();
   }
   loadProducts(): void {
-    this.productService.getAllProducts().subscribe((data) => {
+    this.productService.getAllProducts().subscribe({
+      next:(data) => {
       this.dataSource = data;
       this.dataSource.reverse();
-    },(error)=>{
+    },
+    error:(error)=>{
       this.errorMessage = error;
       console.warn(error);
-    });
+    }});
   }
 
   updateRecord(id: number) {
