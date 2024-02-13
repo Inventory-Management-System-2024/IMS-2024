@@ -81,6 +81,7 @@ export class RegisterComponent {
         else {
           this.toast.success("Registered successfully");
         }
+      this.login();
       },
       error: (err) => { this.errMsg = err }
     });
