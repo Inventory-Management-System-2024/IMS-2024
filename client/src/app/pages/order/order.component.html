@@ -15,8 +15,8 @@
       <ng-container matColumnDef="orderItems">
         <th mat-header-cell *matHeaderCellDef>Order items</th>
         <td mat-cell *matCellDef="let element">
-          <li *ngFor="let item of element.orderItems">
-            {{ item.product.productName }} x {{ item.quantity }}
+          <li *ngFor="let item of element.orderItems" >
+            {{ item.product?.productName }} x {{ item.quantity }}
           </li>
         </td>
       </ng-container>
