@@ -59,7 +59,7 @@ export class OrderComponent {
       res.forEach((e) => {
         let orderItems = e.orderItems
         orderItems.forEach((oi: any) => {
-          let productName = oi.product.productName
+          let productName = oi.product?.productName
           productName != undefined
         })
       }
