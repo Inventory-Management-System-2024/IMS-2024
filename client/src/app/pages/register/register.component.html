@@ -50,6 +50,11 @@
 
 <!-- Password -->
     <div class="inputForm">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lock"
+      viewBox="0 0 16 16">
+      <path
+        d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2m3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2M5 8h6a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1" />
+      </svg>
       <input type="{{ showPassword ? 'text' : 'password' }}" class="input" placeholder="Password"
         formControlName="password" #pw />
       <svg *ngIf="showPassword" (click)="togglePassword()" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
@@ -93,10 +98,6 @@
           d="M3.35 5.47q-.27.24-.518.487A13 13 0 0 0 1.172 8l.195.288c.335.48.83 1.12 1.465 1.755C4.121 11.332 5.881 12.5 8 12.5c.716 0 1.39-.133 2.02-.36l.77.772A7 7 0 0 1 8 13.5C3 13.5 0 8 0 8s.939-1.721 2.641-3.238l.708.709zm10.296 8.884-12-12 .708-.708 12 12z" />
       </svg>
     </div>
-    <div class="error-message" *ngIf="registerForm?.errors?.['misMatch'] && registerForm?.touched">
-      Password Must Match
-    </div>
-
     <button mat-raised-button [disabled]="registerForm.invalid" type="submit" class="button-submit">
       Register
     </button>
