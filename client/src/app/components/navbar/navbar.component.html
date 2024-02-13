@@ -27,24 +27,21 @@
           </ul>
         </li>
         <div *ngIf="isAdmin">
-         
+
             <a class="nav-link active" aria-current="page" routerLink="/admin_userList"
                   routerLinkActive="active">View Users</a>
-           
+
         </div>
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" routerLink="/orders" routerLinkActive="active"
           routerLinkActive="{exact:true}">Orders</a>
         </li>
-        <div style="float: right;">
-          <li class="nav-item">
-            <a class="nav-link active"  aria-current="page" routerLink="/" routerLinkActive="active"
-              routerLinkActive="{exact:true}" (click)="logout()">LOGOUT</a>
-          </li>
-
-        </div>
       </ul>
       <div style="margin-right: 20px; font-size: medium; font-weight: bold;">Hello, {{name}}</div>
+        <div style="margin-right: 10px;">
+            <a class="nav-link active"  aria-current="page" routerLink="/" routerLinkActive="active"
+              routerLinkActive="{exact:true}" (click)="logout()"><span class="material-icons">logout</span></a>
+        </div>
     </div>
   </div>
 </nav>
