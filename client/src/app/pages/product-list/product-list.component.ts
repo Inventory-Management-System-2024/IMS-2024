@@ -10,6 +10,8 @@ import { ProductService,SharedDataService } from '../../shared/services';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { InventoryStatusPipe } from '../../pipes/inventory-status.pipe';
+import { DeleteDialogComponent } from '../order/delete-dialog/delete-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 
 @Component({
@@ -20,7 +22,7 @@ import { InventoryStatusPipe } from '../../pipes/inventory-status.pipe';
   styleUrl: './product-list.component.css',
 })
 export class ProductListComponent {
-  constructor(private router: Router, private productService: ProductService, private sharedDataService: SharedDataService) {
+  constructor(private router: Router, private productService: ProductService, private sharedDataService: SharedDataService,private dialog: MatDialog) {
   }
   displayedColumns: string[] = ['productName', 'image', 'description', 'price', 'stock', 'action'];
   dataSource: any[] = [];
@@ -56,10 +58,24 @@ export class ProductListComponent {
     this.router.navigate(['/add_product/edit']);
   }
   deleteRecord(id: number) {
-    this.productService.deleteProduct(id).subscribe(() => {
-      console.log('delete');
+    const dialogRef = this.dialog.open(DeleteDialogComponent);
+    // this.productService.deleteProduct(id).subscribe(() => {
+    //   console.log('delete');
+    // });
+    
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.productService.deleteProduct(id).subscribe(
+          () => {
+            this.dataSource = this.dataSource.filter((product) => product._id !== id);
+            },
+        )
+      } else {
+        console.log('Delete cancelled');
+      }
     });
-    this.dataSource = this.dataSource.filter((product) => product._id !== id);
+
   }
 
   productSearch(event: Event) {
