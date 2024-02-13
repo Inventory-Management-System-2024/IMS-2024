@@ -4,11 +4,12 @@ import { MatDialogRef, MatDialogModule, MAT_DIALOG_DATA } from '@angular/materia
 import { MatFormField, MatFormFieldModule, MatLabel } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { CanceledDirective } from '../../../directives/canceled/canceled.directive';
 
 @Component({
   selector: 'app-update-dialog',
   standalone: true,
-  imports: [MatDialogModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatLabel, MatFormField, FormsModule],
+  imports: [MatDialogModule,CanceledDirective, MatFormFieldModule, MatInputModule, MatSelectModule, MatLabel, MatFormField, FormsModule],
   templateUrl: './update-dialog.component.html',
   styleUrl: './update-dialog.component.css'
 })
@@ -28,4 +29,10 @@ export class UpdateDialogComponent {
   onYesClick(): void {
     this.dialogRef.close(this.selectedOption);
   }
+  isInvalidQuantity(): boolean {
+    return (
+      this.selectedOption === null ||
+      this.selectedOption === undefined
+    );
+  };
 }

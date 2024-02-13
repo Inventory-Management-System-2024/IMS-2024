@@ -1,34 +1,75 @@
 <h2 mat-dialog-title>Add Record</h2>
-    <mat-dialog-content>
-        <mat-form-field>
-            <mat-label>Order Status</mat-label>
-            <mat-select [(ngModel)]="selectedOrderStatus">
-                <mat-option value="Processing">Processing</mat-option>
-                <mat-option value="Completed">Completed</mat-option>
-                <mat-option value="Canceled">Canceled</mat-option>
-            </mat-select>
-        </mat-form-field>
-        <br> 
-        <ng-container *ngFor="let ele of orderItems">
-          <mat-form-field>
-            <mat-label>Product</mat-label>
-            <mat-select [(ngModel)]="ele.product">
-                <mat-option *ngFor="let e of productlist" [value]="e" >{{e.productName}}</mat-option>
-            </mat-select>
-          </mat-form-field>
-        
-        <mat-form-field>
-          <mat-label>Number of Items</mat-label>
-          <input matInput type="number" [(ngModel)]="ele.quantity" placeholder="Enter the number of items">
-        </mat-form-field>
-        <br>
-        </ng-container>
-      <button mat-icon-button (click)="addProduct()">
-        <mat-icon>add</mat-icon>
-      </button>
-  <br/>
-    </mat-dialog-content>
-    <mat-dialog-actions>
-      <button mat-button (click)="onNoClick()">cancel</button>
-      <button mat-button (click)="onYesClick()">Add</button>
-    </mat-dialog-actions>
+<mat-dialog-content>
+  <mat-form-field>
+    <mat-label>Order Status</mat-label>
+    <mat-select [(ngModel)]="selectedOrderStatus" required>
+      <mat-option value="Processing">Processing</mat-option>
+      <mat-option value="Completed">Completed</mat-option>
+      <mat-option value="Canceled">Canceled</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <br />
+  <ng-container *ngFor="let ele of orderItems">
+    <mat-form-field>
+      <mat-label>Product</mat-label>
+      <mat-select
+        matInput
+        [(ngModel)]="ele.product"
+        (selectionChange)="updateMaxStock(ele)"
+        required
+      >
+        <mat-option *ngFor="let e of productlist" [value]="e">{{
+          e.productName
+        }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Number of Items</mat-label>
+      <input
+        matInput
+        type="number"
+        [(ngModel)]="ele.quantity"
+        placeholder="Enter the number of items"
+        [min]="1"
+        [max]="ele.maxStock"
+        required
+      />
+
+      <mat-error *ngIf="ele.quantity !== null && ele.quantity <= 0">
+        Quantity must be greater than 0
+      </mat-error>
+      <mat-error *ngIf="ele.maxStock < ele.quantity">
+        Quantity must be less than available stock {{ele.maxStock}}
+      </mat-error>
+
+      <mat-label> |Stock:{{ ele.maxStock }} </mat-label>
+    </mat-form-field>
+
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    <button
+      class="btn btn-outline-danger"
+      mat-icon-button
+      (click)="removeProduct(ele.id)"
+    >
+      <mat-icon>remove</mat-icon>
+    </button>
+    <br />
+  </ng-container>
+  <button class="btn btn-outline-success" mat-icon-button (click)="addProduct()">
+    <mat-icon>add</mat-icon>
+  </button>
+  <br />
+  <mat-dialog-actions>
+    <button class="btn btn-secondary" mat-button (click)="onNoClick()">
+      Cancel
+    </button>
+    <button
+      mat-button
+      class="btn btn-success ms-2"
+      (click)="onYesClick()"
+      [disabled]="isInvalidQuantity() || isAnyProductNotSelected()"
+    >
+      Add
+    </button>
+  </mat-dialog-actions>
+</mat-dialog-content>

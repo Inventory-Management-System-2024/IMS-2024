@@ -2,6 +2,7 @@ import { User } from "../models/index.js";
 import dbConnect from "../db/index.js";
 import { ErrorHandler } from "../utils/index.js";
 import jwt from "jsonwebtoken"
+import bcrypt from "bcryptjs";
 
 export const createUser = ErrorHandler(async (req, res) => {
     try {
@@ -94,8 +95,8 @@ export const login = ErrorHandler(async (req, res) => {
     try {
         await dbConnect();
         let user = await User.findOne({ email: req.body.email });
-        if (user && user.password == req.body.password) {
-            
+        const isPasswordMatch = await bcrypt.compare(req.body.password, user.password);
+        if (user && isPasswordMatch) {
             let token = jwt.sign({
                 user_id: user._id,
                 email: user.email
@@ -106,7 +107,8 @@ export const login = ErrorHandler(async (req, res) => {
                 user: user
             }
             res.json(x)
-        } else {
+            }
+        else {
             res.setHeader('Content-Type', 'application/json')
             res.end(JSON.stringify({ message: "Invalid credentials." }));
         }

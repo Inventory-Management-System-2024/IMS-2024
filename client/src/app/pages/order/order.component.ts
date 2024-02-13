@@ -10,6 +10,12 @@ import { OrderService } from '../../shared/services/order.service';
 import { UpdateDialogComponent } from './update-dialog/update-dialog.component';
 import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
 import { AddOrderComponent } from './add-order/add-order.component';
+import { AuthGuardService } from '../../shared/services';
+import { CompletedDirective } from '../../directives/completed/completed.directive';
+import { CanceledDirective } from '../../directives/canceled/canceled.directive';
+import { ProcessingDirective } from '../../directives/processing/processing.directive';
+import { DateFormatePipe } from '../../pipes/date-formate.pipe';
+import { error } from 'console';
 
 export interface OrderElement {
   id: number;
@@ -32,7 +38,7 @@ export interface OrderElement {
 @Component({
   selector: 'app-order',
   standalone: true,
-  imports: [MatTableModule, NavbarComponent, MatSortModule, CommonModule, MatDialogModule, MatIconModule],
+imports: [MatTableModule, NavbarComponent, MatSortModule, CommonModule, MatDialogModule, MatIconModule,CompletedDirective,ProcessingDirective,CanceledDirective,DateFormatePipe],
   templateUrl: './order.component.html',
   styleUrl: './order.component.css'
 })
@@ -42,18 +48,23 @@ export class OrderComponent {
   orderDetails: any;
   displayedColumns: string[] = ['user', 'orderItems', 'orderStatus', 'totalPrice', 'paidAt', 'actions'];
   dataSource: any;
+  checkLen?: boolean;
 
-  constructor(private orderservice: OrderService, private dialog: MatDialog) {
+  constructor(private orderservice: OrderService, private dialog: MatDialog, private authservice: AuthGuardService) {
+    authservice.canActivate()
 
-    orderservice.getAllOrders().subscribe((res) => {
+  }
+  ngOnInit() {
+    this.orderservice.getAllOrders().subscribe((res) => {
       res.forEach((e) => {
         let orderItems = e.orderItems
         orderItems.forEach((oi: any) => {
-          let productName = oi.product.productName
+          let productName = oi.product?.productName
           productName != undefined
         })
       }
       )
+      this.checkLen = res.length > 0
       this.dataSource = new MatTableDataSource(res)
     })
   }
@@ -63,11 +74,11 @@ export class OrderComponent {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.orderservice.addOrder(result).subscribe(
-          (res) => {
-            this.dataSource.data.push(res);
+          {next:(res) => {
+            this.dataSource.data.unshift(res);
             this.dataSource = new MatTableDataSource(this.dataSource.data)
           },
-          (err) => { console.log("error", err) },
+          error:(err) => { console.log("error", err) },}
         )
       }
     })
@@ -77,20 +88,6 @@ export class OrderComponent {
   openUpdateDialog(orderId: any) {
     const dialogRef = this.dialog.open(UpdateDialogComponent);
     dialogRef.afterClosed().subscribe(result => {
-      // if (result !== undefined) {
-      //   this.orderservice.getOrder(orderId).subscribe((res) => {
-      //     res.orderStatus = result;
-      //     this.orderDetails = res;
-      //     console.log(this.orderDetails);
-      //   })
-      //   console.log(this.orderDetails);
-      //   this.orderservice.updateOrder(orderId, this.orderDetails).subscribe(
-      //     (res) => { console.log("res", res) },
-      //     (err) => { console.log("error", err) },
-      //   );
-      // }
-      console.log(result);
-
       if (result !== undefined) {
         this.orderservice.getAllOrders().subscribe((res) => {
           this.orderDetails = res.filter((item) => {
@@ -99,8 +96,6 @@ export class OrderComponent {
               return item
             }
           })
-          console.log(orderId, this.orderDetails[0]);
-
           this.orderservice.updateOrder(orderId, this.orderDetails[0]).subscribe(
             () => {
               const index = this.dataSource.data.findIndex((item: any) => item._id === orderId);

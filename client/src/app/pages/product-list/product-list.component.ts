@@ -9,19 +9,20 @@ import { MatIconModule } from '@angular/material/icon';
 import { ProductService,SharedDataService } from '../../shared/services';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { InventoryStatusPipe } from '../../pipes/inventory-status.pipe';
 
 
 @Component({
   selector: 'app-product-list',
   standalone: true,
-  imports: [NavbarComponent, FooterComponent, MatIconModule, FormsModule, MatTableModule, MatButtonModule, MatInputModule, MatFormField, MatInput, CommonModule],
+  imports: [NavbarComponent, InventoryStatusPipe,FooterComponent, MatIconModule, FormsModule, MatTableModule, MatButtonModule, MatInputModule, MatFormField, MatInput, CommonModule],
   templateUrl: './product-list.component.html',
   styleUrl: './product-list.component.css',
 })
 export class ProductListComponent {
   constructor(private router: Router, private productService: ProductService, private sharedDataService: SharedDataService) {
   }
-  displayedColumns: string[] = ['productName', 'image', 'category', 'description', 'price', 'stock', 'action'];
+  displayedColumns: string[] = ['productName', 'image', 'description', 'price', 'stock', 'action'];
   dataSource: any[] = [];
   currentProduct: any;
   errorMessage: any;
@@ -31,13 +32,15 @@ export class ProductListComponent {
     this.loadProducts();
   }
   loadProducts(): void {
-    this.productService.getAllProducts().subscribe((data) => {
+    this.productService.getAllProducts().subscribe({
+      next:(data) => {
       this.dataSource = data;
       this.dataSource.reverse();
-    },(error)=>{
+    },
+    error:(error)=>{
       this.errorMessage = error;
       console.warn(error);
-    });
+    }});
   }
 
   updateRecord(id: number) {
@@ -45,12 +48,12 @@ export class ProductListComponent {
     this.currentProduct = this.dataSource.find((product) => {
       return product._id == id;
     });
-    // sending data to the add-product Component for Update data through service 
+    // sending data to the add-product Component for Update data through service
     console.log("inside productlist")
 
     this.sharedDataService.sendData(this.currentProduct);
 
-    this.router.navigate(['/add_product'], { queryParams: { edit: true } });
+    this.router.navigate(['/add_product/edit']);
   }
   deleteRecord(id: number) {
     this.productService.deleteProduct(id).subscribe(() => {

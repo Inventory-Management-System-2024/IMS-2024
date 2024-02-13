@@ -75,9 +75,12 @@ const UserSchema = new mongoose.Schema(
       type: String,
       default: "user",
     },
-    address: {
+    billing_address: [{
       type: addressSchema,
-    },
+    }],
+    shipping_address:[{
+      type: addressSchema,
+    }],
     phoneNo: {
       type: String,
       required: [true, "phone No is required"],

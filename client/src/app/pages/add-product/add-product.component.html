@@ -4,7 +4,7 @@
   <h4>{{ isUpdateMode ? 'Update Product' :'Add Product '}}</h4>
 
   <form (ngSubmit)="onSubmit(productForm)" #productForm="ngForm" class="product-form field" id="productForm" novalidate>
-  
+
     <mat-form-field class="fields">
       <mat-label>Product Name</mat-label>
       <input matInput type="text" id="productName" name="productName" [(ngModel)]="product.productName" required maxlength="30"  pattern=".*[a-zA-Z].*" #productName="ngModel">
@@ -19,9 +19,6 @@
     <mat-form-field class="fields">
       <mat-label>Description:</mat-label>
       <input matInput id="description" name="description" [(ngModel)]="product.description" required maxlength="120" pattern=".*[a-zA-Z].*" #description="ngModel">
-      <!-- <mat-error *ngIf="productForm.controls['description']?.invalid && (productForm.controls['description'].dirty || productForm.controls['description'].touched)">
-        Description is required and must be less than 120 characters.
-      </mat-error> -->
 
       <mat-error *ngIf="description.invalid && (description.dirty || description.touched)">
         <span *ngIf="description.errors?.['required']">description is required.</span>
@@ -49,16 +46,10 @@
       </div>
       <div *ngIf="selectedFile && flag">Selected File: {{ selectedFile.name }}</div>
     </div>
- 
-
-    <mat-form-field class="fields">
-      <mat-label>Category:</mat-label>
-      <input matInput type="text" id="category" name="category" [(ngModel)]="product.category" required>
-    </mat-form-field>
 
     <mat-form-field class="fields">
       <mat-label>Stock:</mat-label>
-      <input matInput type="number" id="stock" name="stock" [(ngModel)]="product.stock" required pattern="^[1-9]\d*$">
+      <input matInput type="number" id="stock" name="stock" [(ngModel)]="product.stock" required pattern="^[0-9]\d*$">
       <mat-error *ngIf="productForm.controls['stock']?.invalid && (productForm.controls['stock'].dirty || productForm.controls['stock'].touched)">
         Stock is required and must be a whole number.
       </mat-error>
