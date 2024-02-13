@@ -72,7 +72,7 @@ export class RegisterComponent {
     this.showConfirmPassword = !this.showConfirmPassword;
   }
   postUser(user: User) {
-    
+
     this._registerService.register(user).subscribe({
       next:(res)=>{
         console.log(res.error);
@@ -81,10 +81,11 @@ export class RegisterComponent {
         else{
           this.toast.success("Registered successfully");
         }
+      this.login();
       },
       error:(err)=>{this.errMsg=err}
     });
-    
+
     console.log(user);
   }
 }

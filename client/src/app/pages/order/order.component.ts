@@ -11,6 +11,10 @@ import { UpdateDialogComponent } from './update-dialog/update-dialog.component';
 import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
 import { AddOrderComponent } from './add-order/add-order.component';
 import { AuthGuardService } from '../../shared/services';
+import { CompletedDirective } from '../../directives/completed/completed.directive';
+import { CanceledDirective } from '../../directives/canceled/canceled.directive';
+import { ProcessingDirective } from '../../directives/processing/processing.directive';
+import { DateFormatePipe } from '../../pipes/date-formate.pipe';
 import { error } from 'console';
 
 export interface OrderElement {
@@ -34,7 +38,7 @@ export interface OrderElement {
 @Component({
   selector: 'app-order',
   standalone: true,
-  imports: [MatTableModule, NavbarComponent, MatSortModule, CommonModule, MatDialogModule, MatIconModule],
+imports: [MatTableModule, NavbarComponent, MatSortModule, CommonModule, MatDialogModule, MatIconModule,CompletedDirective,ProcessingDirective,CanceledDirective,DateFormatePipe],
   templateUrl: './order.component.html',
   styleUrl: './order.component.css'
 })
@@ -48,7 +52,7 @@ export class OrderComponent {
 
   constructor(private orderservice: OrderService, private dialog: MatDialog, private authservice: AuthGuardService) {
     authservice.canActivate()
-   
+
   }
   ngOnInit() {
     this.orderservice.getAllOrders().subscribe((res) => {
