@@ -6,11 +6,11 @@ import { DatePipe } from '@angular/common';
   standalone: true
 })
 export class DateFormatePipe implements PipeTransform {
-  transform(date: Date): string | null {
+  transform(date: Date,format:string = 'medium'): string | null {
     if (!date) {
       return '';
     }
     const datePipe = new DatePipe('en-US');
-    return datePipe.transform(date, 'dd/MM/yyyy');
+    return datePipe.transform(date, format);
   }
 }
