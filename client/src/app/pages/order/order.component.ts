@@ -10,8 +10,7 @@ import { OrderService } from '../../shared/services/order.service';
 import { UpdateDialogComponent } from './update-dialog/update-dialog.component';
 import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
 import { AddOrderComponent } from './add-order/add-order.component';
-import { FooterComponent } from '../../components/footer/footer.component';
-import { AuthGuardService } from '../../shared/services';
+import { AuthGuardService, ProductService } from '../../shared/services';
 import { CompletedDirective } from '../../directives/completed/completed.directive';
 import { CanceledDirective } from '../../directives/canceled/canceled.directive';
 import { ProcessingDirective } from '../../directives/processing/processing.directive';
@@ -52,7 +51,7 @@ export class OrderComponent {
   dataSource: any;
   checkLen?: boolean;
 
-  constructor(private orderservice: OrderService, private dialog: MatDialog, private authservice: AuthGuardService) {
+  constructor(private orderservice: OrderService, private dialog: MatDialog, private authservice: AuthGuardService, private ps: ProductService) {
     authservice.canActivate()
 
   }
@@ -67,7 +66,7 @@ export class OrderComponent {
       }
       )
       this.checkLen = res.length > 0
-      this.dataSource = new MatTableDataSource(res)
+      this.dataSource = new MatTableDataSource(res.reverse())
     })
   }
 
@@ -105,7 +104,14 @@ export class OrderComponent {
               const index = this.dataSource.data.findIndex((item: any) => item._id === orderId);
               this.dataSource.data[index].orderStatus = result;
               this.dataSource = new MatTableDataSource(this.dataSource.data);
-
+              if (this.orderDetails[0].orderStatus === "Completed") {
+                for (let item of this.orderDetails[0].orderItems) {
+                  item.product.stock = item.product.stock - item.quantity;
+                  this.ps.updateProduct(item.product._id, item.product).subscribe((response) => {
+                    console.log('Product updated successfully:', response);
+                  });
+                }
+              }
             }
           );
         });

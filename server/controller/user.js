@@ -10,7 +10,7 @@ export const createUser = ErrorHandler(async (req, res) => {
         let user = await User.findOne({ email: req.body.email });
         if (user) {
             res.setHeader('Content-Type', 'application/json');
-            res.end(JSON.stringify({error : "User already exists"}));
+            res.end(JSON.stringify({ error: "User already exists" }));
         } else {
             let doc = new User(req.body);
             await doc.save();
@@ -99,7 +99,8 @@ export const login = ErrorHandler(async (req, res) => {
         if (user && isPasswordMatch) {
             let token = jwt.sign({
                 user_id: user._id,
-                email: user.email
+                email: user.email,
+                role: user.role,
             }, process.env.SECRET_KEY)
             res.header('Authorization', 'Bearer ' + token);
             const x = {
