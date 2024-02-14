@@ -108,7 +108,7 @@ export const login = ErrorHandler(async (req, res) => {
                 user: user
             }
             res.json(x)
-        }
+            }
         else {
             res.setHeader('Content-Type', 'application/json')
             res.end(JSON.stringify({ message: "Invalid credentials." }));
