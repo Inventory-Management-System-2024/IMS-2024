@@ -57,6 +57,12 @@ export class AddOrderComponent {
       
       if (item.quantity !== null && item.product && item.product.price) {
         totalPrice += item.quantity * item.product.price;
+        item.product.stock=item.product.stock-item.quantity;
+        if(this.selectedOrderStatus==="Completed"){
+          this.ps.updateProduct(item.product._id,item.product).subscribe((response) => {
+            console.log('Product updated successfully:', response);
+          });
+        }
       }
     }
     this.option = {
