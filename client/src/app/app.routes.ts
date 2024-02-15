@@ -46,7 +46,7 @@ export const routes: Routes = [
     component: ResetPasswordComponent
   },
   {
-    path:"**",
+    path: "**",
     component: PagenotfoundComponent,
   }
 

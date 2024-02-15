@@ -77,7 +77,10 @@ export const deleteUser = ErrorHandler(async (req, res) => {
 
 export const getAllUser = ErrorHandler(async (req, res) => {
     try {
+
+        await dbConnect()
         let users = await User.find({})
+
         if (users) {
             res.setHeader('Content-Type', 'application/json');
             res.end(JSON.stringify(users))
