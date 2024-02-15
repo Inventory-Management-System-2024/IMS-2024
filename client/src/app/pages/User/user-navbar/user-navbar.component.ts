@@ -13,20 +13,23 @@ export class UserNavbarComponent {
   isAdmin!: boolean;
   constructor(@Inject(PLATFORM_ID) private platformId: Object,private route:Router) { }
   name!: string | null;
+  token! : string | null;
 
   isLoggedIn: boolean = false; 
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
-      this.name= localStorage.getItem('name');
+      this.token = sessionStorage.getItem('token');
+      this.name= sessionStorage.getItem('name');
       const userRole = sessionStorage.getItem('email');
       console.log(userRole);
 
 
 
-      if(this.name)
+      if(this.token)
       {
         this.isLoggedIn = true;
       }
+      
 
       if (userRole==="admin@gmail.com") {
 
