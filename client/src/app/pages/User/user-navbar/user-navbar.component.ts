@@ -44,7 +44,7 @@ export class UserNavbarComponent {
   }
 
 
-  navigateToLogin() {
+  navigateToLogin(){
     this.route.navigate(['/login']);
   }
 
