@@ -11,11 +11,11 @@ import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 })
 export class UserNavbarComponent {
   isAdmin!: boolean;
-  constructor(@Inject(PLATFORM_ID) private platformId: Object,private route:Router) { }
+  constructor(@Inject(PLATFORM_ID) private platformId: Object, private route: Router) { }
   name!: string | null;
   token! : string | null;
 
-  isLoggedIn: boolean = false; 
+  isLoggedIn: boolean = false;
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
       this.token = sessionStorage.getItem('token');
@@ -25,13 +25,14 @@ export class UserNavbarComponent {
 
 
 
+
       if(this.token)
       {
         this.isLoggedIn = true;
       }
       
 
-      if (userRole==="admin@gmail.com") {
+      if (userRole === "admin@gmail.com") {
 
         this.isAdmin = true;
         this.route.navigate(['dashboard'])
@@ -46,8 +47,7 @@ export class UserNavbarComponent {
   }
 
 
-  navigateToLogin()
-  {
+  navigateToLogin(){
     this.route.navigate(['/login']);
   }
 

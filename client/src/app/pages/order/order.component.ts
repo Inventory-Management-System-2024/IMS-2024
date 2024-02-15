@@ -33,6 +33,7 @@ export interface OrderElement {
   orderStatus: string;
   totalPrice: number;
   paidAt: String;
+
 }
 
 @Component({
@@ -74,11 +75,13 @@ export class OrderComponent {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.orderservice.addOrder(result).subscribe(
-          {next:(res) => {
+          {
+            next: (res) => {
               this.dataSource.data.unshift(res);
               this.dataSource = new MatTableDataSource(this.dataSource.data)
             },
-            error:(err) => { console.log("error", err) },}
+            error: (err) => { console.log("error", err) },
+          }
         )
       }
     })
