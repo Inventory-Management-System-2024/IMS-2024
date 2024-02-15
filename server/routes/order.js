@@ -5,8 +5,6 @@ import adminAuthenticate from "../utils/middleware/adminAuth.js"
 
 const order_router = express.Router()
 
-order_router.use(adminAuthenticate)
-
 order_router.get("/order", adminAuthenticate, getOrders)
 order_router.post("/order", adminAuthenticate, createOrder)
 order_router.get("/order/:id", authenticate, getOrder)
