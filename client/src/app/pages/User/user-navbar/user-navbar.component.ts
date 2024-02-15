@@ -3,14 +3,13 @@ import { Component, Inject, PLATFORM_ID } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
-  selector: 'app-navbar',
+  selector: 'app-user-navbar',
   standalone: true,
   imports: [RouterLink, RouterLinkActive, CommonModule],
-  templateUrl: './navbar.component.html',
-  styleUrl: './navbar.component.css'
+  templateUrl: './user-navbar.component.html',
+  styleUrl: './user-navbar.component.css'
 })
-
-export class NavbarComponent {
+export class UserNavbarComponent {
   isAdmin!: boolean;
   constructor(@Inject(PLATFORM_ID) private platformId: Object,private route:Router) { }
   name!: string | null;
@@ -21,19 +20,20 @@ export class NavbarComponent {
       console.log(userRole);
 
       if (userRole==="admin@gmail.com") {
+
         this.isAdmin = true;
-        // this.route.navigate(['/dashboard'])
+        this.route.navigate(['dashboard'])
+
       }
       else {
         this.isAdmin = false;
       }
-      
+
     }
-    
+
   }
   logout() {
     sessionStorage.clear();
     localStorage.clear();
   }
-
 }
