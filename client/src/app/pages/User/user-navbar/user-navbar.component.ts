@@ -13,11 +13,20 @@ export class UserNavbarComponent {
   isAdmin!: boolean;
   constructor(@Inject(PLATFORM_ID) private platformId: Object,private route:Router) { }
   name!: string | null;
+
+  isLoggedIn: boolean = false; 
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
       this.name= localStorage.getItem('name');
       const userRole = sessionStorage.getItem('email');
       console.log(userRole);
+
+
+
+      if(this.name)
+      {
+        this.isLoggedIn = true;
+      }
 
       if (userRole==="admin@gmail.com") {
 
@@ -32,7 +41,15 @@ export class UserNavbarComponent {
     }
 
   }
+
+
+  navigateToLogin()
+  {
+    this.route.navigate(['/login']);
+  }
+
   logout() {
+    this.isLoggedIn = false;
     sessionStorage.clear();
     localStorage.clear();
   }
