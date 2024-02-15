@@ -18,7 +18,7 @@ const adminAuthenticate = (req, res, next) => {
                 return res.status(403).json({ message: "Role not found in token" });
             }
             if (role !== 'admin') {
-                return res.status(403).json({ message: "Not user role" });
+                return res.status(403).json({ message: "Not admin role" });
             }
             Object.assign(req, { user: decoded })
             next();

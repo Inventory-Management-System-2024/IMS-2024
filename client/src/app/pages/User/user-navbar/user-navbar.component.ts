@@ -3,37 +3,54 @@ import { Component, Inject, PLATFORM_ID } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
-  selector: 'app-navbar',
+  selector: 'app-user-navbar',
   standalone: true,
   imports: [RouterLink, RouterLinkActive, CommonModule],
-  templateUrl: './navbar.component.html',
-  styleUrl: './navbar.component.css'
+  templateUrl: './user-navbar.component.html',
+  styleUrl: './user-navbar.component.css'
 })
-
-export class NavbarComponent {
+export class UserNavbarComponent {
   isAdmin!: boolean;
   constructor(@Inject(PLATFORM_ID) private platformId: Object,private route:Router) { }
   name!: string | null;
+
+  isLoggedIn: boolean = false; 
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
       this.name= localStorage.getItem('name');
       const userRole = sessionStorage.getItem('email');
       console.log(userRole);
 
+
+
+      if(this.name)
+      {
+        this.isLoggedIn = true;
+      }
+
       if (userRole==="admin@gmail.com") {
+
         this.isAdmin = true;
-        // this.route.navigate(['/dashboard'])
+        this.route.navigate(['dashboard'])
+
       }
       else {
         this.isAdmin = false;
       }
-      
+
     }
-    
+
   }
+
+
+  navigateToLogin()
+  {
+    this.route.navigate(['/login']);
+  }
+
   logout() {
+    this.isLoggedIn = false;
     sessionStorage.clear();
     localStorage.clear();
   }
-
 }

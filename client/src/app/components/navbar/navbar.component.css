@@ -1,0 +1,135 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #d9c9c9;
+    width: 100%;
+  }
+  
+  .navbar img {
+    width: 70px;
+    height: 50px;
+  }
+  
+  .navbar-toggler {
+    display: none;
+  }
+  
+  .navbar-nav {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .nav-item {
+    margin-right: 10px;
+  }
+  
+  .nav-link {
+    text-decoration: none;
+    color: #333;
+  }
+  
+  .dropdown-menu {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 10px;
+  }
+  
+  .dropdown-menu li {
+    margin-bottom: 5px;
+  }
+  
+  .dropdown:hover .dropdown-menu {
+    display: block;
+  }
+  
+  .admin-nav {
+    display: none;
+  }
+  
+  .user-greeting {
+    margin-right: 20px;
+    font-size: medium;
+    font-weight: bold;
+  }
+  
+  .logout-btn {
+    margin-right: 10px;
+  }
+  
+  .material-icons {
+    font-family: 'Material Icons';
+  }
+  
+  /* Keep the existing navbar styles */
+  #navbarSupportedContent {
+    display: flex; /* Display its children horizontally */
+    align-items: center; /* Align items vertically */
+    margin-left: auto; /* Push the items to the right */
+  }
+  
+  #navbarSupportedContent .nav-item {
+    margin-right: 10px; /* Adjust spacing between items */
+  }
+  
+  #navbarSupportedContent .nav-link {
+    color: #333; /* Change color of links */
+    text-decoration: none; /* Remove underline from links */
+  }
+  
+  #navbarSupportedContent .dropdown-menu {
+    display: none; /* Hide dropdown menu by default */
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 10px;
+  }
+  
+  #navbarSupportedContent .dropdown-menu li {
+    margin-bottom: 5px;
+  }
+  
+  #navbarSupportedContent .dropdown:hover .dropdown-menu {
+    display: block; /* Show dropdown menu on hover */
+  }
+  
+  #navbarSupportedContent .user-greeting {
+    margin-right: 20px; /* Adjust spacing */
+    font-size: medium;
+    font-weight: bold;
+  }
+  
+  #navbarSupportedContent .logout-btn {
+    margin-right: 10px; /* Adjust spacing */
+  }
+  
+  #navbarSupportedContent .material-icons {
+    font-family: 'Material Icons';
+  }
+  
+
+.abc{
+    display: flex;
+    float: left;
+    flex-direction: row;
+}
+
+.xyz{
+    display: flex;
+    width: 100%;
+
+}
+
+.sample{
+    padding: 20px;
+}
+
+.twothree{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
