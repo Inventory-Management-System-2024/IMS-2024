@@ -1,7 +1,7 @@
 *{
 font-family:Arial, Helvetica, sans-serif;
-height: 100vh;
-width: 100vw;
+height: 100%;
+/*   */
 }
 .data-table{
 padding:20px;
@@ -10,13 +10,28 @@ padding:20px;
 .table{
   text-align: center;
 }
+
 #container{
-  overflow: hidden;
+
 width: 100%;
 height: calc(100% - 40px);
 display: flex;
+flex-direction: column;
+
+}
+.footer-card{
+  width: 100%;
+  background-color:rgb(237, 236, 236);
+  height: fit-content;
+  
 }
 #main-container{
   width: 100%;
   background-color: rgb(237, 236, 236);
+}
+#graph-container{
+  width: 100%;
+  background-color: rgb(237, 236, 236);
+  height: fit-content;
+  margin-bottom: auto;
 }
