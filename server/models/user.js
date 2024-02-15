@@ -8,7 +8,7 @@ const addressSchema = new mongoose.Schema({
     required: [true, "address line one is required"],
     minlength: [3, "address line one must be at least 3 characters long"],
     maxlength: [100, "address line one must be at most 100 characters long"],
-    match: [/^[a-zA-Z0-9\s\-]+$/,"allowing spaces, hyphens, and alphanumeric characters"]
+    match: [/^[a-zA-Z0-9\s\-]+$/, "allowing spaces, hyphens, and alphanumeric characters"]
   },
   city: {
     type: String,
@@ -64,8 +64,8 @@ const UserSchema = new mongoose.Schema(
       type: String,
       required: [true, "please enter password"],
       minLength: [8, "password must be grater than 8 character"],
-      validate:{
-        validator: function(value){
+      validate: {
+        validator: function (value) {
           return /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/.test(value);
         },
         message: "password must be 8 character long and must contains 1 lowercase, 1 uppercase and 1 special character"
