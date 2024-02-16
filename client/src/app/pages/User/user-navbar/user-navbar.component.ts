@@ -30,7 +30,7 @@ export class UserNavbarComponent {
       this.name= sessionStorage.getItem('name');
       const userRole = sessionStorage.getItem('email');
       console.log(userRole);
-
+  
 
 
 
@@ -38,9 +38,8 @@ export class UserNavbarComponent {
       {
         this.isLoggedIn = true;
       }
-      
-
-      if (userRole === "admin@gmail.com") {
+      const role=sessionStorage.getItem('role');
+      if (role=='admin') {
 
         this.isAdmin = true;
         this.route.navigate(['dashboard'])

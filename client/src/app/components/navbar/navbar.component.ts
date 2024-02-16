@@ -19,8 +19,8 @@ export class NavbarComponent {
       this.name= localStorage.getItem('name');
       const userRole = sessionStorage.getItem('email');
       console.log(userRole);
-
-      if (userRole==="admin@gmail.com") {
+      const role= sessionStorage.getItem('role');
+      if (role=='admin') {
         this.isAdmin = true;
         // this.route.navigate(['/dashboard'])
       }
