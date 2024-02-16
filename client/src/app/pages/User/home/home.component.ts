@@ -4,6 +4,7 @@ import { ProductService } from '../../../shared/services';
 import { NavbarComponent } from "../../../components/navbar/navbar.component";
 import { FooterComponent } from "../../../components/footer/footer.component";
 import { UserNavbarComponent } from "../user-navbar/user-navbar.component";
+import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs';
 
 @Component({
     selector: 'app-home',
@@ -18,7 +19,7 @@ export class HomeComponent implements OnInit {
   
   products: any;
   errorMessage: any;
-
+  searchTimeout: NodeJS.Timeout | undefined;
   ngOnInit(): void {
     this.loadProducts();
   }
@@ -38,12 +39,11 @@ export class HomeComponent implements OnInit {
 
   productSearch(event: Event) {
     const inputValue = (event.target as HTMLInputElement).value;
-    let searchTimeout: NodeJS.Timeout | undefined;
 
-    clearTimeout(searchTimeout);
+    clearTimeout(this.searchTimeout);
 
     // Set a new timeout to trigger the API call after 1000ms (1 second)
-    searchTimeout = setTimeout(() => {
+    this.searchTimeout = setTimeout(() => {
       this.prodListService.getProduct(inputValue).subscribe({
         next: (data) => {
           this.products = data;
