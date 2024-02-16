@@ -22,6 +22,7 @@ export class HomeComponent implements OnInit {
  
   constructor(private prodListService: ProductService,private store : Store<AppState>) {}
   toast = inject(ToastrService);
+
   
   products: any;
   errorMessage: any;
