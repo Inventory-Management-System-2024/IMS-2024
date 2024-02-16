@@ -35,4 +35,25 @@ export class HomeComponent implements OnInit {
       },
     });
   }
+
+  productSearch(event: Event) {
+    const inputValue = (event.target as HTMLInputElement).value;
+    let searchTimeout: NodeJS.Timeout | undefined;
+
+    clearTimeout(searchTimeout);
+
+    // Set a new timeout to trigger the API call after 1000ms (1 second)
+    searchTimeout = setTimeout(() => {
+      this.prodListService.getProduct(inputValue).subscribe({
+        next: (data) => {
+          this.products = data;
+        },
+        error: (err) => {
+          this.products = [];
+
+          console.log('error from  list', err);
+        },
+      });
+    }, 1000);
+  }
 }

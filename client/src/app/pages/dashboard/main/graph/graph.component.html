@@ -1,0 +1,17 @@
+<div class="expenses-container">
+    <div class="expense-title-container">
+        <span class="expense-title">Overall Pie Chart</span>
+    </div>
+    <div class="chart-container">
+        <div class="chart"> <canvas id="pieChart"></canvas>
+            <div class="labels-container">
+                <ul>
+                    <li *ngFor="let expense of percentages">
+                        <span class="dot" [style.backgroundColor]="expense.color"></span>
+                        {{ expense.category }}: {{ expense.percentage.toFixed(2) }}%
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
