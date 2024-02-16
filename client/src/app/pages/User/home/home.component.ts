@@ -77,6 +77,7 @@ export class HomeComponent implements OnInit {
       this.prodListService.getProduct(inputValue).subscribe({
         next: (data) => {
           this.products = data;
+          this.products.reverse();
         },
         error: (err) => {
           this.products = [];
