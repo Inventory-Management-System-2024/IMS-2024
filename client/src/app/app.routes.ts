@@ -11,16 +11,22 @@ import { OrderComponent } from './pages/order/order.component';
 import { AuthGuardService } from './shared/services/auth-guard.service';
 import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
 import { PagenotfoundComponent } from './pages/pagenotfound/pagenotfound.component';
+import { HomeComponent } from './pages/User/home/home.component';
 
 export const routes: Routes = [
+
+
   {
-    path: '', component: LoginComponent
+    path: '', component: HomeComponent
+  },
+    {
+    path: 'login', component: LoginComponent
   },
   {
     path: 'register', component: RegisterComponent
   },
   {
-    path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuardService]
+    path: 'dashboard', component: DashboardComponent,canActivate: [AuthGuardService]
   },
   {
     path: 'add_product/edit',
@@ -31,7 +37,7 @@ export const routes: Routes = [
     component: AddProductComponent, canActivate: [AuthGuardService]
   },
   {
-    path: "admin_userList", component: AdminComponent, canActivate: [AuthGuardService]
+    path: "admin_userList", component: AdminComponent,
   },
   {
     path: 'product_list',
@@ -46,7 +52,7 @@ export const routes: Routes = [
     component: ResetPasswordComponent
   },
   {
-    path:"**",
+    path: "**",
     component: PagenotfoundComponent,
   }
 

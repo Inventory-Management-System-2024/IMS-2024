@@ -59,7 +59,7 @@ export class LoginComponent {
             localStorage.setItem('name', response.body.user.name);
             sessionStorage.setItem('email', response.body.user.email)
             this.toast.success("Login SuccessFul!", "Success");
-            this.route.navigate(['dashboard']);
+            this.route.navigate(['']);
           }
         },
         error: (err) => this.errMsg = err
