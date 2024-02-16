@@ -18,16 +18,18 @@ export class UserNavbarComponent {
   isLoggedIn: boolean = false;
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
-      this.token = sessionStorage.getItem('token')
+      this.token = sessionStorage.getItem('token');
       this.name = sessionStorage.getItem('name');
       const userRole = sessionStorage.getItem('email');
       console.log(userRole);
 
 
 
+
       if (this.token) {
         this.isLoggedIn = true;
       }
+
 
       if (userRole === "admin@gmail.com") {
 
@@ -44,7 +46,7 @@ export class UserNavbarComponent {
   }
 
 
-  navigateToLogin(){
+  navigateToLogin() {
     this.route.navigate(['/login']);
   }
 
