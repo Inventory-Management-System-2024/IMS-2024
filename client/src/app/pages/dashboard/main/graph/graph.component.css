@@ -1,0 +1,62 @@
+*{
+  padding: 10px; 
+}
+.expenses-container {
+  /* width: 90%; */
+  background-color: white;
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.3);
+  border-radius: 6px;
+  margin: 30px 60px 40px 70px;
+  }
+
+.expenses-container .expense-title-container {
+  display: flex;
+  padding: 5px;
+  justify-content: start;
+}
+
+.expenses-container .expense-title-container .expense-title {
+  margin-top: 10px;
+  font-size: 20px;
+}
+
+.expenses-container .chart-container {
+  height: 450px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.expenses-container .chart-container .chart {
+  height: 80%;
+  display: flex;
+  justify-content: center;
+  align-self: center;
+  width: 100%;
+}
+
+.expenses-container .chart-container .labels-container {
+  display: flex;
+  justify-content: center;
+  align-self:stretch;
+  width: 100%;
+  float: right;
+  
+}
+
+.expenses-container .chart-container .labels-container ul {
+  list-style: none;
+}
+
+.expenses-container .chart-container .labels-container ul li {
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+}
+
+.expenses-container .chart-container .labels-container ul li .dot {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  margin-right: 5px;
+}
