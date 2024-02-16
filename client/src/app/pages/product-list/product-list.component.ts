@@ -29,6 +29,8 @@ export class ProductListComponent {
   currentProduct: any;
   errorMessage: any;
   searchTerm?: string;
+  searchTimeout: NodeJS.Timeout | undefined;
+
 
   ngOnInit(): void {
     this.loadProducts();
@@ -81,12 +83,11 @@ export class ProductListComponent {
 
   productSearch(event: Event) {
     const inputValue = (event.target as HTMLInputElement).value;
-    let searchTimeout: NodeJS.Timeout | undefined;
 
-    clearTimeout(searchTimeout);
+    clearTimeout(this.searchTimeout);
 
     // Set a new timeout to trigger the API call after 1000ms (1 second)
-    searchTimeout = setTimeout(() => {
+    this.searchTimeout = setTimeout(() => {
       this.productService.getProduct(inputValue).subscribe({
         next: (data) => {
           this.dataSource = data;
