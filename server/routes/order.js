@@ -1,20 +1,16 @@
 import express from "express"
-import {createOrder, getOrder, updateOrder, deleteOrder, getOrders} from "../controller/order.js"
+import { createOrder, getOrder, updateOrder, deleteOrder, getOrders } from "../controller/order.js"
 import authenticate from "../utils/middleware/auth.js"
-
+import adminAuthenticate from "../utils/middleware/adminAuth.js"
 
 const order_router = express.Router()
 
+order_router.get("/order", adminAuthenticate, getOrders)
+order_router.post("/order", adminAuthenticate, createOrder)
+order_router.get("/order/:id", authenticate, getOrder)
+order_router.put("/order/:id", adminAuthenticate, updateOrder)
+order_router.delete("/order/:id", adminAuthenticate, deleteOrder)
 
-order_router.use(authenticate)
-
-
-order_router.get("/order",getOrders)
-order_router.post("/order", createOrder)
-order_router.get("/order/:id", getOrder)
-order_router.put("/order/:id", updateOrder)
-order_router.delete("/order/:id", deleteOrder)
-
-export {order_router}
+export { order_router }
 
 

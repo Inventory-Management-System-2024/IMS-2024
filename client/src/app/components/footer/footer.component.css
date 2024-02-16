@@ -1,7 +1,12 @@
- .copyright {
-    margin-top:15px;
+#footer-content{
+  width: 100vw;
+  background-color: rgb(237, 236, 236);
+  
+}
+
+.copyright {
     text-align:center;
     font-size:13px;
     color:#aaa;
-    margin-bottom:0; 
+       
   }

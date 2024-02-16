@@ -1,0 +1,58 @@
+<app-user-navbar></app-user-navbar>
+
+<div class="mx-6 mt-3 text-center ">
+
+    <p class="font-medium text-3xl">Product List</p>
+
+    <div *ngIf="errorMessage" class="error-message">
+        {{ errorMessage }}
+      </div>
+      <div *ngIf="!errorMessage">
+    <form class="d-flex justify-content-between" role="search">
+        <div>
+          <h2>Product List</h2>
+        </div>
+  
+        <div class="d-flex">
+          <input class="form-control m-2 w-40" type="text" placeholder="Search" aria-label="Search"
+            (input)="productSearch($event)" />
+          <button class="btn btn-outline-success btn-sm m-2">Search</button>
+        </div>
+      </form>
+
+<hr>
+
+
+<div class="flex flex-wrap justify-center mx-6 my-4 w-full">
+    
+    <div class="w-full sm:w-1/2 md:w-1/3 mb-8"  *ngFor="let product of products">
+        <div class="max-w-md rounded overflow-hidden shadow-md" id="custome">
+        
+            <div class="bg-slate-700">
+            <img [src]="product.image[0].url" alt="{{ product.productName }}" class="w-full h-60">
+        </div>
+
+
+            <div class="p-6">
+                <div class="font-bold text-xl mb-2 ">{{ product.productName }}</div>
+                <div class="flex w-full justify-between">
+                <p class="text-gray-500 text-center"><span class="text-gray-950">Price:</span> ₹{{ product.price }}</p>
+
+                <p class="text-gray-500 text-center"><span class="text-gray-950">Available quantity :</span> {{ product.stock }}</p>
+            </div>
+            </div>
+            <div class="px-6 pb-6 text-center">
+                <button class="bg-blue-500 text-white font-bold py-2 px-4 rounded">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div  *ngIf="!errorMessage && products.length === 0" class="alert alert-warning mt-3 w-full">
+    <p class="mb-0">No products found</p>
+  </div>
+</div>
+
+</div>
+<app-footer></app-footer>

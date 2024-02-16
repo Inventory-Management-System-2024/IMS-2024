@@ -9,9 +9,10 @@ import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 
 interface OrderItem {
-  quantity: number,
-  product: any,
-  id:number
+  quantity: number;
+  product: any;
+  id: number;
+  maxStock: number;
 }
 
 @Component({
@@ -28,7 +29,7 @@ export class AddOrderComponent {
   selectedDate: any = Date.now();
   option!: any
   // product_data!: any
-  orderItems: OrderItem[] = [{ quantity: 1, product: {},id:1 }]
+  orderItems: OrderItem[] = [{ quantity: 0, product: {}, id: 1, maxStock: 0 }];
 
   constructor(private ps: ProductService, public dialogRef: MatDialogRef<AddOrderComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) {
@@ -56,6 +57,12 @@ export class AddOrderComponent {
       
       if (item.quantity !== null && item.product && item.product.price) {
         totalPrice += item.quantity * item.product.price;
+        item.product.stock=item.product.stock-item.quantity;
+        if(this.selectedOrderStatus==="Completed"){
+          this.ps.updateProduct(item.product._id,item.product).subscribe((response) => {
+            console.log('Product updated successfully:', response);
+          });
+        }
       }
     }
     this.option = {
@@ -68,14 +75,15 @@ export class AddOrderComponent {
   }
   isInvalidQuantity(): boolean {
     const decimalRegex = /^[1-9]\d*$/;
-    return this.orderItems.some(ele => {
+    return this.orderItems.some((ele) => {
       return (
         ele.quantity === null ||
         (ele.quantity <= 0 ||
         ele.quantity>=this.stock)||
         !decimalRegex.test(ele.quantity.toString()) ||
         this.selectedOrderStatus === null ||
-        this.selectedOrderStatus === undefined
+        this.selectedOrderStatus === undefined ||
+        ele.quantity > ele.maxStock
       );
     });
   }
@@ -84,7 +92,20 @@ export class AddOrderComponent {
   }
   addProduct(): void {
     const newId = this.orderItems.length + 1;
-    this.orderItems.push({ id: newId, quantity: 1, product: {} })
+    this.orderItems.push({ id: newId, quantity: 0, product: {}, maxStock: 0 });
+    console.log(this.orderItems);
+  }
+
+  updateMaxStock(orderItem: any) {
+    const selectedProduct = this.productlist.find(
+      (product: any) => product === orderItem.product
+    );
+    console.log(orderItem);
+
+    // Set the max stock value of the order item based on the selected product's stock
+    if (selectedProduct) {
+      orderItem.maxStock = selectedProduct.stock;
+    }
   }
   removeProduct(itemId: number): void {
     const index = this.orderItems.findIndex(item => item.id === itemId);
