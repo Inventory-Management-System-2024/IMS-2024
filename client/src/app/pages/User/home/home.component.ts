@@ -4,7 +4,6 @@ import { ProductService } from '../../../shared/services';
 import { NavbarComponent } from "../../../components/navbar/navbar.component";
 import { FooterComponent } from "../../../components/footer/footer.component";
 import { UserNavbarComponent } from "../user-navbar/user-navbar.component";
-import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs';
 
 @Component({
     selector: 'app-home',
