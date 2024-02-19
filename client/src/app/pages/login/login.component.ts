@@ -57,6 +57,7 @@ export class LoginComponent {
           }
           else {
             localStorage.setItem('name', response.body.user.name);
+            sessionStorage.setItem('role',response.body.user.role)
             sessionStorage.setItem('email', response.body.user.email)
             this.toast.success("Login SuccessFul!", "Success");
             this.route.navigate(['']);
