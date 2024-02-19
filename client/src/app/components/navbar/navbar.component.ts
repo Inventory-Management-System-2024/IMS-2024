@@ -1,6 +1,6 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { Component, Inject, PLATFORM_ID } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -12,23 +12,24 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 
 export class NavbarComponent {
   isAdmin!: boolean;
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) { }
+  constructor(@Inject(PLATFORM_ID) private platformId: Object,private route:Router) { }
   name!: string | null;
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
       this.name= localStorage.getItem('name');
       const userRole = sessionStorage.getItem('email');
       console.log(userRole);
-
-      if (userRole==="jay@gmail.com") {
+      const role= sessionStorage.getItem('role');
+      if (role=='admin') {
         this.isAdmin = true;
+        // this.route.navigate(['/dashboard'])
       }
       else {
         this.isAdmin = false;
       }
-
+      
     }
-
+    
   }
   logout() {
     sessionStorage.clear();

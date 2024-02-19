@@ -6,7 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormField, MatInput, MatInputModule } from '@angular/material/input';
 import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
-import { ProductService,SharedDataService } from '../../shared/services';
+import { ProductService, SharedDataService } from '../../shared/services';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { InventoryStatusPipe } from '../../pipes/inventory-status.pipe';
@@ -17,7 +17,7 @@ import { MatDialog } from '@angular/material/dialog';
 @Component({
   selector: 'app-product-list',
   standalone: true,
-  imports: [NavbarComponent, InventoryStatusPipe,FooterComponent, MatIconModule, FormsModule, MatTableModule, MatButtonModule, MatInputModule, MatFormField, MatInput, CommonModule],
+  imports: [NavbarComponent, InventoryStatusPipe, FooterComponent, MatIconModule, FormsModule, MatTableModule, MatButtonModule, MatInputModule, MatFormField, MatInput, CommonModule],
   templateUrl: './product-list.component.html',
   styleUrl: './product-list.component.css',
 })
@@ -29,20 +29,23 @@ export class ProductListComponent {
   currentProduct: any;
   errorMessage: any;
   searchTerm?: string;
+  searchTimeout: NodeJS.Timeout | undefined;
+
 
   ngOnInit(): void {
     this.loadProducts();
   }
   loadProducts(): void {
     this.productService.getAllProducts().subscribe({
-      next:(data) => {
-      this.dataSource = data;
-      this.dataSource.reverse();
-    },
-    error:(error)=>{
-      this.errorMessage = error;
-      console.warn(error);
-    }});
+      next: (data) => {
+        this.dataSource = data;
+        this.dataSource.reverse();
+      },
+      error: (error) => {
+        this.errorMessage = error;
+        console.warn(error);
+      }
+    });
   }
 
   updateRecord(id: number) {
@@ -80,12 +83,11 @@ export class ProductListComponent {
 
   productSearch(event: Event) {
     const inputValue = (event.target as HTMLInputElement).value;
-    let searchTimeout: NodeJS.Timeout | undefined;
 
-    clearTimeout(searchTimeout);
+    clearTimeout(this.searchTimeout);
 
     // Set a new timeout to trigger the API call after 1000ms (1 second)
-    searchTimeout = setTimeout(() => {
+    this.searchTimeout = setTimeout(() => {
       this.productService.getProduct(inputValue).subscribe({
         next: (data) => {
           this.dataSource = data;
