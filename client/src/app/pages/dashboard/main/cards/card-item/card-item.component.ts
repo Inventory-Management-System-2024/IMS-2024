@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 export interface ProductListing {
   image: string;
   property: string;
-  value: string;
+  value: number;
 }
 @Component({
   selector: 'app-card-item',
@@ -13,5 +13,5 @@ export interface ProductListing {
 })
 export class CardItemComponent {
   @Input() carddata!: ProductListing;
-
+  
 }

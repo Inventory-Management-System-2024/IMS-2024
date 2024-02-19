@@ -9,6 +9,8 @@ interface ProductImage {
     image: ProductImage[];
     category: string;
     stock: number;
+    _id:number;
+    quantity:number;
   }
   
   export default Product;
