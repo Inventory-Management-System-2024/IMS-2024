@@ -52,11 +52,12 @@ export class LoginComponent {
           sessionStorage.setItem('token', response.body.token)
           const token = sessionStorage.getItem('token');
           if (token === "undefined") {
-            this.toast.error("Please check your Email adddress and Password")
+            this.toast.error("Please check your Email address and Password")
             console.log("not valid");
           }
           else {
             localStorage.setItem('name', response.body.user.name);
+            sessionStorage.setItem('role',response.body.user.role)
             sessionStorage.setItem('email', response.body.user.email)
             this.toast.success("Login SuccessFul!", "Success");
             this.route.navigate(['']);
