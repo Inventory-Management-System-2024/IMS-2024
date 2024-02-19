@@ -26,6 +26,8 @@
     "@auth0/angular-jwt": "^5.2.0",
     "@cloudinary/url-gen": "^1.16.0",
     "@ng-bootstrap/ng-bootstrap": "^16.0.0",
+    "@ngrx/store": "^17.1.0",
+    "@ngrx/store-devtools": "^17.1.0",
     "@popperjs/core": "^2.11.8",
     "bootstrap": "^5.3.2",
     "bootstrap-icons": "^1.11.3",

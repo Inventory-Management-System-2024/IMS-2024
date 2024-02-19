@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 
@@ -5,11 +6,11 @@ import { BehaviorSubject, Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class SharedDataService {
-
+  private _url="http://localhost:3000/dashboard";
   private dataSubject = new BehaviorSubject<any>(null);
   public data$: Observable<any> = this.dataSubject.asObservable();
 
-  constructor() {}
+  constructor(private http:HttpClient) {}
 
   sendData(data: any) {
     this.dataSubject.next(data);
@@ -17,6 +18,10 @@ export class SharedDataService {
     // data={};
 
 
+  }
+
+  getDashBoardData():Observable<any>{
+    return this.http.get(this._url);
   }
 
 }
