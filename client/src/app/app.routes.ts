@@ -12,6 +12,7 @@ import { AuthGuardService } from './shared/services/auth-guard.service';
 import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
 import { PagenotfoundComponent } from './pages/pagenotfound/pagenotfound.component';
 import { HomeComponent } from './pages/User/home/home.component';
+import { CheckoutComponent } from './pages/User/checkout/checkout.component';
 
 export const routes: Routes = [
 
@@ -52,9 +53,13 @@ export const routes: Routes = [
     component: ResetPasswordComponent
   },
   {
+    path: "checkout",
+    component: CheckoutComponent,
+  },
+  {
     path: "**",
     component: PagenotfoundComponent,
-  }
+  },
 
 ];
 
