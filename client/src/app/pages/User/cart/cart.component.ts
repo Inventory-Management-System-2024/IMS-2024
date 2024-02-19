@@ -24,8 +24,8 @@ export class CartComponent {
 
   toast = inject(ToastrService);
   
-  products$ = this.store.select(selectCartProducts)
-  totalprice$ = this.store.select(selectTotalPrice)
+  products$:Observable<Product[]> = this.store.select(selectCartProducts)
+  totalprice$:Observable<number> = this.store.select(selectTotalPrice)
 
   incrementQuantity(productId: number): void {
     this.store.dispatch(incrementProduct({ productId }));
