@@ -8,6 +8,7 @@ import { selectCountProducts } from '../../../states/cart/cart.selector';
 import { ToastrService } from 'ngx-toastr';
 
 
+
 @Component({
   selector: 'app-user-navbar',
   standalone: true,
@@ -17,12 +18,14 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class UserNavbarComponent {
   isAdmin!: boolean;
+
   flag : boolean = false;
 
   countProducts$: Observable<number>;
   constructor(@Inject(PLATFORM_ID) private platformId: Object,private route:Router,private store : Store<AppState>) {
     this.countProducts$=store.select(selectCountProducts)
    }
+
   toast = inject(ToastrService);
 
   name!: string | null;
