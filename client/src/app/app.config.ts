@@ -22,4 +22,3 @@ export const appConfig: ApplicationConfig = {
     }
   },provideStore(), provideState({ name: "cart", reducer: cartReducer }), provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() })]
 }
-
