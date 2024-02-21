@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { Chart } from 'chart.js/auto';
+import { SharedDataService } from '../../../../shared/services';
 
 @Component({
   selector: 'app-graph',
@@ -10,36 +11,48 @@ import { Chart } from 'chart.js/auto';
   styleUrl: './graph.component.css'
 })
 export class GraphComponent {
-
-  expenses = [
-    { category: 'Purchase', amount: 50000, color: 'rgb(0, 0, 255)' },
-    { category: 'Sales', amount: 100000, color: 'rgb(241, 64, 113 )' },
-    { category: 'Expense', amount: 20000, color: 'rgb(255, 195, 0 )' },
-    { category: 'Gross Profit', amount: 60000, color: 'rgb(42, 146, 7 )' },
-
-  ];
-
-  totalExpense = this.expenses.reduce((total, expense) => total + expense.amount, 0);
-  percentages = this.expenses.map(expense => ({
-    category: expense.category,
-    percentage: (expense.amount / this.totalExpense) * 100,
-    color: expense.color
-  }));
-  ngOnInit() {
-    this.createPieChart();
+  dataValue:any={
+    productCount:0,
+    userCount:0,
+    orderCount:0
   }
+  expenses:any=[];
+  totalExpense:any;
+  percentages:any;
+  constructor(private _sharedData:SharedDataService){
+    this._sharedData.getDashBoardData().subscribe(data=>{
+      this.dataValue=data;
+      this.expenses = [
+        { category: 'Products', amount: this.dataValue.productCount, color: 'rgb(0, 0, 255)' },
+        { category: 'Orders', amount: this.dataValue.orderCount, color: 'rgb(241, 64, 113 )' },
+        { category: 'Users', amount: this.dataValue.userCount, color: 'rgb(255, 195, 0 )' },
+    
+      ];
+      this.totalExpense = this.expenses.reduce((total:any, expense:any) => total + expense.amount, 0);
+      this.percentages = this.expenses.map((expense:any) => (
+        {
+        category: expense.category,
+        percentage: (expense.amount / this.totalExpense) * 100,
+        color: expense.color
+      }));
+      this.createPieChart();
+    })
+  }
+
+ 
   createPieChart() {
     if (typeof window !== 'undefined') {
       const ctx = document.getElementById('pieChart') as HTMLCanvasElement;
 
       const myPieChart = new Chart(ctx, {
         type: 'pie',
+        
         data: {
-          labels: this.percentages.map(expense => expense.category),
+          labels: this.percentages.map((expense:any) => expense.category),
           datasets: [{
             label: 'Value',
-            data: this.percentages.map(expense => expense.percentage),
-            backgroundColor: this.percentages.map(expense => expense.color),
+            data: this.percentages.map((expense:any) => expense.percentage),
+            backgroundColor: this.percentages.map((expense:any) => expense.color),
             hoverOffset: 2,
             borderWidth: 1
           }]
