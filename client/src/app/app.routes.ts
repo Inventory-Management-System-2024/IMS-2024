@@ -53,6 +53,10 @@ export const routes: Routes = [
     component: ResetPasswordComponent
   },
   {
+    path:"cart",
+    loadComponent:()=>import("./pages/User/cart/cart.component").then(a=>a.CartComponent)
+  },
+  {
     path: "checkout",
     component: CheckoutComponent,
   },
