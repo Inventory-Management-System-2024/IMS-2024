@@ -50,13 +50,13 @@ export class LoginComponent {
       {
         next: (response) => {
           sessionStorage.setItem('token', response.body.token)
-          sessionStorage.setItem('id', response.body.user._id);
           const token = sessionStorage.getItem('token');
           if (token === "undefined") {
             this.toast.error("Please check your Email address and Password")
             console.log("not valid");
           }
           else {
+          sessionStorage.setItem('id', response.body.user._id);
             localStorage.setItem('name', response.body.user.name);
             sessionStorage.setItem('role',response.body.user.role)
             sessionStorage.setItem('email', response.body.user.email)
