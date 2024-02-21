@@ -68,7 +68,7 @@
         class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0"
       >
         <button
-          type="button"
+          type="button" routerLink="/cart" 
           class="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white "
         >
           <div class="h-[20px] flex justify-center items-center pb-2 me-4">
@@ -118,7 +118,8 @@
           -->
         </div>
         
-<button>
+
+<button (click)="checkLoggedIn()">
   <img
   src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
   class=" rounded-full h-9 w-9 mx-3"
