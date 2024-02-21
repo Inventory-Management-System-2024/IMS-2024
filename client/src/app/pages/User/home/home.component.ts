@@ -10,13 +10,15 @@ import Product from '../../../shared/interfaces/product';
 import { ToastrService } from 'ngx-toastr';
 import { RouterLink } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { CheckoutComponent } from '../checkout/checkout.component';
+
 
 @Component({
     selector: 'app-home',
     standalone: true,
     templateUrl: './home.component.html',
     styleUrl: './home.component.css',
-    imports: [CommonModule, NavbarComponent, FooterComponent, UserNavbarComponent,RouterLink]
+    imports: [CommonModule, NavbarComponent, FooterComponent, UserNavbarComponent,RouterLink,CheckoutComponent]
 })
 export class HomeComponent implements OnInit {
  
