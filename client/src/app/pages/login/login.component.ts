@@ -57,6 +57,7 @@ export class LoginComponent {
             console.log("not valid");
           }
           else {
+          sessionStorage.setItem('id', response.body.user._id);
             localStorage.setItem('name', response.body.user.name);
             sessionStorage.setItem('role',response.body.user.role)
             sessionStorage.setItem('email', response.body.user.email)
