@@ -25,7 +25,8 @@ export class HomeComponent implements OnInit {
   constructor(private prodListService: ProductService,private store : Store<AppState>) {}
   toast = inject(ToastrService);
 
-  
+  currentPage:number=1;
+  itemPerPage:number=9;
   products: any;
   errorMessage: any;
   searchTimeout: NodeJS.Timeout | undefined;
@@ -44,6 +45,17 @@ export class HomeComponent implements OnInit {
         console.warn(error);
       },
     });
+  }
+  get paginatedProducts() {
+    const startIndex = (this.currentPage - 1) * this.itemPerPage;
+    return this.products.slice(startIndex, startIndex + this.itemPerPage);
+  }
+  onPageChange(pageNumber: number) {
+    this.currentPage = pageNumber;
+  }
+  getPageNumbers(): number[] {
+    const pageCount = Math.ceil(this.products.length / this.itemPerPage);
+    return Array(pageCount).fill(0).map((x, i) => i + 1);
   }
   addToCart(product:Product){
     const productWithQuantity = { ...product, quantity: 1 };
