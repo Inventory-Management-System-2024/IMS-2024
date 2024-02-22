@@ -73,8 +73,14 @@
 
 <div class="flex justify-content-center">
  
+  <button (click)="previousPage()" id="previous" class="flex items-center justify-center px-4 h-10 ms-3 text-base font-medium text-gray-500 bg-gray-800 border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-white dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+    Previous
+  </button>
   <button *ngFor="let pageNumber of getPageNumbers()" (click)="onPageChange(pageNumber)" class="flex items-center justify-center px-4 h-10 ms-3 text-base font-medium text-gray-500 bg-gray-800 border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-white dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
     {{pageNumber}}
+  </button>
+  <button (click)="nextPage()" class="flex items-center justify-center px-4 h-10 ms-3 text-base font-medium text-gray-500 bg-gray-800 border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-white dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+    Next
   </button>
 </div>
 <div  *ngIf="!errorMessage && products.length === 0" class="alert alert-warning mt-3 w-full">

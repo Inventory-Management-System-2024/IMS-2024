@@ -53,9 +53,22 @@ export class HomeComponent implements OnInit {
   onPageChange(pageNumber: number) {
     this.currentPage = pageNumber;
   }
+  pageCount!:number
   getPageNumbers(): number[] {
-    const pageCount = Math.ceil(this.products.length / this.itemPerPage);
-    return Array(pageCount).fill(0).map((x, i) => i + 1);
+    this.pageCount = Math.ceil(this.products.length / this.itemPerPage);
+    return Array(this.pageCount).fill(0).map((x, i) => i + 1);
+  }
+  nextPage(){
+    if(this.currentPage==this.pageCount){
+      this.currentPage--;
+    }
+    this.currentPage++;
+  }
+  previousPage(){
+    if(this.currentPage==1){
+      this.currentPage++;
+    }
+    this.currentPage--;
   }
   addToCart(product:Product){
     const productWithQuantity = { ...product, quantity: 1 };
