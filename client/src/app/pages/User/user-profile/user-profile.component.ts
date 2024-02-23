@@ -56,6 +56,9 @@ export class UserProfileComponent implements OnInit {
   toggleEdit() {
     this.isEditing = !this.isEditing;
   }
+  closeEdit() {
+    this.isEditing = !this.isEditing;
+}
 
   saveChanges(userrr: any) {
     console.log(userrr);
