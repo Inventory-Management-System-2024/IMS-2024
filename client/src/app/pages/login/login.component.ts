@@ -10,6 +10,10 @@ import {
 import { CommonModule } from '@angular/common';
 import { RegisterService } from '../../shared/services/register.service';
 import { ToastrService } from 'ngx-toastr';
+import { Store } from '@ngrx/store';
+import { AppState } from '../../states/app.state';
+import { Observable } from 'rxjs';
+import { selectCountProducts } from '../../states/cart/cart.selector';
 
 @Component({
   selector: 'app-login',
@@ -22,7 +26,16 @@ export class LoginComponent {
   name!: string;
   public showPassword: boolean = false;
   errMsg!: string;
-  constructor(private route: Router, private _RegisterService: RegisterService) { }
+  productLength !: number;
+  countProducts$: Observable<number> | undefined;
+  constructor(private route: Router, private _RegisterService: RegisterService,private store : Store<AppState>) { 
+    this.countProducts$=store.select(selectCountProducts)
+
+    this.countProducts$.subscribe((count: number) => {
+      this.productLength = count;
+    });
+    
+    }
   toast = inject(ToastrService);
   loginForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
@@ -57,10 +70,16 @@ export class LoginComponent {
             console.log("not valid");
           }
           else {
+          sessionStorage.setItem('id', response.body.user._id);
             localStorage.setItem('name', response.body.user.name);
             sessionStorage.setItem('role',response.body.user.role)
             sessionStorage.setItem('email', response.body.user.email)
             this.toast.success("Login SuccessFul!", "Success");
+            if(this.productLength > 0)
+            {
+              this.route.navigate(['/cart']);
+            }
+            else
             this.route.navigate(['']);
           }
         },
