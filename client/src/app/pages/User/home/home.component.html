@@ -1,0 +1,95 @@
+<app-user-navbar></app-user-navbar>
+
+<div class="mx-6 mt-3 text-center ">
+
+    <p class="font-medium text-3xl">Product List</p>
+
+    <div *ngIf="errorMessage" class="error-message">
+        {{ errorMessage }}
+      </div>
+      <div *ngIf="!errorMessage">
+    <form class="d-flex justify-content-between" role="search">
+        <div>
+          <h2>Product List</h2>
+        </div>
+  
+        <div class="d-flex">
+          <input class="form-control m-2 w-40" type="text" placeholder="Search" aria-label="Search"
+            (input)="productSearch($event)" />
+          <button class="btn btn-outline-success btn-sm m-2">Search</button>
+        </div>
+      </form>
+
+<hr>
+
+
+<div *ngIf="products === undefined" class="flex justify-center items-center h-screen">
+  <div class="animate-spin rounded-full h-24 w-24 border-4 border-gray-900 border-solid shadow-2xl"></div>
+  <p class="ml-3 text-xl font-bold"> &nbsp; &nbsp; Loading...</p>
+</div>
+
+<div class="flex flex-wrap justify-center mx-6 my-4 w-full">
+    
+    <div class="w-full sm:w-1/2 md:w-1/3 mb-8"  *ngFor="let product of paginatedProducts">
+        <div class="max-w-md rounded overflow-hidden shadow-md" id="custome">
+        
+            <div class="bg-slate-700">
+            <img [src]="product.image[0].url" alt="{{ product.productName }}" class="w-full h-60">
+        </div>
+
+
+            <div class="p-6">
+                <div class="font-bold text-xl mb-2 ">{{ product.productName }}</div>
+                
+                <div class="flex w-full justify-between pt-2">
+                  <div class="text-center">
+                      <p class="bg-gray-100 border border-gray-300 py-1 px-2 font-semibold text-green-500 rounded-sm shadow-md">
+                          <span class="text-gray-950">Price:</span> ₹{{ product.price }}
+                      </p>
+                  </div>
+                  <div class="text-center">
+                      <p class="bg-gray-100 border border-gray-300 py-1 px-2 font-semibold text-blue-500 rounded-sm shadow-md">
+                          <span class="text-gray-900">Available quantity:</span> {{ product.stock }}
+                      </p>
+                  </div>
+              </div>
+              
+
+            </div>
+            <div class="px-6 pb-6 text-center">
+                @if(gotocart(product)){
+                  <button routerLink="/cart" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded transform transition duration-300 hover:scale-105">Go To Cart</button>
+
+                }@else {
+
+                  <button (click)="addToCart(product)" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded transform transition duration-300 hover:scale-105">Add To Cart</button>
+
+                }
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="flex justify-content-center">
+ 
+  <button (click)="previousPage()" id="previous" class="flex items-center justify-center px-4 h-10 ms-3 text-base font-medium text-gray-500 bg-gray-800 border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-white dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+    Previous
+  </button>
+  <button *ngFor="let pageNumber of getPageNumbers()" (click)="onPageChange(pageNumber)" class="flex items-center justify-center px-4 h-10 ms-3 text-base font-medium text-gray-500 bg-gray-800 border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-white dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+    {{pageNumber}}
+  </button>
+  <button (click)="nextPage()" class="flex items-center justify-center px-4 h-10 ms-3 text-base font-medium text-gray-500 bg-gray-800 border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-white dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+    Next
+  </button>
+</div>
+<div  *ngIf="!errorMessage && products.length === 0" class="alert alert-warning mt-3 w-full">
+    <p class="mb-0">No products found</p>
+  </div>
+
+
+</div>
+
+</div>
+
+<app-footer></app-footer>
