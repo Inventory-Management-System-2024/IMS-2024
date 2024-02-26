@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, inject } from '@angular/core';
-import { ProductService } from '../../../shared/services';
+import { AfterViewInit, Component, OnInit, ViewChild, inject } from '@angular/core';
+import { ProductService, UsersService } from '../../../shared/services';
 import { NavbarComponent } from "../../../components/navbar/navbar.component";
 import { FooterComponent } from "../../../components/footer/footer.component";
 import { UserNavbarComponent } from "../user-navbar/user-navbar.component";
@@ -21,8 +21,9 @@ import { CheckoutComponent } from '../checkout/checkout.component';
     imports: [CommonModule, NavbarComponent, FooterComponent, UserNavbarComponent,RouterLink,CheckoutComponent]
 })
 export class HomeComponent implements OnInit {
+  _user: any={};
  
-  constructor(private prodListService: ProductService,private store : Store<AppState>) {}
+  constructor(private prodListService: ProductService,private store : Store<AppState>,private _userService: UsersService) {}
   toast = inject(ToastrService);
 
   currentPage:number=1;
@@ -30,8 +31,22 @@ export class HomeComponent implements OnInit {
   products: any;
   errorMessage: any;
   searchTimeout: NodeJS.Timeout | undefined;
+  @ViewChild("childview") _navBar:UserNavbarComponent | undefined;
   ngOnInit(): void {
     this.loadProducts();
+    this.loadUsers();
+  }
+
+
+
+  userId : any = sessionStorage.getItem('id');
+
+  loadUsers(): void {
+    this._userService.getUser(this.userId).subscribe({
+      next: (data: any) => {
+        this._user.name = data.name;
+      },
+    })
   }
 
   loadProducts(): void {
@@ -83,14 +98,11 @@ export class HomeComponent implements OnInit {
     if (storage && Array.isArray(storage)) {
         const productExists = storage.some((item: Product) => item._id === product._id);
         if (productExists) {
-            console.log('Product exists in local storage');
             return true;
         } else {
-            console.log('Product does not exist in local storage');
             return false;
         }
     } else {
-        console.log('No data found in local storage');
         return false;
     }
   }
