@@ -32,7 +32,7 @@ export class RegisterComponent {
 
   registerForm = new FormGroup({
     name: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z]+.{2,50}$')]),
-    email: new FormControl('', [Validators.required, Validators.email]),
+    email: new FormControl('', [Validators.required,Validators.pattern(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/)]),
     phoneNo: new FormControl('', [
       Validators.required,
       Validators.minLength(10),
