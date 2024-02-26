@@ -6,24 +6,28 @@ import { Observable } from 'rxjs';
 import { AppState } from '../../../states/app.state';
 import { selectCountProducts } from '../../../states/cart/cart.selector';
 import { ToastrService } from 'ngx-toastr';
+import { SharedDataService } from '../../../shared/services';
+import { MatIcon } from '@angular/material/icon';
 
 
 
 @Component({
   selector: 'app-user-navbar',
   standalone: true,
-  imports: [RouterLink, RouterLinkActive, CommonModule],
+  imports: [RouterLink, RouterLinkActive, CommonModule, MatIcon],
   templateUrl: './user-navbar.component.html',
   styleUrl: './user-navbar.component.css'
 })
 export class UserNavbarComponent {
   isAdmin!: boolean;
+  isDarkMode!: boolean;
 
   flag: boolean = false;
 
   countProducts$: Observable<number>;
-  constructor(@Inject(PLATFORM_ID) private platformId: Object, private route: Router, private store: Store<AppState>) {
+  constructor(@Inject(PLATFORM_ID) private platformId: Object, private route: Router, private store: Store<AppState>, private themeService: SharedDataService) {
     this.countProducts$ = store.select(selectCountProducts)
+    this.isDarkMode = this.themeService.isDarkMode();
   }
 
   toast = inject(ToastrService);
@@ -64,7 +68,10 @@ export class UserNavbarComponent {
   navigateToLogin() {
     this.route.navigate(['/login']);
   }
-
+  toggleTheme() {
+    this.isDarkMode = !this.isDarkMode;
+    this.themeService.setDarkMode(this.isDarkMode);
+  }
   logout() {
     this.isLoggedIn = false;
     sessionStorage.clear();

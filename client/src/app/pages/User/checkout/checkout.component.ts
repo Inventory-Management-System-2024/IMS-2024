@@ -3,12 +3,14 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl,FormGroup,ReactiveFormsModule,Validators } from '@angular/forms';
 import { DropdownService } from '../../../shared/services/dropdown.service';
 import { HttpClientModule } from '@angular/common/http';
+import { RouterLink } from '@angular/router';
+import { UserNavbarComponent } from '../user-navbar/user-navbar.component';
 // import { log } from 'console';
 
 @Component({
   selector: 'app-checkout',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, HttpClientModule],
+  imports: [CommonModule, ReactiveFormsModule, HttpClientModule,RouterLink,UserNavbarComponent],
   templateUrl: './checkout.component.html',
   styleUrl: './checkout.component.css',
 })
