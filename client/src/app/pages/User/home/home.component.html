@@ -1,16 +1,28 @@
-<app-user-navbar></app-user-navbar>
-<div class="mx-6 mt-3 text-center ">
+<app-user-navbar #childview></app-user-navbar>
+<div class="mx-6 mt-3 text-center  bg-gray-100">
 
-    <p class="font-medium text-3xl">Product List</p>
+    <p class="font-medium text-3xl pt-2">
+  <span class="border-2 border-gray-300 rounded-md shadow-lg text-shadow-lg px-2">Product List</span>
+</p>
+
 
     <div *ngIf="errorMessage" class="error-message">
         {{ errorMessage }}
       </div>
       <div *ngIf="!errorMessage">
     <form class="d-flex justify-content-between" role="search">
-        <div>
-          <h2>Product List</h2>
+
+
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 text-left">
+            <h3 *ngIf="childview.isLoggedIn" class="animate-charcter"> Welcome {{_user.name}} ! </h3>
+            <h3 *ngIf="!childview.isLoggedIn" class="animate-charcter"> Happy Shopping! </h3>
+          </div>
         </div>
+      </div>
+      
+    
   
         <div class="d-flex">
           <input class="form-control m-2 w-40" type="text" placeholder="Search" aria-label="Search"
@@ -30,16 +42,26 @@
 <div class="flex flex-wrap justify-center mx-6 my-4 w-full">
     
     <div class="w-full sm:w-1/2 md:w-1/3 mb-8"  *ngFor="let product of paginatedProducts">
-        <div class="max-w-md rounded overflow-hidden shadow-md" id="custome">
+        <div class="max-w-md rounded-md overflow-hidden shadow-md" id="custome">
         
-            <div class="bg-white h-60 flex items-center justify-center" [style.width.px]="product.image[0].width">
+          <div class="bg-white h-60 flex items-center justify-center shadow-lg  shadow-gray-400" [style.width.px]="product.image[0].width">
             <img [src]="product.image[0].url" alt="{{ product.productName }}" class="h-60">
         </div>
 
 
-            <div class="p-6">
-                <div class="font-bold text-xl mb-2 ">{{ product.productName }}</div>
+        <div class="">
+
+            <div class="p-3">
+                <div class="font-bold text-xl mb-2 mt-0 ">{{ product.productName }}</div>
+
                 
+                <div class="text-center">
+                  <p class="border-gray-300 bg-gray-100 py-1 px-2  rounded-sm shadow-md">
+                      <span class="text-gray-950">Description:</span> {{ product.description }}
+                  </p>
+              </div>
+
+
                 <div class="flex w-full justify-between pt-2">
                   <div class="text-center">
                       <p class="bg-gray-100 border border-gray-300 py-1 px-2 font-semibold text-green-500 rounded-sm shadow-md">
@@ -64,6 +86,7 @@
                   <button (click)="addToCart(product)" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded transform transition duration-300 hover:scale-105">Add To Cart</button>
 
                 }
+            </div>
             </div>
         </div>
     </div>
@@ -90,7 +113,17 @@
             <path fill-rule="evenodd" d="M12.79 5.23a.75.75 0 01-.02 1.06L8.832 10l3.938 3.71a.75.75 0 11-1.04 1.08l-4.5-4.25a.75.75 0 010-1.08l4.5-4.25a.75.75 0 011.06.02z" clip-rule="evenodd" />
           </svg>
         </a>
-        <a *ngFor="let pageNumber of getPageNumbers()" (click)="onPageChange(pageNumber)" class="relative z-10 inline-flex items-center bg-indigo-600 px-4 py-2 text-sm font-semibold text-white focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">{{pageNumber}}</a>
+   
+        <button>
+        <a *ngFor="let pageNumber of getPageNumbers()" 
+   (click)="onPageChange(pageNumber)" 
+   [ngClass]="{
+     'bg-indigo-600 text-white': pageNumber === currentPage,
+     'hover:bg-white hover:text-indigo-600 hover:border-black': pageNumber !== currentPage 
+   }" 
+   class="relative z-10 inline-flex items-center px-4 py-2 text-sm font-semibold border border-transparent focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">{{pageNumber}}</a>
+  </button>
+     
         <a (click)="nextPage()"  class="relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0">
           <span class="sr-only">Next</span>
           <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
