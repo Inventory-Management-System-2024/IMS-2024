@@ -118,14 +118,18 @@
           -->
         </div>
         
-
-<button (click)="checkLoggedIn()">
-  <img
-  src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
-  class=" rounded-full h-9 w-9 mx-3"
-  alt="Avatar" />
-</button>
-
+        <button (click)="checkLoggedIn()">
+          <img
+          src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
+          class=" rounded-full h-9 w-9 mx-3"
+          alt="Avatar" />
+        </button>
+        <div class="relative ml-2">
+          <button class="text-white" mat-icon-button (click)="toggleTheme()">
+            <mat-icon>{{ isDarkMode ? 'wb_sunny' : 'nights_stay' }}</mat-icon>
+          </button>
+        </div>
+        
       </div>
     </div>
   </div>

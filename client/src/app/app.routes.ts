@@ -43,7 +43,7 @@ export const routes: Routes = [
     component: AddProductComponent, canActivate: [AuthGuardService]
   },
   {
-    path: "admin_userList", component: AdminComponent,
+    path: "admin_userList", component: AdminComponent, canActivate:[AuthGuardService]
   },
   {
     path: 'product_list',
@@ -55,11 +55,11 @@ export const routes: Routes = [
   },
   {
     path: "resetPassword",
-    component: ResetPasswordComponent
+    component: ResetPasswordComponent ,canActivate:[AuthGuardService]
   },
   {
     path:"cart",
-    loadComponent:()=>import("./pages/User/cart/cart.component").then(a=>a.CartComponent)
+    loadComponent:()=>import("./pages/User/cart/cart.component").then(a=>a.CartComponent),canActivate:[AuthGuardService]
   },
   {
     path: "checkout",

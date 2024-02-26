@@ -27,7 +27,7 @@ export class RegisterComponent {
   constructor(private route: Router, private _registerService: RegisterService) { }
 
   login() {
-    this.route.navigate(['']);
+    this.route.navigate(['login']);
   }
 
   registerForm = new FormGroup({
