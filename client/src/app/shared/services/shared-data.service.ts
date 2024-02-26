@@ -23,5 +23,19 @@ export class SharedDataService {
   getDashBoardData():Observable<any>{
     return this.http.get(this._url);
   }
+  private darkMode = false;
+
+  isDarkMode() {
+    return this.darkMode;
+  }
+
+  setDarkMode(isDarkMode: boolean) {
+    this.darkMode = isDarkMode;
+    if (isDarkMode) {
+      document.body.classList.add('dark-theme');
+    } else {
+      document.body.classList.remove('dark-theme');
+    }
+  }
 
 }
