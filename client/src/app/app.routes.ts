@@ -12,6 +12,9 @@ import { AuthGuardService } from './shared/services/auth-guard.service';
 import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
 import { PagenotfoundComponent } from './pages/pagenotfound/pagenotfound.component';
 import { HomeComponent } from './pages/User/home/home.component';
+import { CheckoutComponent } from './pages/User/checkout/checkout.component';
+import { UserProfileComponent } from './pages/User/user-profile/user-profile.component';
+
 
 export const routes: Routes = [
 
@@ -29,6 +32,9 @@ export const routes: Routes = [
     path: 'dashboard', component: DashboardComponent,canActivate: [AuthGuardService]
   },
   {
+    path: 'user_profile', component: UserProfileComponent,canActivate: [AuthGuardService]
+  },
+  {
     path: 'add_product/edit',
     component: AddProductComponent, canActivate: [AuthGuardService]
   },
@@ -37,7 +43,7 @@ export const routes: Routes = [
     component: AddProductComponent, canActivate: [AuthGuardService]
   },
   {
-    path: "admin_userList", component: AdminComponent,
+    path: "admin_userList", component: AdminComponent, canActivate:[AuthGuardService]
   },
   {
     path: 'product_list',
@@ -49,12 +55,20 @@ export const routes: Routes = [
   },
   {
     path: "resetPassword",
-    component: ResetPasswordComponent
+    component: ResetPasswordComponent ,canActivate:[AuthGuardService]
+  },
+  {
+    path:"cart",
+    loadComponent:()=>import("./pages/User/cart/cart.component").then(a=>a.CartComponent),canActivate:[AuthGuardService]
+  },
+  {
+    path: "checkout",
+    component: CheckoutComponent, canActivate: [AuthGuardService]
   },
   {
     path: "**",
     component: PagenotfoundComponent,
-  }
+  },
 
 ];
 

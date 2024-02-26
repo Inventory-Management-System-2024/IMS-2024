@@ -1,8 +1,9 @@
-import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
+import { Inject, Injectable, PLATFORM_ID, inject } from '@angular/core';
 import { RegisterService } from './register.service';
 import { Router } from '@angular/router';
 import { HttpHeaders } from '@angular/common/http';
 import { isPlatformBrowser } from '@angular/common';
+import { ToastrService } from 'ngx-toastr';
 ;
 @Injectable({
   providedIn: 'root'
@@ -10,6 +11,7 @@ import { isPlatformBrowser } from '@angular/common';
 export class AuthGuardService {
 
   constructor(private route: Router,@Inject(PLATFORM_ID) private platformId: Object) { }
+  toast = inject(ToastrService);
   canActivate(): boolean {
     let authToken;
     if (isPlatformBrowser(this.platformId)) {
@@ -17,7 +19,10 @@ export class AuthGuardService {
     }
     if (!authToken) {
       
-        this.route.navigate(['/'])
+      console.log("getting token..",authToken);
+      
+      // this.toast.info("Please Login before Proceeding to Checkout")
+        this.route.navigate(['/login'])
         return false;
       
     }
