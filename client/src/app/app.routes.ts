@@ -59,7 +59,7 @@ export const routes: Routes = [
   },
   {
     path:"cart",
-    loadComponent:()=>import("./pages/User/cart/cart.component").then(a=>a.CartComponent)
+    loadComponent:()=>import("./pages/User/cart/cart.component").then(a=>a.CartComponent),canActivate:[AuthGuardService]
   },
   {
     path: "checkout",
