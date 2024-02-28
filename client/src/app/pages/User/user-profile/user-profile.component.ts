@@ -4,13 +4,14 @@ import { FormsModule, NgForm } from '@angular/forms';
 import User from '../../../shared/interfaces/user';
 import { SharedDataService, UsersService } from '../../../shared/services';
 import { UserNavbarComponent } from "../user-navbar/user-navbar.component";
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html',
   styleUrls: ['./user-profile.component.css'],
   standalone: true,
-  imports: [CommonModule, FormsModule, UserNavbarComponent]
+  imports: [CommonModule, FormsModule, UserNavbarComponent,RouterLink]
 })
 export class UserProfileComponent implements OnInit {
 
