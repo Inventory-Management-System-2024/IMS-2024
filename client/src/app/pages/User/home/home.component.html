@@ -1,12 +1,7 @@
 <app-user-navbar #childview></app-user-navbar>
 <div class="mx-6 mt-3 text-center  bg-gray-100">
 
-    <p class="font-medium text-3xl pt-2">
-  <span class="border-2 border-gray-300 rounded-md shadow-lg text-shadow-lg px-2">Product List</span>
-</p>
-
-
-    <div *ngIf="errorMessage" class="error-message">
+   <div *ngIf="errorMessage" class="error-message">
         {{ errorMessage }}
       </div>
       <div *ngIf="!errorMessage">
@@ -115,7 +110,7 @@
         </a>
    
         <button>
-        <a *ngFor="let pageNumber of getPageNumbers()" 
+        <a *ngFor="let pageNumber  of getPageNumbers()" 
    (click)="onPageChange(pageNumber)" 
    [ngClass]="{
      'bg-indigo-600 text-white': pageNumber === currentPage,
