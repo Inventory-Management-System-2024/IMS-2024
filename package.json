@@ -1,1 +1,6 @@
-{}
+{
+  "dependencies": {
+    "@angular/forms": "^17.2.1",
+    "nodemailer": "^6.9.10"
+  }
+}
