@@ -1,19 +1,20 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, FormControl, FormGroup, Validators, AbstractControl } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { RegisterService } from '../../shared/services';
 
 @Component({
   selector: 'app-reset-password',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule],
-  templateUrl: './reset-password.component.html',
+  imports: [CommonModule, FormsModule, ReactiveFormsModule,RouterLink],
+  templateUrl: "reset-password.component.html",
   styleUrl: './reset-password.component.css'
 })
 export class ResetPasswordComponent {
   public showPassword!: boolean;
   public showConfirmPassword!: boolean;
-  constructor(private route: Router) { }
+  constructor(private route: Router,private _reset:RegisterService,private routes:ActivatedRoute) { }
   login() {
     this.route.navigate(['']);
   }
@@ -41,5 +42,8 @@ export class ResetPasswordComponent {
 
   passwordMatchVAlidator(control: AbstractControl) {
     return control.get('password')?.value === control.get('confirmPassword')?.value ? null : { misMatch: true };
+  }
+  reset(password:string){
+    this._reset.reset(password,this.routes.snapshot.paramMap.get('id')).subscribe(res=>console.log(res))
   }
 }
