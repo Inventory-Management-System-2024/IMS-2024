@@ -9,7 +9,7 @@ import OrderElement from '../interfaces/order';
 })
 export class OrderService {
   private _url: string = "http://localhost:3000/order";
-  private headers?: HttpHeaders; 
+  private headers?: HttpHeaders;
   constructor(private http: HttpClient, private err: GlobalErrorHandlerService, private authService: AuthGuardService) {
   }
 
@@ -27,9 +27,9 @@ export class OrderService {
     );
   }
 
-  addOrder(order: OrderElement): Observable<OrderElement> {
+  addOrder(order: any): Observable<any> {
     this.headers = this.authService.getHeaders();
-    return this.http.post<OrderElement>(`${this._url}`, order, { headers: this.headers }).pipe(
+    return this.http.post<any>(`${this._url}`, order, { headers: this.headers }).pipe(
       catchError(this.err.handleError)
     );
   }
