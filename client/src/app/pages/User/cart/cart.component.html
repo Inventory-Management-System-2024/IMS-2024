@@ -1,0 +1,88 @@
+<app-user-navbar></app-user-navbar>
+
+@if ((products$ | async )?.length === 0) {
+    <div class="mx-auto bg-white rounded-md flex w-full max-w-4xl flex-col space-y-4 p-6 px-2 sm:p-10 sm:px-2">
+      <h2 class="text-3xl font-bold text-center">Your cart is Empty!</h2>
+      <div class="flex justify-center space-x-4">
+        <button type="button" routerLink="/"
+        class="inline-block rounded-md border border-purple-500 px-3 py-2 text-sm font-semibold text-purple-500 shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-300 ease-in-out hover:bg-purple-600 hover:text-white hover:shadow-lg">
+          Back to shop
+        </button>
+      </div>
+    </div>
+    
+}
+@else {
+    <div class="mx-auto bg-white rounded-md flex w-full max-w-5xl flex-col space-y-4 p-6 px-2 sm:p-10 sm:px-2">
+      <h2 class="text-3xl font-bold mb-4 text-center text-gray-800 relative">Your Cart
+        <span class="absolute inset-0 bg-gradient-to-r from-white via-purple-800 to-white opacity-50 rounded-md"></span>
+    </h2>
+      
+      <ul class="flex flex-col divide-y divide-gray-200 h-[400px] overflow-y-auto">
+        @for (item of (products$|async); track $index) {
+        <li class="flex flex-col py-6 sm:flex-row sm:justify-between">
+          <div class="flex w-full space-x-2 sm:space-x-4 ps-2">
+            <img class="h-20 w-20 flex-shrink-0 rounded object-contain outline-none dark:border-transparent sm:h-32 sm:w-32 
+            border-2 border-gray-300 hover:border-purple-500 transform transition duration-300 hover:scale-105 hover:shadow-lg"
+            [src]="item.image[0].url" alt="Nike Air Force 1 07 LV8" />
+        
+            <div class="flex w-full flex-col justify-between pb-4">
+              <div class="flex w-full justify-between space-x-2 pb-2">
+                <div class="space-y-1">
+                  <h3 class="text-lg font-semibold leading-snug sm:pr-8 text-gray-800 bg-gray-100 rounded-md px-2  border border-gray-300">
+                    {{ item.productName }}
+                </h3>                                                 
+                  <h5>stock: {{item.stock}}</h5>
+                </div>
+                <div class="text-right">
+                  <p class="text-lg font-semibold px-3">{{item.price | currency:"INR"}}</p>
+                </div>
+              </div>
+              <div class="flex divide-x text-sm">
+                <button type="button" (click)="removeFromCart(item._id)"
+                class="flex items-center space-x-2 px-2 py-1 pl-0 transition-transform duration-300 transform-gpu hover:scale-105 hover:border border-red-500 rounded-full">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="lucide lucide-trash text-red-400">
+                <path d="M3 6h18"></path>
+                <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path>
+                <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
+            </svg>
+            <span class="text-gray-700 hover:text-red-600 pe-3">Remove</span>
+        </button>
+        
+            
+                
+                <div class="quantity-controls flex items-center pl-7">
+                  <button (click)="decrementQuantity(item._id)"
+                    class="decrement-button bg-red-300 text-gray-600 hover:bg-red-400 px-2 py-1 rounded-l transform transition duration-300 hover:scale-105 shadow-md">
+                    <span class="inline-block align-middle">-</span>
+                  </button>
+                  <input type="text" readonly class="quantity-input h-7 w-12 text-center border-t border-b bg-gray-200"
+                    [value]="item.quantity">
+                  <button (click)="incrementQuantity(item._id)"
+                    class="increment-button bg-green-300 text-gray-600 hover:bg-green-400 px-2 py-1 rounded-r transform transition duration-300 hover:scale-105 shadow-md">
+                    <span class="inline-block align-middle">+</span>
+                  </button>
+                </div>
+                
+              </div>
+            </div>
+          </div>
+        </li>
+        }
+      </ul>
+      <div class="space-y-1 text-right mt-4">
+
+        <p class="text-lg font-semibold text-gray-800">
+          Total Amount: <span class="text-green-600 font-bold border border-gray-300 rounded-md p-2">{{ totalprice$ | async | currency:"INR" }}</span>
+        </p>
+      </div>
+      
+      <div class="flex justify-end space-x-4">
+        <button type="button" routerLink="/" class="inline-block rounded-md border border-purple-500 px-3 py-2 text-sm font-semibold text-purple-500 shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-300 ease-in-out hover:bg-purple-600 hover:text-white hover:shadow-lg">Back to Shop</button>
+        <button type="button" routerLink="/checkout" class="inline-block rounded-md border border-green-500 px-3 py-2 text-sm font-semibold shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-300 ease-in-out hover:bg-green-600 hover:text-white hover:shadow-lg">Checkout</button>
+          
+      </div>
+    </div>
+    }

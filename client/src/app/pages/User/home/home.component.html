@@ -1,0 +1,143 @@
+<app-user-navbar #childview></app-user-navbar>
+<div class="mx-6 mt-3 text-center  bg-gray-100">
+   <div *ngIf="errorMessage" class="error-message">
+    <p class="font-medium text-3xl pt-2">
+  <span class="border-2 border-gray-300 rounded-md shadow-lg text-shadow-lg px-2">Product List</span>
+</p>
+        {{ errorMessage }}
+      </div>
+      <div *ngIf="!errorMessage">
+    <form class="d-flex justify-content-between" role="search">
+
+
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 text-left">
+            <h3 *ngIf="childview.isLoggedIn" class="animate-charcter"> Welcome {{_user.name}} ! </h3>
+            <h3 *ngIf="!childview.isLoggedIn" class="animate-charcter"> Happy Shopping! </h3>
+          </div>
+        </div>
+      </div>
+      
+    
+  
+        <div class="d-flex">
+          <input class="form-control m-2 w-40" type="text" placeholder="Search" aria-label="Search"
+            (input)="productSearch($event)" />
+          <button class="btn btn-outline-success btn-sm m-2">Search</button>
+        </div>
+      </form>
+
+<hr>
+
+
+<div *ngIf="products === undefined" class="flex justify-center items-center h-screen">
+  <div class="animate-spin rounded-full h-24 w-24 border-4 border-gray-900 border-solid shadow-2xl"></div>
+  <p class="ml-3 text-xl font-bold"> &nbsp; &nbsp; Loading...</p>
+</div>
+
+<div class="flex flex-wrap justify-center mx-6 my-4 w-full">
+    
+    <div class="w-full sm:w-1/2 md:w-1/3 mb-8"  *ngFor="let product of paginatedProducts">
+        <div class="max-w-md rounded-md overflow-hidden shadow-md" id="custome">
+        
+          <div class="bg-white h-60 flex items-center justify-center shadow-lg  shadow-gray-400" [style.width.px]="product.image[0].width">
+            <img [src]="product.image[0].url" alt="{{ product.productName }}" class="h-60">
+        </div>
+
+
+        <div class="">
+
+            <div class="p-3">
+                <div class="font-bold text-xl mb-2 mt-0 ">{{ product.productName }}</div>
+
+                
+                <div class="text-center">
+                  <p class="border-gray-300 bg-gray-100 py-1 px-2  rounded-sm shadow-md">
+                      <span class="text-gray-950">Description:</span> {{ product.description }}
+                  </p>
+              </div>
+
+
+                <div class="flex w-full justify-between pt-2">
+                  <div class="text-center">
+                      <p class="bg-gray-100 border border-gray-300 py-1 px-2 font-semibold text-green-500 rounded-sm shadow-md">
+                          <span class="text-gray-950">Price:</span> ₹{{ product.price }}
+                      </p>
+                  </div>
+                  <div class="text-center">
+                      <p class="bg-gray-100 border border-gray-300 py-1 px-2 font-semibold text-blue-500 rounded-sm shadow-md">
+                          <span class="text-gray-900">Available quantity:</span> {{ product.stock }}
+                      </p>
+                  </div>
+              </div>
+              
+
+            </div>
+            <div class="px-6 pb-6 text-center">
+                @if(gotocart(product)){
+                  <button routerLink="/cart" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded transform transition duration-300 hover:scale-105">Go To Cart</button>
+
+                }@else {
+
+                  <button (click)="addToCart(product)" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded transform transition duration-300 hover:scale-105">Add To Cart</button>
+
+                }
+            </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6">
+  <div class="flex flex-1 justify-between sm:hidden">
+    <a href="#" class="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">Previous</a>
+    <a href="#" class="relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">Next</a>
+  </div>
+  <div class="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
+   
+      <div>
+        <p class="text-sm text-gray-700">
+          Page {{currentPage}} of {{pageCount}}
+        </p>
+      </div>
+      
+    <div>
+      <nav class="isolate inline-flex -space-x-px rounded-md shadow-sm" aria-label="Pagination">
+        <a (click)="previousPage()" class="relative inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0">
+          <span class="sr-only">Previous</span>
+          <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+            <path fill-rule="evenodd" d="M12.79 5.23a.75.75 0 01-.02 1.06L8.832 10l3.938 3.71a.75.75 0 11-1.04 1.08l-4.5-4.25a.75.75 0 010-1.08l4.5-4.25a.75.75 0 011.06.02z" clip-rule="evenodd" />
+          </svg>
+        </a>
+        <button>
+        <a *ngFor="let pageNumber  of getPageNumbers()" 
+   (click)="onPageChange(pageNumber)" 
+   [ngClass]="{
+     'bg-indigo-600 text-white': pageNumber === currentPage,
+     'hover:bg-white hover:text-indigo-600 hover:border-black': pageNumber !== currentPage 
+   }" 
+   class="relative z-10 inline-flex items-center px-4 py-2 text-sm font-semibold border border-transparent focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">{{pageNumber}}</a>
+  </button>
+     
+        <a (click)="nextPage()"  class="relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0">
+          <span class="sr-only">Next</span>
+          <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+            <path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" />
+          </svg>
+        </a>
+      </nav>
+    </div>
+  </div>
+</div>
+
+<div  *ngIf="!errorMessage && products.length === 0" class="alert alert-warning mt-3 w-full">
+    <p class="mb-0">No products found</p>
+  </div>
+
+
+</div>
+
+</div>
+
+<app-footer></app-footer>

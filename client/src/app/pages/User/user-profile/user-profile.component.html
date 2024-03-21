@@ -1,0 +1,131 @@
+<app-user-navbar></app-user-navbar>
+<div class="bg-slate-700 overflow-y-auto">
+    <div class="flex justify-center items-center h-screen">
+        <div *ngIf="user" class="bg-white overflow-hidden shadow rounded-lg border p-6 flex">
+            <div class="mb-4 text-left w-[435px]">
+                <div class="flex mb-2">
+                    <div class="w-1/4">
+                        <label class="block text-sm font-medium text-gray-700">Full Name</label>
+                    </div>
+                    <div class="w-3/4">
+                        <p class="text-lg font-medium text-gray-900">
+                            {{ user.name }}
+                        </p>
+                    </div>
+                </div>
+
+                <div class="flex mb-2">
+                    <div class="w-1/4">
+                        <label class="block text-sm font-medium text-gray-700">Email</label>
+                    </div>
+                    <div class="w-3/4">
+                        <p class="text-sm text-gray-500">
+                            {{ user.email }}
+                        </p>
+                    </div>
+                </div>
+
+                <div class="flex mb-2">
+                    <div class="w-1/4">
+                        <label class="block text-sm font-medium text-gray-700">Phone</label>
+                    </div>
+                    <div class="w-3/4">
+                        <p class="text-sm text-gray-500">
+                            {{ user.phoneNo }}
+                        </p>
+                    </div>
+                </div>
+
+                <div class="flex">
+                    <div class="w-1/4">
+                        <label class="block text-sm font-medium text-gray-700">Address</label>
+                    </div>
+                    @if(user.address.pinCode !== 0){
+                    <div class="w-3/4">
+                        <p class="text-sm text-gray-500">
+                            <span class="block">{{user.address.address_line_1}}</span>
+                            <span class="block">{{user.address.city}}</span>
+                            <span class="block">{{user.address.state}}</span>
+                            <span class="block">{{user.address.country}}</span>
+                            <span class="block">{{user.address.pinCode}}</span>
+                        </p>
+                    </div>
+                    }
+                    @else{
+                    <div class="w-3/4">
+                        <p class="text-sm text-gray-500">
+                            You haven't Provided the address yet, please provide it first.
+                        </p>
+                    </div>
+                    }
+                </div>
+                <div>
+                    <button (click)="isEditing ? toggleEdit() : closeEdit()"
+                        class="bg-blue-500 text-white px-4 py-2 rounded">
+                        {{ isEditing ? 'Close' : 'Edit' }}
+                    </button>
+                    <a routerLink="/cart"> <button  class="bg-blue-500 text-white px-4 py-2 rounded ms-3"> Go to Cart</button> </a>
+                </div>
+            </div>
+            <div *ngIf="isEditing" class="mt-4 flex">
+                <form (ngSubmit)="saveChanges(userForm)" class="space-y-4" #userForm="ngForm">
+                    <div>
+                        <label for="fullName" class="block text-sm font-medium text-gray-700">Full Name</label>
+                        <input type="text" id="fullName" [(ngModel)]="user.name" name="fullName" required
+                            pattern="[A-Za-z ]+" class="mt-1 p-2 block w-[300px] border rounded-md">
+                        <div *ngIf="userForm.controls['fullName']?.invalid && userForm.controls['fullName']?.touched"
+                            class="text-red-500 text-sm mt-1">Please enter a valid name with only alphabets.</div>
+                    </div>
+                    <div class="w-full">
+                        <label for="phone" class="block text-sm font-medium text-gray-700">Phone Number</label>
+                        <input type="tel" id="phone" [(ngModel)]="user.phoneNo" name="phone" required
+                            pattern="[0-9]{10}" class="mt-1 p-2 block w-full border rounded-md">
+                        <div *ngIf="userForm.controls['phone']?.invalid && userForm.controls['phone']?.touched"
+                            class="text-red-500 text-sm mt-1">Please enter a valid 10-digit phone number.</div>
+                    </div>
+                    <div class="w-full">
+                        <label for="address_line_1"
+                            class="block text-sm font-medium text-gray-700">Address_line_1</label>
+                        <textarea id="address_line_1" [(ngModel)]="user.address.address_line_1" name="address_line_1"
+                            required class="mt-1 p-2 block w-full border rounded-md resize-none"></textarea>
+                    </div>
+                    <div class="w-full">
+                        <label for="city" class="block text-sm font-medium text-gray-700">City</label>
+                        <input type="text" id="city" [(ngModel)]="user.address && user.address.city" name="city"
+                            required pattern="[A-Za-z ]+" class="mt-1 p-2 block w-full border rounded-md">
+                        <div *ngIf="userForm.controls['city']?.invalid && userForm.controls['city']?.touched"
+                            class="text-red-500 text-sm mt-1">Please enter a valid city name.</div>
+                    </div>
+                    <div class="w-full">
+                        <label for="state" class="block text-sm font-medium text-gray-700">State</label>
+                        <input type="text" id="state" [(ngModel)]="user.address && user.address.state" name="state"
+                            required pattern="[A-Za-z ]+" class="mt-1 p-2 block w-full border rounded-md">
+                        <div *ngIf="userForm.controls['state']?.invalid && userForm.controls['state']?.touched"
+                            class="text-red-500 text-sm mt-1">Please enter a valid state name.</div>
+                    </div>
+                    <div class="w-full">
+                        <label for="country" class="block text-sm font-medium text-gray-700">Country</label>
+                        <input type="text" id="country" [(ngModel)]="user.address && user.address.country"
+                            name="country" required pattern="[A-Za-z ]+"
+                            class="mt-1 p-2 block w-full border rounded-md">
+                        <div *ngIf="userForm.controls['country']?.invalid && userForm.controls['country']?.touched"
+                            class="text-red-500 text-sm mt-1">Please enter a valid Country name.</div>
+                    </div>
+                    <div class="w-full">
+                        <label for="pinCode" class="block text-sm font-medium text-gray-700">Pincode</label>
+                        <input type="text" id="pinCode" [(ngModel)]="user.address && user.address.pinCode"
+                            name="pinCode" pattern="[0-9]{6}" required class="mt-1 p-2 block w-full border rounded-md">
+                        <div *ngIf="userForm.controls['pinCode']?.invalid && userForm.controls['pinCode']?.touched"
+                            class="text-red-500 text-sm mt-1">Please enter a valid 6-digit pinCode.</div>
+                    </div>
+                    <div class="w-full">
+                        <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded"
+                            [disabled]="userForm.invalid">
+                            Save
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
